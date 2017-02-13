@@ -1,4 +1,4 @@
-package michal.waterworks;
+package team64.waterworks;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("michal.waterworks", appContext.getPackageName());
+        assertEquals("team64.waterworks", appContext.getPackageName());
     }
 }

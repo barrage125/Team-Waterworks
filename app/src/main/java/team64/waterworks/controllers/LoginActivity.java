@@ -1,4 +1,4 @@
-package michal.waterworks.controllers;
+package team64.waterworks.controllers;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -9,7 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import michal.waterworks.R;
+import team64.waterworks.R;
 
 public class LoginActivity extends AppCompatActivity {
 

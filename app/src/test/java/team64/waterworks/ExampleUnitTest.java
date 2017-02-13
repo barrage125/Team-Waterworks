@@ -1,4 +1,4 @@
-package michal.waterworks;
+package team64.waterworks;
 
 import org.junit.Test;
 
