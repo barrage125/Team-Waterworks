@@ -79,7 +79,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="56212b4762da502522c7840b73649546495101b9">
+        sha1="f93f12fb5740dabd68eecb6134d8a787b9a546cc">
         <dex dex="/home/michal/spring_2017/CS2340/group_repo/Team-Waterworks/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_ec05b5a2b5b3458ce1b34e91e2b18df18839033f/classes.dex" />
     </item>
     <item

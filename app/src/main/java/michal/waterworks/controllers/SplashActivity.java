@@ -1,14 +1,14 @@
-package michal.waterworks;
+package michal.waterworks.controllers;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 
-public class splash extends AppCompatActivity {
+import michal.waterworks.R;
+
+public class SplashActivity extends AppCompatActivity {
 
     Button wlogin, wreg;
 
@@ -20,20 +20,20 @@ public class splash extends AppCompatActivity {
         wlogin = (Button) findViewById(R.id.welcome_login);
         wreg = (Button) findViewById(R.id.register_login);
 
-        /** Button handler for logging in from splash page*/
+        /** Button handler for logging in from SplashActivity page*/
         wlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(splash.this, login.class);
+                Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
                 startActivity(intent);
             }
         });
 
-        /** Button handler for registering from splash page*/
+        /** Button handler for registering from SplashActivity page*/
         wreg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(splash.this, register.class);
+                Intent intent = new Intent(SplashActivity.this, RegisterActivity.class);
                 startActivity(intent);
             }
         });
