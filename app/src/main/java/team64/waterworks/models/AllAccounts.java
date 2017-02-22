@@ -1,4 +1,4 @@
-package michal.waterworks.models;
+package team64.waterworks.models;
 
 import java.util.ArrayList;
 /**
