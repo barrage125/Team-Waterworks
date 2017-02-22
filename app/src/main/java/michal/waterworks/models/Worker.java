@@ -5,9 +5,9 @@ package michal.waterworks.models;
  * 2/22/17
  */
 
-class User extends Account {
+class Worker extends User {
 
-    public User(String name, String username, String pw) {
+    public Worker(String name, String username, String pw) {
         super(name, username, pw);
     }
 
