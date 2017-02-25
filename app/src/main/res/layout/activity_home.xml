@@ -30,4 +30,13 @@
             android:layout_below="@id/login_status"
             android:text="Logout"/>
 
+        <Button
+            android:text="My Profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/login_status"
+            android:layout_toRightOf="@+id/home_logout"
+            android:layout_toEndOf="@+id/home_logout"
+            android:id="@+id/homeProfileBTN" />
+
 </RelativeLayout>

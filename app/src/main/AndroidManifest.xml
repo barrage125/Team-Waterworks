@@ -17,6 +17,7 @@
         <activity android:name="team64.waterworks.controllers.LoginActivity" />
         <activity android:name="team64.waterworks.controllers.HomeActivity" />
         <activity android:name="team64.waterworks.controllers.RegisterActivity" />
+        <activity android:name="team64.waterworks.controllers.ProfileActivity" />
     </application>
 
 </manifest>
