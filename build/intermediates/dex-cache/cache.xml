@@ -25,7 +25,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="e4c8086e847e7d61e434956e9aab6d82df0d654f">
+        sha1="af8b2438a73055c266455468631fe8877e89bc60">
         <dex dex="/home/michal/spring_2017/CS2340/group_repo/Team-Waterworks/app/build/intermediates/pre-dexed/debug/instant-run-bootstrap_ec05b5a2b5b3458ce1b34e91e2b18df18839033f.jar" />
     </item>
     <item
@@ -79,7 +79,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="134811847b5a47d19ed93a5afe0cbf7c38de296c">
+        sha1="4d3f55cb6736d1d92576c41764ba9972810633bb">
         <dex dex="/home/michal/spring_2017/CS2340/group_repo/Team-Waterworks/app/build/intermediates/pre-dexed/debug/instant-run_dfd2c75bb3b48a0c021c55e2cfd2fe92a7ec2fe7.jar" />
     </item>
     <item
