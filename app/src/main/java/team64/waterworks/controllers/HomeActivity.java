@@ -8,7 +8,7 @@ import android.widget.Button;
 
 import team64.waterworks.R;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button logout;
     Button myProfile;
@@ -18,25 +18,30 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        // Initialize views
         logout = (Button) findViewById(R.id.home_logout);
         myProfile = (Button) findViewById(R.id.homeProfileBTN);
 
-        /** Button handler for logging in from SplashActivity page*/
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        // Listeners for all buttons
+        logout.setOnClickListener(this);
+        myProfile.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()) {
+            case R.id.home_logout:
                 Intent intent = new Intent(HomeActivity.this, SplashActivity.class);
                 startActivity(intent);
-            }
-        });
+                break;
 
-        /** Button handler for accessing profile from HomeActivity page*/
-        myProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
-                startActivity(intent);
-            }
-        });
+            case R.id.homeProfileBTN:
+                Intent intent2 = new Intent(HomeActivity.this, ProfileActivity.class);
+                startActivity(intent2);
+                break;
+
+            default:
+                break;
+        }
     }
 }

@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import team64.waterworks.R;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button login,cancel;
     EditText pass,user;
@@ -23,6 +23,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        // Initialize views
         login = (Button) findViewById(R.id.login_button);
         pass = (EditText) findViewById(R.id.password);
         user = (EditText) findViewById(R.id.username);
@@ -30,9 +31,15 @@ public class LoginActivity extends AppCompatActivity {
         error = (TextView) findViewById(R.id.error_message);
         error.setVisibility(View.GONE);
 
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        // Button listeners
+        login.setOnClickListener(this);
+        cancel.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()) {
+            case R.id.login_button:
                 if(pass.getText().toString().equals("pass") && user.getText().toString().equals("user")) {
                     Toast.makeText(getApplicationContext(), "Redirecting...",Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
@@ -48,14 +55,14 @@ public class LoginActivity extends AppCompatActivity {
                         login.setEnabled(false);
                     }
                 }
-            }
-        });
+                break;
 
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            case R.id.cancel_button:
                 finish();
-            }
-        });
+                break;
+
+            default:
+                break;
+        }
     }
 }

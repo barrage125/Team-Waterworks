@@ -8,7 +8,7 @@ import android.widget.Button;
 
 import team64.waterworks.R;
 
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button wlogin, wreg;
 
@@ -17,25 +17,30 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        // Initialize views
         wlogin = (Button) findViewById(R.id.welcome_login);
         wreg = (Button) findViewById(R.id.register_login);
 
-        /** Button handler for logging in from SplashActivity page*/
-        wlogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        // Listeners for all buttons
+        wlogin.setOnClickListener(this);
+        wreg.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()) {
+            case R.id.welcome_login:
                 Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
                 startActivity(intent);
-            }
-        });
+                break;
 
-        /** Button handler for registering from SplashActivity page*/
-        wreg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SplashActivity.this, RegisterActivity.class);
-                startActivity(intent);
-            }
-        });
+            case R.id.register_login:
+                Intent intent2 = new Intent(SplashActivity.this, RegisterActivity.class);
+                startActivity(intent2);
+                break;
+
+            default:
+                break;
+        }
     }
 }
