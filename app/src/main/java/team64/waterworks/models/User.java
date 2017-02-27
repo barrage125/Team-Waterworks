@@ -24,8 +24,9 @@ public class User extends Account implements Serializable {
         super(name, username, pw);
     }
 
-    public void createProfile(String title, String address, String email, String birthday) {
+    public Profile createProfile(String title, String address, String email, String birthday) {
         profile = new Profile(title, address, email, birthday);
+        return profile;
     }
 
     public Profile getProfile() {

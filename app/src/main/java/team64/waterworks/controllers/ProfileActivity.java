@@ -21,6 +21,7 @@ public class ProfileActivity extends AppCompatActivity {
     Button done;
     EditText txtBDay, txtAddress, txtEmail, txtTitle;
     private User userInstance;
+    DBHelper users_db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,24 +35,26 @@ public class ProfileActivity extends AppCompatActivity {
         txtEmail = (EditText) findViewById(R.id.profEmail);
         txtTitle = (EditText) findViewById(R.id.profTitle);
 
-
-        Profile profile = userInstance.getProfile();
-
-        if (profile != null) {
+        if (userInstance.getProfile() != null) {
+            Profile profile = userInstance.getProfile();
             txtAddress.setText(profile.getAddress());
             txtBDay.setText(profile.getBirthday());
             txtEmail.setText(profile.getEmail());
             txtTitle.setText(profile.getTitle());
         }
 
+        users_db = AllUsers.getInstance(this);
+
         /** Button handler for returning to home from ProfileActivity page*/
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                userInstance.createProfile(txtTitle.getText().toString(),
-                                            txtAddress.getText().toString(),
-                                            txtEmail.getText().toString(),
-                                            txtBDay.getText().toString());
+
+                Profile new_profile = userInstance.createProfile(txtTitle.getText().toString(),
+                                                                 txtAddress.getText().toString(),
+                                                                 txtEmail.getText().toString(),
+                                                                 txtBDay.getText().toString());
+                users_db.updateUser(userInstance.getUsername(), new_profile);
                 Intent intent = new Intent(ProfileActivity.this, HomeActivity.class);
                 startActivity(intent);
             }

@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,12 +24,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private ProgressDialog progressDialog;
     private DBHelper users_db;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
 
         // Initialize Views
         reg = (Button) findViewById(R.id.reg_button);
@@ -64,14 +63,15 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         } else {
             progressDialog.setMessage("Registering user...");
             progressDialog.show();
-            users_db.addUser("", username, password);
+            if(!users_db.addUser("", username, password)) {
+                Log.d("JAKE","DANGER WILL ROBINSON");
+            }
             AllUsers.setUserInstance(users_db.getUser(username, password));
             progressDialog.dismiss();
             Toast.makeText(getApplicationContext(), "Registration Successful",Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
             startActivity(intent);
         }
-
     }
 
     @Override

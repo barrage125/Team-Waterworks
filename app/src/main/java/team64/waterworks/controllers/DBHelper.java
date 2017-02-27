@@ -16,10 +16,10 @@ import team64.waterworks.models.Profile;
 
 public class DBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "AllUsers";
-    private static final String DATABASE_CREATE = "CREATE TABLE AllUsers ( _id INTEGER PRIMARY KEY, name TEXT, username TEXT, password TEXT, profile TEXT)";
+    private static final String DATABASE_CREATE = "CREATE TABLE AllUsers ( _id INTEGER PRIMARY KEY, name TEXT, username TEXT, password TEXT, profile TEXT )";
     private static final String SALT = "!*aS{f8t8$5)9asf(l";
 
-    public DBHelper(Context context){
+    public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
     }
 
@@ -31,7 +31,8 @@ public class DBHelper extends SQLiteOpenHelper {
     public boolean addUser(String name, String username, String password) {
         if (isUser(username)) {
             return false;
-        } // Insert users
+        }
+
         // Gets the data repository in write mode
         SQLiteDatabase db = getWritableDatabase();
 
@@ -40,12 +41,16 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put("name", name);
         values.put("username", username);
         values.put("password", password);
-        values.put("profile", "");
-
+        try {
+            values.put("profile", (new Profile().serialize()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         // Insert the new row, returning the primary key value of the new row
         long newRowId = db.insert("AllUsers", null, values);
         return true;
     }
+
 
     public boolean updateUser(String username, Profile profile) {
         SQLiteDatabase db = getReadableDatabase();
@@ -58,30 +63,31 @@ public class DBHelper extends SQLiteOpenHelper {
             e.printStackTrace();
             return false;
         }
+
         // Which row to update, based on the title
         String selection = "username LIKE ?";
         String[] selectionArgs = { username };
 
-        int count = db.update(
-                "AllUsers",
-                values,
-                selection,
-                selectionArgs);
+        int count = db.update("AllUsers",
+                               values,
+                               selection,
+                               selectionArgs);
         return true;
     }
 
-    public static String hashPassword (String password) throws NoSuchAlgorithmException {
+
+    public static String hashPassword(String password) throws NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("SHA-256");
         md.update((SALT + password).getBytes());
         byte[] digest = md.digest();
         return Base64.encodeToString(digest, Base64.DEFAULT);
     }
 
+
     public boolean Login(String username, String password) {
         SQLiteDatabase db = getReadableDatabase();
         String[] selectionArgs = new String[]{username, password};
-        try
-        {
+        try {
             int i = 0;
             Cursor c = null;
             c = db.rawQuery("select * from login_table where username=? and password=?", selectionArgs);
@@ -89,8 +95,7 @@ public class DBHelper extends SQLiteOpenHelper {
             i = c.getCount();
             c.close();
             return (i == 0);
-        }
-        catch(Exception e) {
+        } catch(Exception e) {
             e.printStackTrace();
         }
         return false;
@@ -99,26 +104,25 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public User getUser(String username, String password) {
         SQLiteDatabase db = getReadableDatabase();
-        String[] projection = {
-                "name",
-                "username",
-                "password"
-        };
+        String[] projection = { "name",
+                                "username",
+                                "password"
+                              };
 
         String selection = "username = ? AND password = ?";
         String[] selectionArgs = new String[2];
         selectionArgs[0] = username;
         selectionArgs[1] = password;
 
-        Cursor cursor = db.query(
-                "AllUsers",
-                projection,
-                selection,
-                selectionArgs,
-                null,
-                null,
-                null
-        );
+        Cursor cursor = db.query("AllUsers",
+                                  projection,
+                                  selection,
+                                  selectionArgs,
+                                  null,
+                                  null,
+                                  null
+                                );
+
         if (cursor.moveToFirst()) {
             String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
             username = cursor.getString(cursor.getColumnIndexOrThrow("username"));
@@ -131,29 +135,27 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
+
     public boolean isUser(String username) {
         SQLiteDatabase db = getReadableDatabase();
 
-        String[] projection = {
-                "username"
-        };
-
+        String[] projection = {"username"};
         String selection = "username = ?";
-        String[] selectionArgs = { username };
+        String[] selectionArgs = {username};
 
-        Cursor cursor = db.query(
-                "AllUsers",
-                projection,
-                selection,
-                selectionArgs,
-                null,
-                null,
-                null
-        );
+        Cursor cursor = db.query("AllUsers",
+                                  projection,
+                                  selection,
+                                  selectionArgs,
+                                  null,
+                                  null,
+                                  null
+                                );
         return cursor.getCount() > 0;
     }
+
+
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-    }
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {}
 
 }

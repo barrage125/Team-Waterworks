@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.io.IOException;
 
@@ -53,6 +54,9 @@ public class AllUsers {
     }
 
     public static void setUserInstance(User new_user) {
+        if (user == null) {
+            Log.d("Jake", "attempting to set NULL user");
+        }
         user = new_user;
     }
 
