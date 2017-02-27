@@ -11,8 +11,7 @@ import team64.waterworks.R;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button logout;
-    Button myProfile;
+    private Button logout, myProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

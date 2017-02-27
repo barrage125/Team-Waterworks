@@ -2,8 +2,6 @@ package team64.waterworks.models;
 
 import java.util.HashSet;
 /**
- * Created by michal on 2/13/17.
- *
  * Edited by anna on 2/22/2017.
  */
 

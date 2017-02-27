@@ -5,7 +5,7 @@ package team64.waterworks.models;
  * 2/22/17
  */
 
-class User extends Account {
+public class User extends Account {
 
     /**
      * Constructor that takes all three required fields for any Account.

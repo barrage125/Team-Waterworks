@@ -21,11 +21,20 @@
     </item>
     <item
         is-multidex="false"
+        jar="/home/michal/.gradle/caches/modules-2/files-2.1/com.michaelpardo/activeandroid/3.1.0-SNAPSHOT/4ab7b0182975bc57c49efc5e0b3baa4a10e4ec08/activeandroid-3.1.0-SNAPSHOT.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="4ab7b0182975bc57c49efc5e0b3baa4a10e4ec08">
+        <dex dex="/home/michal/spring_2017/CS2340/group_repo/Team-Waterworks/app/build/intermediates/pre-dexed/debug/activeandroid-3.1.0-SNAPSHOT_6421339fa28b562f754324678674327a4da36758.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="/home/michal/spring_2017/CS2340/group_repo/Team-Waterworks/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="af8b2438a73055c266455468631fe8877e89bc60">
+        sha1="602f5f4e2709934988855a494db2447bcdf2868c">
         <dex dex="/home/michal/spring_2017/CS2340/group_repo/Team-Waterworks/app/build/intermediates/pre-dexed/debug/instant-run-bootstrap_ec05b5a2b5b3458ce1b34e91e2b18df18839033f.jar" />
     </item>
     <item
@@ -79,7 +88,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="4d3f55cb6736d1d92576c41764ba9972810633bb">
+        sha1="9a4db809eb6e0f2adbfc3631d071e952595f474e">
         <dex dex="/home/michal/spring_2017/CS2340/group_repo/Team-Waterworks/app/build/intermediates/pre-dexed/debug/instant-run_dfd2c75bb3b48a0c021c55e2cfd2fe92a7ec2fe7.jar" />
     </item>
     <item

@@ -11,13 +11,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import team64.waterworks.R;
+import team64.waterworks.models.AllUsers;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button login,cancel;
-    EditText pass,user;
-    TextView error;
+    private Button login,cancel;
+    private EditText pass,user;
+    private TextView error;
     int counter = 3;
+    private DBHelper users_db;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         // Button listeners
         login.setOnClickListener(this);
         cancel.setOnClickListener(this);
+
+        users_db = AllUsers.getInstance(this);
+
     }
 
     @Override
@@ -56,13 +62,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     }
                 }
 
-                // username/password check
-                else if (password.equals("pass") && username.equals("user")) {
-                    Toast.makeText(getApplicationContext(), "Login Successful",Toast.LENGTH_SHORT).show();
+                else if (users_db.Login(username, password)) {
+                    Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                     startActivity(intent);
-
-                // Incorrect username/password error message
                 } else {
                     Toast.makeText(getApplicationContext(), "Incorrect username/password combination",Toast.LENGTH_SHORT).show();
 

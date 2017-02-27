@@ -7,10 +7,12 @@ import android.view.View;
 import android.widget.Button;
 
 import team64.waterworks.R;
+import team64.waterworks.models.AllUsers;
 
 public class SplashActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button wlogin, wreg;
+    private Button wlogin, wreg;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +22,8 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         // Initialize views
         wlogin = (Button) findViewById(R.id.welcome_login);
         wreg = (Button) findViewById(R.id.register_login);
+
+
 
         // Listeners for all buttons
         wlogin.setOnClickListener(this);

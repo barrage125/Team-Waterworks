@@ -9,6 +9,7 @@ package team64.waterworks.models;
 abstract class Account {
     private String name, username, password;
     private Profile profile;
+    private int ID;
 
     /**
      * Constructor that takes all three required fields for any Account.
