@@ -17,11 +17,13 @@ public class ProfileActivity extends AppCompatActivity {
 
     Button done;
     EditText txtBDay, txtAddress, txtEmail, txtTitle;
+    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        username = getIntent().getStringExtra("USERNAME");
 
         done = (Button) findViewById(R.id.profDoneBTN);
         txtAddress = (EditText) findViewById(R.id.profAddress);

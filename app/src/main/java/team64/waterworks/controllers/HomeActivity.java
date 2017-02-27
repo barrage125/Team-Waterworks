@@ -46,6 +46,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.homeProfileBTN:
                 Intent intent2 = new Intent(HomeActivity.this, ProfileActivity.class);
+                intent2.putExtra("USERNAME", username);
                 startActivity(intent2);
                 break;
 

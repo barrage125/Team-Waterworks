@@ -21,7 +21,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     int counter = 3;
     private DBHelper users_db;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +39,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         cancel.setOnClickListener(this);
 
         users_db = AllUsers.getInstance(this);
-
     }
 
     @Override

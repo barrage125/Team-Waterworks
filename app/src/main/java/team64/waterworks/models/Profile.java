@@ -8,6 +8,7 @@ package team64.waterworks.models;
 public class Profile {
     private String title, address, email, birthday;
 
+
     Profile() {
         title = "";
         address = "";
