@@ -29,7 +29,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         logout = (Button) findViewById(R.id.home_logout);
         myProfile = (Button) findViewById(R.id.homeProfileBTN);
         welcome = (TextView) findViewById(R.id.welcome_message);
-        welcome.setText("Welcome to Waterworks, " + user.getUsername() + "!");
+        welcome.setText("Welcome to Waterworks!");
 
 
         // Listeners for all buttons
