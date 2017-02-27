@@ -7,64 +7,64 @@
         android:text="Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/profTitleID"/>
+        android:id="@+id/profTitleID" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:id="@+id/profTitle"/>
+        android:id="@+id/profTitle" />
 
     <TextView
         android:text="Email Address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/profEmailID"/>
+        android:id="@+id/profEmailID" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:id="@+id/profEmail"/>
+        android:id="@+id/profEmail" />
 
     <TextView
         android:text="Mailing Address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/profAddressID"/>
+        android:id="@+id/profAddressID" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:id="@+id/profAddress"/>
+        android:id="@+id/profAddress" />
 
     <TextView
         android:text="Birthday"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/profBDayID"/>
+        android:id="@+id/profBDayID" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="date"
         android:ems="10"
-        android:id="@+id/profBDay"/>
+        android:id="@+id/profBDay" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPostalAddress"
         android:ems="10"
-        android:id="@+id/editText5"/>
+        android:id="@+id/editText5" />
 
     <Button
         android:text="Done"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/profDoneBTN"/>
+        android:id="@+id/profDoneBTN" />
 </LinearLayout>

@@ -12,7 +12,6 @@ import team64.waterworks.R;
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button logout, myProfile;
-    String username = getIntent().getStringExtra("USERNAME");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
