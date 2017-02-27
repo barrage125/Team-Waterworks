@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import team64.waterworks.R;
@@ -12,15 +13,22 @@ import team64.waterworks.R;
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button logout, myProfile;
+    private TextView welcome;
+    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        username = getIntent().getStringExtra("USERNAME");
+
         // Initialize views
         logout = (Button) findViewById(R.id.home_logout);
         myProfile = (Button) findViewById(R.id.homeProfileBTN);
+        welcome = (TextView) findViewById(R.id.welcome_message);
+        welcome.setText("Welcome to Waterworks, " + username + "!");
+
 
         // Listeners for all buttons
         logout.setOnClickListener(this);

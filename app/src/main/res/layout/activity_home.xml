@@ -14,7 +14,7 @@
             android:id="@+id/welcome_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Welcome to Waterworks!"/>
+            android:text="Welcome to Waterworks !"/>
 
         <TextView
             android:id="@+id/login_status"
