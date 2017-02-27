@@ -1,9 +1,6 @@
 package team64.waterworks.models;
 
 import java.util.HashSet;
-/**
- * Edited by anna on 2/22/2017.
- */
 
 public class AccountsManager {
     private HashSet<Account> allAccounts;

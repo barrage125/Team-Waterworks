@@ -29,7 +29,9 @@ public class DBHelper extends SQLiteOpenHelper {
     public boolean addUser(String name, String username, String password) {
         if (isUser(username)) {
             return false;
-        } // Insert users
+        }
+
+        // Insert users
         // Gets the data repository in write mode
         SQLiteDatabase db = getWritableDatabase();
 
@@ -49,25 +51,6 @@ public class DBHelper extends SQLiteOpenHelper {
         md.update((SALT + password).getBytes());
         byte[] digest = md.digest();
         return Base64.encodeToString(digest, Base64.DEFAULT);
-    }
-
-    public boolean Login(String username, String password) {
-        SQLiteDatabase db = getReadableDatabase();
-        String[] selectionArgs = new String[]{username, password};
-        try
-        {
-            int i = 0;
-            Cursor c = null;
-            c = db.rawQuery("select * from login_table where username=? and password=?", selectionArgs);
-            c.moveToFirst();
-            i = c.getCount();
-            c.close();
-            return (i == 0);
-        }
-        catch(Exception e) {
-            e.printStackTrace();
-        }
-        return false;
     }
 
 

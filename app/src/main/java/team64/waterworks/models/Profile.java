@@ -5,7 +5,7 @@ package team64.waterworks.models;
  * 2/22/17
  */
 
-public class Profile {
+public class                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                Profile {
     private String title, address, email, birthday;
 
     Profile() {
