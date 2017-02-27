@@ -14,7 +14,7 @@ import java.security.NoSuchAlgorithmException;
 
 public class DBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "AllUsers";
-    private static final String DATABASE_CREATE = "CREATE TABLE AllUsers ( _id INTEGER PRIMARY KEY, username TEXT, name TEXT, password TEXT)";
+    private static final String DATABASE_CREATE = "CREATE TABLE AllUsers ( _id INTEGER PRIMARY KEY, name TEXT, username TEXT, password TEXT)";
     private static final String SALT = "!*aS{f8t8$5)9asf(l";
 
     public DBHelper(Context context){
@@ -76,8 +76,7 @@ public class DBHelper extends SQLiteOpenHelper {
         String[] projection = {
                 "name",
                 "username",
-                "password",
-                "ID"
+                "password"
         };
 
         String selection = "username = ? AND password = ?";
@@ -101,6 +100,7 @@ public class DBHelper extends SQLiteOpenHelper {
             cursor.close();
             return new User(name, username, password);
         } else {
+            cursor.close();
             return null;
         }
     }
