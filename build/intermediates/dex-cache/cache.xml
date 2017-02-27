@@ -3,210 +3,111 @@
 
     <item
         is-multidex="true"
-        jar="/home/michal/AndroidStudioProjects/WaterWorks/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jar="C:\Users\Alexander\Documents\GitHub\Team-Waterworks\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\25.1.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="3b2a24c95633c2c54dc0e6342758cf744a47b954">
-        <dex dex="/home/michal/AndroidStudioProjects/WaterWorks/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_f5c2b3953cc5dbede348eba391b1c23c05363eab/classes.dex" />
+        sha1="c03bf57f358aa10d253f21989e93bcf6014b3b17">
+        <dex dex="C:\Users\Alexander\Documents\GitHub\Team-Waterworks\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-vector-drawable-25.1.1_3ce8531060d6d102ed97fb21d40071bf4917da01\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="/home/michal/AndroidStudioProjects/WaterWorks/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.1.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="7bde4c34162092e0a77e7f12dc85ed77c484cf5c">
-        <dex dex="/home/michal/AndroidStudioProjects/WaterWorks/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-media-compat-25.1.1_f45cfb117f4925bd1769155fede54b3ea4b7d1a1/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/michal/spring_2017/CS2340/group_repo/Team-Waterworks/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/25.1.1/jars/classes.jar"
+        jar="C:\Users\Alexander\Documents\GitHub\Team-Waterworks\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\25.1.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
         sha1="0fb891e8f0cfba0513043a7bb357513d229ca2cd">
-        <dex dex="/home/michal/spring_2017/CS2340/group_repo/Team-Waterworks/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-utils-25.1.1_152ef2078a324c83f79dfbd433624d17512eaff7/classes.dex" />
+        <dex dex="C:\Users\Alexander\Documents\GitHub\Team-Waterworks\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-core-utils-25.1.1_660431807e4d74d03c595995d7377251b7d16134\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="/home/michal/AndroidStudioProjects/WaterWorks/app/build/intermediates/exploded-aar/com.android.support/support-fragment/25.1.1/jars/classes.jar"
+        jar="C:\Users\Alexander\Documents\GitHub\Team-Waterworks\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="e2719c102dca3a7a5b02ce07f769362da6ddb4ab">
-        <dex dex="/home/michal/AndroidStudioProjects/WaterWorks/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-fragment-25.1.1_6b072b0a5dc0408837db53b631629aa40a783b54/classes.dex" />
+        sha1="ccfae3a3bfb896cac66d3f33907ccd2fb0902bd5">
+        <dex dex="C:\Users\Alexander\Documents\GitHub\Team-Waterworks\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_733313c35ca8fca0267899a4372ca3b8528d54f0\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="/home/michal/AndroidStudioProjects/WaterWorks/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.1.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="ecb496cc08dd52551fc5ec6db3bc0632e95a89bb">
-        <dex dex="/home/michal/AndroidStudioProjects/WaterWorks/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-25.1.1_7cc21af66a476e414cd490a40c04c50492304dc2/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/michal/spring_2017/CS2340/group_repo/Team-Waterworks/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.1.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="7bde4c34162092e0a77e7f12dc85ed77c484cf5c">
-        <dex dex="/home/michal/spring_2017/CS2340/group_repo/Team-Waterworks/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-media-compat-25.1.1_30ae0c9cace31d80f158d7e9e91795dcfd4c298e/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/michal/AndroidStudioProjects/WaterWorks/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.1.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="02741d05d4b697fba5e279e9881aaa1da0ca7c7f">
-        <dex dex="/home/michal/AndroidStudioProjects/WaterWorks/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-compat-25.1.1_684e92b11dd1cd715922c8de6cdd5cadf236b0eb/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/michal/Android/extras/android/m2repository/com/android/support/support-annotations/25.1.1/support-annotations-25.1.1.jar"
+        jar="C:\Users\Alexander\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\25.1.1\support-annotations-25.1.1.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
         sha1="b59b6ee8d6ecc03e672d253800430343493a6ed8">
-        <dex dex="/home/michal/AndroidStudioProjects/WaterWorks/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-25.1.1_29a54281e12e5d7992a37300c7613114d352e000/classes.dex" />
+        <dex dex="C:\Users\Alexander\Documents\GitHub\Team-Waterworks\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-25.1.1_e00cf0c8fc76f5219128598ff2a2f48f9826cb17\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="/home/michal/spring_2017/CS2340/group_repo/Team-Waterworks/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="f93f12fb5740dabd68eecb6134d8a787b9a546cc">
-        <dex dex="/home/michal/spring_2017/CS2340/group_repo/Team-Waterworks/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_ec05b5a2b5b3458ce1b34e91e2b18df18839033f/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/michal/spring_2017/CS2340/group_repo/Team-Waterworks/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/25.1.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="c03bf57f358aa10d253f21989e93bcf6014b3b17">
-        <dex dex="/home/michal/spring_2017/CS2340/group_repo/Team-Waterworks/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-vector-drawable-25.1.1_87d41949f2af9ac09fb109618d9c2de57edf8506/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/michal/spring_2017/CS2340/group_repo/Team-Waterworks/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="f6aa42f0a5aa50f1bbc7ff916c31d8ce166af4df">
-        <dex dex="/home/michal/spring_2017/CS2340/group_repo/Team-Waterworks/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_dfd2c75bb3b48a0c021c55e2cfd2fe92a7ec2fe7/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/michal/spring_2017/CS2340/group_repo/Team-Waterworks/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/25.1.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="0d191c1a09e4892d059e5ce749e4ad4e08129e35">
-        <dex dex="/home/michal/spring_2017/CS2340/group_repo/Team-Waterworks/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-animated-vector-drawable-25.1.1_7eff9a5cda0d0ae9201193ae337e0e6ec1dc2f6f/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/michal/AndroidStudioProjects/WaterWorks/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/25.1.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="c03bf57f358aa10d253f21989e93bcf6014b3b17">
-        <dex dex="/home/michal/AndroidStudioProjects/WaterWorks/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-vector-drawable-25.1.1_a50302eed242b7f391ba7ea3e77f254186add76d/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/michal/AndroidStudioProjects/WaterWorks/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/25.1.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="0fb891e8f0cfba0513043a7bb357513d229ca2cd">
-        <dex dex="/home/michal/AndroidStudioProjects/WaterWorks/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-utils-25.1.1_c5d005025459891c2e851ad1dea6af5d866fe059/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/michal/spring_2017/CS2340/group_repo/Team-Waterworks/app/build/intermediates/exploded-aar/com.android.support/support-fragment/25.1.1/jars/classes.jar"
+        jar="C:\Users\Alexander\Documents\GitHub\Team-Waterworks\app\build\intermediates\exploded-aar\com.android.support\support-fragment\25.1.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
         sha1="e2719c102dca3a7a5b02ce07f769362da6ddb4ab">
-        <dex dex="/home/michal/spring_2017/CS2340/group_repo/Team-Waterworks/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-fragment-25.1.1_8ec4068558c9bff3c258fbffccd0e4c65a1c7eea/classes.dex" />
+        <dex dex="C:\Users\Alexander\Documents\GitHub\Team-Waterworks\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-fragment-25.1.1_5b59fd476b5f4843f7de9b6f1a03498bcf8e065a\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="/home/michal/AndroidStudioProjects/WaterWorks/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="f8209457939b3835642d7b1fd61e0524229d7be1">
-        <dex dex="/home/michal/AndroidStudioProjects/WaterWorks/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_7f99b1077eb6a1dbffed7dab9a48bb4a2cbbe414/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/michal/AndroidStudioProjects/WaterWorks/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/25.1.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="0d191c1a09e4892d059e5ce749e4ad4e08129e35">
-        <dex dex="/home/michal/AndroidStudioProjects/WaterWorks/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-animated-vector-drawable-25.1.1_07860163f578c47d332ad9338dc648de9c44f64d/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/michal/spring_2017/CS2340/group_repo/Team-Waterworks/app/build/intermediates/exploded-aar/com.android.support/support-v4/25.1.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
-        <dex dex="/home/michal/spring_2017/CS2340/group_repo/Team-Waterworks/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-25.1.1_79208142b13d6aeada4befbf5df69d0f5f4fa1e9/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/michal/spring_2017/CS2340/group_repo/Team-Waterworks/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/25.1.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="3e04ac8ca644ea7baddf6fdcf72e15c79e9df94a">
-        <dex dex="/home/michal/spring_2017/CS2340/group_repo/Team-Waterworks/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-ui-25.1.1_8a69a16ecc8880c3c1666bfe1405bb443b8749a8/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/michal/AndroidStudioProjects/WaterWorks/app/build/intermediates/exploded-aar/com.android.support/support-v4/25.1.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
-        <dex dex="/home/michal/AndroidStudioProjects/WaterWorks/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-25.1.1_5f29563e7bfe92350991ea74765cbb4e1b32353e/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/michal/spring_2017/CS2340/group_repo/Team-Waterworks/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.1.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="02741d05d4b697fba5e279e9881aaa1da0ca7c7f">
-        <dex dex="/home/michal/spring_2017/CS2340/group_repo/Team-Waterworks/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-compat-25.1.1_e350d767581b604a0c154c94219fcd9aec407099/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/michal/AndroidStudioProjects/WaterWorks/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/25.1.1/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="3e04ac8ca644ea7baddf6fdcf72e15c79e9df94a">
-        <dex dex="/home/michal/AndroidStudioProjects/WaterWorks/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-ui-25.1.1_4aeaaa50805a530ed53aa4174c6cefb5f0945104/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/michal/spring_2017/CS2340/group_repo/Team-Waterworks/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.1.1/jars/classes.jar"
+        jar="C:\Users\Alexander\Documents\GitHub\Team-Waterworks\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\25.1.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
         sha1="ecb496cc08dd52551fc5ec6db3bc0632e95a89bb">
-        <dex dex="/home/michal/spring_2017/CS2340/group_repo/Team-Waterworks/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-25.1.1_fa89ddf177f692015f69f3d499e5820100b07e44/classes.dex" />
+        <dex dex="C:\Users\Alexander\Documents\GitHub\Team-Waterworks\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-25.1.1_9bd4a72ea678cc28c8e26719feef69e3eefb7a9e\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Alexander\Documents\GitHub\Team-Waterworks\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\25.1.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="7bde4c34162092e0a77e7f12dc85ed77c484cf5c">
+        <dex dex="C:\Users\Alexander\Documents\GitHub\Team-Waterworks\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-media-compat-25.1.1_cbd99e045e57dadd655aae3742f50b6775f07079\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Alexander\Documents\GitHub\Team-Waterworks\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\25.1.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="0d191c1a09e4892d059e5ce749e4ad4e08129e35">
+        <dex dex="C:\Users\Alexander\Documents\GitHub\Team-Waterworks\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-animated-vector-drawable-25.1.1_aa154af069b78617f9b9895152d7a53ef4ce6298\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Alexander\Documents\GitHub\Team-Waterworks\app\build\intermediates\exploded-aar\com.android.support\support-compat\25.1.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="02741d05d4b697fba5e279e9881aaa1da0ca7c7f">
+        <dex dex="C:\Users\Alexander\Documents\GitHub\Team-Waterworks\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-compat-25.1.1_84e365fa39d94aa688dfdbf1e85f2b01c62e1737\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Alexander\Documents\GitHub\Team-Waterworks\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="221acc38adee2aeb66da59af4b968e5b2e3ad3c9">
+        <dex dex="C:\Users\Alexander\Documents\GitHub\Team-Waterworks\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_bf5b7ed7c96474e969a6e60eeb6ba5db8f7c12a9\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Alexander\Documents\GitHub\Team-Waterworks\app\build\intermediates\exploded-aar\com.android.support\support-v4\25.1.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="C:\Users\Alexander\Documents\GitHub\Team-Waterworks\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-25.1.1_317f6d478148f6c3bfb4ea5c80d34d9c863895cb\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Alexander\Documents\GitHub\Team-Waterworks\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\25.1.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="3e04ac8ca644ea7baddf6fdcf72e15c79e9df94a">
+        <dex dex="C:\Users\Alexander\Documents\GitHub\Team-Waterworks\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-core-ui-25.1.1_108fa6786c206e344f9a6e7407841eb98f32e60a\classes.dex" />
     </item>
 
 </items>
