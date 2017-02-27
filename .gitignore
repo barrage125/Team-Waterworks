@@ -1,6 +1,12 @@
 .gradle
 build/
 
+# http://stackoverflow.com/questions/16736856/what-should-be-in-my-gitignore-for-an-android-studio-project
+.idea/libraries
+.idea/workspace.xml
+local.properties
+*.iml
+
 # Ignore Gradle GUI config
 gradle-app.setting
 
