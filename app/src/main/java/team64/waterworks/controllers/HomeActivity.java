@@ -9,25 +9,27 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import team64.waterworks.R;
+import team64.waterworks.models.AllUsers;
+import team64.waterworks.models.User;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button logout, myProfile;
     private TextView welcome;
-    private String username;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        username = getIntent().getStringExtra("USERNAME");
+        user = AllUsers.getUserInstance();
 
         // Initialize views
         logout = (Button) findViewById(R.id.home_logout);
         myProfile = (Button) findViewById(R.id.homeProfileBTN);
         welcome = (TextView) findViewById(R.id.welcome_message);
-        welcome.setText("Welcome to Waterworks, " + username + "!");
+        welcome.setText("Welcome to Waterworks, " + user.getUsername() + "!");
 
 
         // Listeners for all buttons
@@ -38,20 +40,20 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         switch(v.getId()) {
-            case R.id.home_logout:
+            case R.id.home_logout: {
                 Intent intent = new Intent(HomeActivity.this, SplashActivity.class);
                 startActivity(intent);
-                Toast.makeText(getApplicationContext(), "Logout successful",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Logout successful", Toast.LENGTH_SHORT).show();
                 break;
-
-            case R.id.homeProfileBTN:
-                Intent intent2 = new Intent(HomeActivity.this, ProfileActivity.class);
-                intent2.putExtra("USERNAME", username);
-                startActivity(intent2);
+            }
+            case R.id.homeProfileBTN: {
+                Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
+                startActivity(intent);
                 break;
-
-            default:
+            }
+            default: {
                 break;
+            }
         }
     }
 }

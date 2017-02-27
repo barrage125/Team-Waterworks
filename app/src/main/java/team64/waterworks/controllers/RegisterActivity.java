@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import team64.waterworks.R;
 import team64.waterworks.models.AllUsers;
+import team64.waterworks.models.User;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -64,6 +65,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             progressDialog.setMessage("Registering user...");
             progressDialog.show();
             users_db.addUser("", username, password);
+            AllUsers.setUserInstance(users_db.getUser(username, password));
             progressDialog.dismiss();
             Toast.makeText(getApplicationContext(), "Registration Successful",Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);

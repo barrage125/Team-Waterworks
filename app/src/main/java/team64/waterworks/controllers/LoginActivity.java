@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import team64.waterworks.R;
 import team64.waterworks.models.AllUsers;
+import team64.waterworks.models.User;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -48,6 +49,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 // Declare username and password vars
                 String username = user.getText().toString();
                 String password = pass.getText().toString();
+                User userInstance = users_db.getUser(username, password);
 
                 // Prevents fields from being empty
                 if (TextUtils.isEmpty(username) | TextUtils.isEmpty(password)) {
@@ -58,12 +60,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     if(TextUtils.isEmpty(password)) {
                         pass.setError("Password cannot be blank");
                     }
-                }
-
-                else if (users_db.getUser(username, password) != null) {
+                } else if ( userInstance != null) {
                     Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
+                    AllUsers.setUserInstance(userInstance);
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                    intent.putExtra("USERNAME", username);
+//                    intent.putExtra("USER", users_db.getUser(username, password));
                     startActivity(intent);
                 } else {
                     Toast.makeText(getApplicationContext(), "Incorrect username/password combination",Toast.LENGTH_SHORT).show();

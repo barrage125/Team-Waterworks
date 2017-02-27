@@ -9,12 +9,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Base64;
 
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import team64.waterworks.models.Profile;
 
 public class DBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "AllUsers";
-    private static final String DATABASE_CREATE = "CREATE TABLE AllUsers ( _id INTEGER PRIMARY KEY, name TEXT, username TEXT, password TEXT)";
+    private static final String DATABASE_CREATE = "CREATE TABLE AllUsers ( _id INTEGER PRIMARY KEY, name TEXT, username TEXT, password TEXT, profile TEXT)";
     private static final String SALT = "!*aS{f8t8$5)9asf(l";
 
     public DBHelper(Context context){
@@ -38,9 +40,33 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put("name", name);
         values.put("username", username);
         values.put("password", password);
+        values.put("profile", "");
 
         // Insert the new row, returning the primary key value of the new row
         long newRowId = db.insert("AllUsers", null, values);
+        return true;
+    }
+
+    public boolean updateUser(String username, Profile profile) {
+        SQLiteDatabase db = getReadableDatabase();
+
+        // New value for one column
+        ContentValues values = new ContentValues();
+        try {
+            values.put("profile", profile.serialize());
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+        // Which row to update, based on the title
+        String selection = "username LIKE ?";
+        String[] selectionArgs = { username };
+
+        int count = db.update(
+                "AllUsers",
+                values,
+                selection,
+                selectionArgs);
         return true;
     }
 
