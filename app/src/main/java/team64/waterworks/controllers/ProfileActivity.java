@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 import team64.waterworks.R;
 import team64.waterworks.models.AccountsManager;
-import team64.waterworks.models.AllUsers;
 import team64.waterworks.models.Profile;
 import team64.waterworks.models.Account;
 
@@ -23,7 +22,6 @@ public class ProfileActivity extends AppCompatActivity {
     Button done;
     EditText txtBDay, txtAddress, txtEmail, txtTitle;
     private Account account;
-    DBHelper users_db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +43,6 @@ public class ProfileActivity extends AppCompatActivity {
             txtTitle.setText(profile.getTitle());
         }
 
-        users_db = AllUsers.getInstance(this);
-
         /** Button handler for returning to home from ProfileActivity page*/
         done.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,7 +56,7 @@ public class ProfileActivity extends AppCompatActivity {
                                                                  txtAddress.getText().toString(),
                                                                  txtEmail.getText().toString(),
                                                                  txtBDay.getText().toString());
-                if (users_db.updateUser(account.getUsername(), new_profile)) {
+                if (AccountsManager.updateAccount(account.getUsername(), new_profile)) {
                     Intent intent = new Intent(ProfileActivity.this, HomeActivity.class);
                     startActivity(intent);
                     Toast.makeText(getApplicationContext(), "Profile Saved", Toast.LENGTH_SHORT).show();

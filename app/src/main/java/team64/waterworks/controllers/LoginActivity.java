@@ -11,9 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import team64.waterworks.R;
-import team64.waterworks.models.AccountsManager;
-import team64.waterworks.models.AllUsers;
-import team64.waterworks.models.User;
+import team64.waterworks.models.*;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -21,7 +19,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private EditText pass,user;
     private TextView error;
     int counter = 3;
-    private DBHelper users_db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +36,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         // Button listeners
         login.setOnClickListener(this);
         cancel.setOnClickListener(this);
-
-        users_db = AllUsers.getInstance(this);
     }
 
     @Override
@@ -50,8 +45,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 // Declare username and password vars
                 String username = user.getText().toString();
                 String password = pass.getText().toString();
-                //todo
-                User userInstance = users_db.getUser(username, password);
+                Account account = AccountsManager.getAccount(username, password);
 
                 // Prevents fields from being empty
                 if (TextUtils.isEmpty(username) | TextUtils.isEmpty(password)) {
@@ -62,9 +56,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     if(TextUtils.isEmpty(password)) {
                         pass.setError("Password cannot be blank");
                     }
-                } else if ( userInstance != null) {
+                } else if ( account != null) {
                     Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
-                    AccountsManager.setActiveAccount(userInstance);
+                    AccountsManager.setActiveAccount(account);
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
 //                    intent.putExtra("USER", users_db.getUser(username, password));
                     startActivity(intent);

@@ -2,7 +2,6 @@ package team64.waterworks.controllers;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -10,20 +9,16 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import team64.waterworks.R;
 import team64.waterworks.models.AccountsManager;
-import team64.waterworks.models.AllUsers;
-import team64.waterworks.models.User;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button reg,regcanc;
     private EditText reguser, regpass;
     private ProgressDialog progressDialog;
-    private DBHelper users_db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +35,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         // Listeners for all buttons
         reg.setOnClickListener(this);
         regcanc.setOnClickListener(this);
-
-        users_db = AllUsers.getInstance(this);
     }
 
     private void registerUser() {
@@ -59,15 +52,15 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
 
         // else if username already taken
-        if (users_db.isUser(username)) {
+        if (AccountsManager.isValidAccount(username)) {
             reguser.setError("Username already taken");
         } else {
             progressDialog.setMessage("Registering user...");
             progressDialog.show();
-            if(!users_db.addUser("", username, password)) {
+            if(!AccountsManager.newUser("", username, password)) {
                 Log.d("HEY","DANGER WILL ROBINSON");
             }
-            AccountsManager.setActiveAccount(users_db.getUser(username, password));
+            AccountsManager.setActiveAccount(AccountsManager.getAccount(username, password));
             progressDialog.dismiss();
             Toast.makeText(getApplicationContext(), "Registration Successful",Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);

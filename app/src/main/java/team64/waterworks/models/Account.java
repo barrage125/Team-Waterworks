@@ -60,6 +60,11 @@ public abstract class Account {
         return username;
     }
 
+    public Profile createProfile(String title, String address, String email, String birthday) {
+        profile = new Profile(title, address, email, birthday);
+        return profile;
+    }
+
     /**
      * Generate a hashcode for this Account based on the Account's unique
      * username.

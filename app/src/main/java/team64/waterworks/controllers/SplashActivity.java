@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import team64.waterworks.R;
-import team64.waterworks.models.AllUsers;
+import team64.waterworks.models.AccountsManager;
 
 public class SplashActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -23,11 +23,12 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         wlogin = (Button) findViewById(R.id.welcome_login);
         wreg = (Button) findViewById(R.id.register_login);
 
-
-
         // Listeners for all buttons
         wlogin.setOnClickListener(this);
         wreg.setOnClickListener(this);
+
+        // Set up database handler
+        AccountsManager.setDBHelper(this);
     }
 
     @Override
