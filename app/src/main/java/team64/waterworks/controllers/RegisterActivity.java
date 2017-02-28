@@ -7,9 +7,14 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
+
+import java.util.Arrays;
+import java.util.List;
 
 import team64.waterworks.R;
 import team64.waterworks.models.AccountsManager;
@@ -17,6 +22,7 @@ import team64.waterworks.models.AccountsManager;
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button reg,regcanc;
+    private Spinner acctType;
     private EditText reguser, regpass;
     private ProgressDialog progressDialog;
 
@@ -30,11 +36,16 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         reguser = (EditText) findViewById(R.id.reg_user);
         regpass = (EditText) findViewById(R.id.reg_password);
         regcanc = (Button) findViewById(R.id.reg_cancel);
+        acctType = (Spinner) findViewById(R.id.spinnerAcctType);
         progressDialog = new ProgressDialog(this);
 
         // Listeners for all buttons
         reg.setOnClickListener(this);
         regcanc.setOnClickListener(this);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, (List<String>) Arrays.asList("User", "Worker", "Manager", "Admin"));
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        acctType.setAdapter(adapter);
     }
 
     private void registerUser() {
