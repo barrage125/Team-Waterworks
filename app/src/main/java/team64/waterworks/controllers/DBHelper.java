@@ -19,34 +19,47 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_CREATE = "CREATE TABLE AllUsers ( _id INTEGER PRIMARY KEY, name TEXT, username TEXT, password TEXT, profile TEXT )";
     private static final String SALT = "!*aS{f8t8$5)9asf(l";
 
+
+    // Constructor
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
     }
+
 
     @Override
     public void onCreate(SQLiteDatabase database) {
         database.execSQL(DATABASE_CREATE);
     }
 
+
+    // Adds user to SQLite
+    // returns if the user was successfully added or not
     public boolean addUser(String name, String username, String password) {
+        // If user already exists, return false
         if (isUser(username)) {
             return false;
         }
 
-        // Gets the data repository in write mode
         SQLiteDatabase db = getWritableDatabase();
 
-        // Create a new map of values, where column names are the keys
+        // Create a new set of values, where column names are the keys
         ContentValues values = new ContentValues();
         values.put("name", name);
         values.put("username", username);
-        values.put("password", password);
+        try {
+            values.put("password", hashPassword(password));
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        // serialize needs to catch IOException
         try {
             values.put("profile", (new Profile().serialize()));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        // Insert the new row, returning the primary key value of the new row
+
+        // Insert the new user (row), returns primary key value of new row
         long newRowId = db.insert("AllUsers", null, values);
         return true;
     }
@@ -84,24 +97,6 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
-    public boolean Login(String username, String password) {
-        SQLiteDatabase db = getReadableDatabase();
-        String[] selectionArgs = new String[]{username, password};
-        try {
-            int i = 0;
-            Cursor c = null;
-            c = db.rawQuery("select * from login_table where username=? and password=?", selectionArgs);
-            c.moveToFirst();
-            i = c.getCount();
-            c.close();
-            return (i == 0);
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-
     public User getUser(String username, String password) {
         SQLiteDatabase db = getReadableDatabase();
         String[] projection = { "name",
@@ -113,7 +108,12 @@ public class DBHelper extends SQLiteOpenHelper {
         String selection = "username = ? AND password = ?";
         String[] selectionArgs = new String[2];
         selectionArgs[0] = username;
-        selectionArgs[1] = password;
+
+        try {
+            selectionArgs[1] = hashPassword(password);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
 
         Cursor cursor = db.query("AllUsers",
                                   projection,
@@ -147,13 +147,16 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
+    // Returns if the user exists
     public boolean isUser(String username) {
         SQLiteDatabase db = getReadableDatabase();
 
+        // Declare the values we're looking for in the table
         String[] projection = {"username"};
         String selection = "username = ?";
         String[] selectionArgs = {username};
 
+        // Query db
         Cursor cursor = db.query("AllUsers",
                                   projection,
                                   selection,
