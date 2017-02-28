@@ -64,7 +64,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             progressDialog.setMessage("Registering user...");
             progressDialog.show();
             if(!users_db.addUser("", username, password)) {
-                Log.d("JAKE","DANGER WILL ROBINSON");
+                Log.d("HEY","DANGER WILL ROBINSON");
             }
             AllUsers.setUserInstance(users_db.getUser(username, password));
             progressDialog.dismiss();

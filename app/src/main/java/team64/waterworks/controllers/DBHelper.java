@@ -66,7 +66,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         // Which row to update, based on the title
         String selection = "username LIKE ?";
-        String[] selectionArgs = { username };
+        String[] selectionArgs = {username};
 
         int count = db.update("AllUsers",
                                values,
@@ -106,7 +106,8 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         String[] projection = { "name",
                                 "username",
-                                "password"
+                                "password",
+                                "profile"
                               };
 
         String selection = "username = ? AND password = ?";
@@ -127,8 +128,18 @@ public class DBHelper extends SQLiteOpenHelper {
             String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
             username = cursor.getString(cursor.getColumnIndexOrThrow("username"));
             password = cursor.getString(cursor.getColumnIndexOrThrow("password"));
+            String profile = cursor.getString(cursor.getColumnIndexOrThrow("profile"));
+
             cursor.close();
-            return new User(name, username, password);
+            User user = null;
+            try {
+                user = new User(name, username, password, Profile.deserialize(profile));
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+            return user;
         } else {
             cursor.close();
             return null;

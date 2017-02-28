@@ -64,4 +64,8 @@ public class AllUsers {
         return user;
     }
 
+    public static void clearUserInstance() {
+        user = null;
+    }
+
 }

@@ -24,12 +24,13 @@ public class User extends Account implements Serializable {
         super(name, username, pw);
     }
 
-    public Profile createProfile(String title, String address, String email, String birthday) {
-        profile = new Profile(title, address, email, birthday);
-        return profile;
+    public User(String name, String username, String pw, Profile profile)  {
+        this(name, username, pw);
+        setProfile(profile);
     }
 
-    public Profile getProfile() {
+    public Profile createProfile(String title, String address, String email, String birthday) {
+        profile = new Profile(title, address, email, birthday);
         return profile;
     }
 }
