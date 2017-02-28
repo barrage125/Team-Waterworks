@@ -9,21 +9,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import team64.waterworks.R;
-import team64.waterworks.models.AllUsers;
-import team64.waterworks.models.User;
+import team64.waterworks.models.*;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button logout, myProfile;
     private TextView welcome;
-    private User user;
+    private Account account;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        user = AllUsers.getUserInstance();
+        account = AccountsManager.getActiveAccount();
 
         // Initialize views
         logout = (Button) findViewById(R.id.home_logout);
@@ -43,7 +42,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.home_logout: {
                 Intent intent = new Intent(HomeActivity.this, SplashActivity.class);
                 startActivity(intent);
-                AllUsers.clearUserInstance();
+                AccountsManager.clearActiveAccount();
                 Toast.makeText(getApplicationContext(), "Logout successful", Toast.LENGTH_SHORT).show();
                 break;
             }

@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import team64.waterworks.R;
+import team64.waterworks.models.AccountsManager;
 import team64.waterworks.models.AllUsers;
 import team64.waterworks.models.User;
 
@@ -49,6 +50,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 // Declare username and password vars
                 String username = user.getText().toString();
                 String password = pass.getText().toString();
+                //todo
                 User userInstance = users_db.getUser(username, password);
 
                 // Prevents fields from being empty
@@ -62,7 +64,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     }
                 } else if ( userInstance != null) {
                     Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
-                    AllUsers.setUserInstance(userInstance);
+                    AccountsManager.setActiveAccount(userInstance);
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
 //                    intent.putExtra("USER", users_db.getUser(username, password));
                     startActivity(intent);

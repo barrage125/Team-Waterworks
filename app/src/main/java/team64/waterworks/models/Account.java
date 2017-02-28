@@ -6,7 +6,7 @@ package team64.waterworks.models;
  * Edited by anna on 2/20/2017.
  */
 
-abstract class Account {
+public abstract class Account {
     private String name, username, password;
     private Profile profile;
     private int ID;

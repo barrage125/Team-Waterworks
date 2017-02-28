@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import team64.waterworks.R;
+import team64.waterworks.models.AccountsManager;
 import team64.waterworks.models.AllUsers;
 import team64.waterworks.models.User;
 
@@ -66,7 +67,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             if(!users_db.addUser("", username, password)) {
                 Log.d("HEY","DANGER WILL ROBINSON");
             }
-            AllUsers.setUserInstance(users_db.getUser(username, password));
+            AccountsManager.setActiveAccount(users_db.getUser(username, password));
             progressDialog.dismiss();
             Toast.makeText(getApplicationContext(), "Registration Successful",Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);

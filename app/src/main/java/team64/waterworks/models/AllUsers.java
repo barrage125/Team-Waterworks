@@ -15,13 +15,11 @@ public class AllUsers {
     private static DBHelper dbHelper;
     private static User user;
 
-    private SQLiteDatabase database;
-
-    public final static String USR_TABLE = "AllUsers";
-    public final static String USR_ID = "_id";
-    public final static String NAME = "name";
-    public final static String USRNAME = "usrname";
-    public final static String PROFILE = "profile";
+    private final static String USR_TABLE = "AllUsers";
+    private final static String USR_ID = "_id";
+    private final static String NAME = "name";
+    private final static String USRNAME = "usrname";
+    private final static String PROFILE = "profile";
 
     public AllUsers(Context context) {
     }

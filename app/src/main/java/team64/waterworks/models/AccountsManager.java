@@ -1,12 +1,15 @@
 package team64.waterworks.models;
 
-import java.util.HashSet;
+import android.util.Log;
+
+import team64.waterworks.controllers.DBHelper;
 /**
  * Edited by anna on 2/22/2017.
  */
 
 public class AccountsManager {
-    private HashSet<Account> allAccounts;
+    private static DBHelper dbHelper;
+    private static Account activeAccount;
 
     /**
      * Create a new User and add it to the ratchet database
@@ -16,12 +19,12 @@ public class AccountsManager {
      * @param pw the User's password
      * @return the newly created User object
      */
-    public User newUser(String name, String username, String pw) {
+    public static User newUser(String name, String username, String pw) {
         if (getAccountByUsername(username) != null) {
             throw new IllegalArgumentException("This username already exists");
         }
         User newAccount = new User(name, username, pw);
-        allAccounts.add(newAccount);
+        dbHelper.addUser(name, username, pw);
         return newAccount;
     }
 
@@ -33,12 +36,12 @@ public class AccountsManager {
      * @param pw the Admin's password
      * @return the newly created Admin object
      */
-    public Admin newAdmin(String name, String username, String pw) {
+    public static Admin newAdmin(String name, String username, String pw) {
         if (getAccountByUsername(username) != null) {
             throw new IllegalArgumentException("This username already exists");
         }
         Admin newAccount = new Admin(name, username, pw);
-        allAccounts.add(newAccount);
+        dbHelper.addUser(name, username, pw);
         return newAccount;
     }
 
@@ -50,12 +53,12 @@ public class AccountsManager {
      * @param pw the Worker's password
      * @return the newly created Admin object
      */
-    public User newWorker(String name, String username, String pw) {
+    public static User newWorker(String name, String username, String pw) {
         if (getAccountByUsername(username) != null) {
             throw new IllegalArgumentException("This username already exists");
         }
         Worker newAccount = new Worker(name, username, pw);
-        allAccounts.add(newAccount);
+        dbHelper.addUser(name, username, pw);
         return newAccount;
     }
 
@@ -68,28 +71,28 @@ public class AccountsManager {
      * @param pw the Manager's password
      * @return the newly created Manager object
      */
-    public User newManager(String name, String username, String pw) {
+    public static User newManager(String name, String username, String pw) {
         if (getAccountByUsername(username) != null) {
             throw new IllegalArgumentException("This username already exists");
         }
         Manager newAccount = new Manager(name, username, pw);
-        allAccounts.add(newAccount);
+        dbHelper.addUser(name, username, pw);
         return newAccount;
     }
 
-    /**
-     * Gets an account out of the database with the given username
-     *
-     * @param username the username to search for
-     * @return the Account object
-     */
-    public Account getAccountByUsername(String username) {
-
-        for (Account account : allAccounts) {
-            if (account.getUsername().equals(username)) {
-                return account;
-            }
+    public static void setActiveAccount(Account new_account) {
+        if (activeAccount == null) {
+            Log.d("AccountsManager", "attempting to set NULL user");
         }
-        return null;
+        activeAccount = new_account;
     }
+
+    public static Account getActiveAccount() {
+        return activeAccount;
+    }
+
+    public static void clearActiveAccount() {
+        activeAccount = null;
+    }
+
 }
