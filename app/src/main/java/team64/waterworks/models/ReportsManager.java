@@ -22,7 +22,7 @@ public class ReportsManager {
         return true;
     }
 
-    public static boolean editReport(int id, Location location, String author, String type, String condition) {
+    public static boolean editReport(WaterReport report, Location location, String author, String type, String condition) {
         //todo: dbHelper.updateReport(...)
         return true;
     }
