@@ -8,6 +8,7 @@ import android.widget.Button;
 
 import team64.waterworks.R;
 import team64.waterworks.models.AccountsManager;
+import team64.waterworks.models.ReportsManager;
 
 public class SplashActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -29,6 +30,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
 
         // Set up database handler
         AccountsManager.setDBHelper(this);
+        ReportsManager.setDBHelper(this);
     }
 
     @Override

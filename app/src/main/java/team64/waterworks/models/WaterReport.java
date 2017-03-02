@@ -79,14 +79,6 @@ public class WaterReport {
     }
 
     /**
-     * set ID
-     * @param id new id
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    /**
      * get author
      * @return author
      */
