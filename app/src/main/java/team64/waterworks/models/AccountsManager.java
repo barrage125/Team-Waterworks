@@ -2,8 +2,6 @@ package team64.waterworks.models;
 
 import android.content.Context;
 import android.util.Log;
-
-import team64.waterworks.controllers.DBHelper;
 /**
  * Edited by anna on 2/22/2017.
  */

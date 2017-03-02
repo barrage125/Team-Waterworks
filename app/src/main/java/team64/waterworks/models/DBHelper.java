@@ -1,4 +1,4 @@
-package team64.waterworks.controllers;
+package team64.waterworks.models;
 import team64.waterworks.models.User;
 
 import android.accounts.Account;

@@ -2,8 +2,6 @@ package team64.waterworks.models;
 
 import java.io.Serializable;
 
-import team64.waterworks.controllers.DBHelper;
-
 /**
  * anna
  * 2/22/17
