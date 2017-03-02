@@ -26,7 +26,7 @@ public class WaterReport {
      * @param condition condition of water
      */
     public WaterReport(Location location, String author, String type, String condition) {
-        this(new Date(), location author, type, condition);
+        this(location, new Date(), author, type, condition);
     }
 
 
