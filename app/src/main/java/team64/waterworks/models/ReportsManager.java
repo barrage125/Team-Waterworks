@@ -2,8 +2,12 @@ package team64.waterworks.models;
 
 import android.content.Context;
 import android.location.Location;
+import android.util.Log;
 
+import java.io.IOException;
 import java.util.Collection;
+import java.util.NoSuchElementException;
+
 /**
  * anna
  * 3/2/17
@@ -22,16 +26,27 @@ public class ReportsManager {
             throw new IllegalArgumentException("This report already exists");
         }
 
-        if (dbHelper.addReport(report)) {
+        try {
+            dbHelper.addReport(report);
             return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.e("Location invalid", "Could not retrieve location string");
+            return false;
+        } catch (NoSuchElementException e) {
+            e.printStackTrace();
+            Log.e("No such report", "Water Report id can't be set, it wasn't found in db");
+            return false;
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("Unknown error", "Report may or may not be saved");
+            return false;
         }
-
-        return false;
     }
 
 
     public static boolean editReport(WaterReport report, Location location, String author, String type, String condition) {
-        dbHelper.updateReport(...)
+        //dbHelper.updateReport(...)
         return true;
     }
 
@@ -52,6 +67,7 @@ public class ReportsManager {
     }
 
     public static boolean isValidReport(WaterReport report) {
-        return dbHelper.isReport(report);
+        //return dbHelper.isReport(report);
+        return true;
     }
 }

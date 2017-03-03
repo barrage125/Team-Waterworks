@@ -4,15 +4,19 @@ import team64.waterworks.models.User;
 import android.accounts.Account;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.location.Location;
 import android.util.Base64;
+import android.util.Log;
 
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.NoSuchElementException;
+
 import team64.waterworks.models.Profile;
 
 public class DBHelper extends SQLiteOpenHelper {
@@ -194,29 +198,25 @@ public class DBHelper extends SQLiteOpenHelper {
 
     // Adds water report to SQLite
     // returns if the report was successfully added or not
-    public boolean addReport(WaterReport report) {
-        try {
+    // will throw general exception if anything else goes wrong
+    public void addReport(WaterReport report) throws Exception {
             SQLiteDatabase db = getWritableDatabase();
 
             // Create a new set of values for the new report row
+            // IO Exception
             ContentValues values = new ContentValues();
-            try {
-                values.put("location", report.getLocationString());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            values.put("location", report.getLocationString());
+
             values.put("author", report.getAuthor());
             values.put("type", report.getType());
             values.put("condition", report.getCondition());
 
-
             // Insert the new report (row), returns primary key value of new row
             long newRowId = db.insert("AllReports", null, values);
+
+            // Set the Water Report objects ID var to the id set automatically by SQlite
+            // NoSuchElement exception
             report.setId(getReportID(report));
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
     }
 
     /**
@@ -225,10 +225,13 @@ public class DBHelper extends SQLiteOpenHelper {
      * @param report to find id
      * @return report's id in SQLite
      */
-    public boolean int getReportID(WaterReport report) {
+    private int getReportID(WaterReport report) throws NoSuchElementException {
+        // Instance vars
         SQLiteDatabase db = getReadableDatabase();
         String location = "";
+        int id;
 
+        // Get report values
         try {
             location = report.getLocationString();
         } catch (IOException e) {
@@ -239,8 +242,8 @@ public class DBHelper extends SQLiteOpenHelper {
         String type = report.getType();
         String condition = report.getCondition();
 
+        // Tell db what we're looking for (projection) and our actual query string (selection)
         String[] projection = { "__id__" };
-
         String selection = "location = ? AND author = ? AND type = ? AND condition = ?";
         String[] selectionArgs = new String[4];
         selectionArgs[0] = location;
@@ -248,6 +251,7 @@ public class DBHelper extends SQLiteOpenHelper {
         selectionArgs[2] = type;
         selectionArgs[3] = condition;
 
+        // query db
         Cursor cursor = db.query("AllReports",
                 projection,
                 selection,
@@ -257,24 +261,15 @@ public class DBHelper extends SQLiteOpenHelper {
                 null
         );
 
-        if (cursor.moveToFirst()) {
-            id = cursor.getString(cursor.getColumnIndexOrThrow("__id__"));
-            String profile = cursor.getString(cursor.getColumnIndexOrThrow("profile"));
-
-            cursor.close();
-            User user = null;
-            try {
-                user = new User(name, username, password, Profile.deserialize(profile));
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-            return user;
+        // If cursor is empty (no report was found) it'll throw error
+        if (!(cursor.moveToFirst())) {
+            throw new NoSuchElementException("No report found with that info!");
         } else {
+            id = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow("__id__")));
             cursor.close();
-            return null;
         }
+
+        return id;
     }
 
 
@@ -332,13 +327,13 @@ public class DBHelper extends SQLiteOpenHelper {
 
             cursor.close();
             User user = null;
-            try {
-                user = new User(name, username, password, Profile.deserialize(profile));
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
+//            try {
+//                user = new User(name, username, password, Profile.deserialize(profile));
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            } catch (ClassNotFoundException e) {
+//                e.printStackTrace();
+//            }
             return user;
         } else {
             cursor.close();
@@ -348,23 +343,23 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
     // Returns if the user exists
-    public boolean isReport(WaterReport report) {
-        SQLiteDatabase db = getReadableDatabase();
-
-        // Declare the values we're looking for in the table
-        String[] projection = {"username"};
-        String selection = "username = ?";
-        String[] selectionArgs = {username};
-
-        // Query db
-        Cursor cursor = db.query("AllUsers",
-                projection,
-                selection,
-                selectionArgs,
-                null,
-                null,
-                null
-        );
-        return cursor.getCount() > 0;
-    }
+//    public boolean isReport(WaterReport report) {
+//        SQLiteDatabase db = getReadableDatabase();
+//
+//        // Declare the values we're looking for in the table
+//        String[] projection = {"username"};
+//        String selection = "username = ?";
+//        String[] selectionArgs = {username};
+//
+//        // Query db
+//        Cursor cursor = db.query("AllUsers",
+//                projection,
+//                selection,
+//                selectionArgs,
+//                null,
+//                null,
+//                null
+//        );
+//        return cursor.getCount() > 0;
+//    }
 }
