@@ -1,7 +1,13 @@
 package team64.waterworks.models;
 
 import android.location.Location;
+import android.util.Base64;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Date;
 /**
  * anna
@@ -9,8 +15,6 @@ import java.util.Date;
  */
 
 public class WaterReport {
-    private static int numReports;
-
     private Date date;
     private int id;
     private Location location;
@@ -33,18 +37,34 @@ public class WaterReport {
     private WaterReport(Location location, Date date, String author, String type, String condition) {
         this.location = location;
         this.date = date;
-        this.id = numReports++;
+        this.id = 0;
         this.author = author;
         this.type = type;
         this.condition = condition;
     }
+
 
     /**
      * get location
      * @return location
      */
     public Location getLocation() {
-        return location;
+        return this.location;
+    }
+
+    /**
+     * get location as a string
+     * @return location string
+     * Should be called on report object, ex:
+     * WaterReport report = new WaterReport();
+     * report.getLocationString();
+     */
+    public String getLocationString() throws IOException {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(baos);
+        oos.writeObject(this.location);
+        oos.close();
+        return Base64.encodeToString(baos.toByteArray(),0);
     }
 
     /**
@@ -58,9 +78,7 @@ public class WaterReport {
     /**
      * @return date
      */
-    public Date getDate() {
-        return date;
-    }
+    public Date getDate() { return this.date; }
 
     /**
      * Set date
@@ -75,15 +93,21 @@ public class WaterReport {
      * @return id
      */
     public int getId() {
-        return id;
+        return this.id;
     }
+
+    /**
+     * set ID
+     * @param id new id
+     */
+    public void setId(int id) { this.id = id; }
 
     /**
      * get author
      * @return author
      */
     public String getAuthor() {
-        return author;
+        return this.author;
     }
 
     /**
@@ -99,7 +123,7 @@ public class WaterReport {
      * @return type
      */
     public String getType() {
-        return type;
+        return this.type;
     }
 
     /**
@@ -115,7 +139,7 @@ public class WaterReport {
      * @return condition
      */
     public String getCondition() {
-        return condition;
+        return this.condition;
     }
 
     /**
