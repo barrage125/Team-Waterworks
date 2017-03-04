@@ -4,17 +4,30 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:text="Location"
+        android:text="Longitude"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/wrLocID" />
+        android:id="@+id/wrLongID" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:id="@+id/wrLoc" />
+        android:id="@+id/wrLong" />
+
+    <TextView
+        android:text="Latitude"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/wrLatID" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/wrLat" />
 
     <TextView
         android:text="Type"
