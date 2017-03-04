@@ -13,7 +13,7 @@ import team64.waterworks.models.*;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button logout, myProfile;
+    private Button logout, myProfile, viewReports, createReport;
     private TextView welcome;
     private Account account;
 
@@ -27,6 +27,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         // Initialize views
         logout = (Button) findViewById(R.id.home_logout);
         myProfile = (Button) findViewById(R.id.homeProfileBTN);
+        viewReports = (Button) findViewById(R.id.homeCreateRepBTN);
+        createReport = (Button) findViewById(R.id.homeViewRepBTN);
         welcome = (TextView) findViewById(R.id.welcome_message);
         welcome.setText("Welcome to Waterworks!");
 
@@ -34,11 +36,22 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         // Listeners for all buttons
         logout.setOnClickListener(this);
         myProfile.setOnClickListener(this);
+        viewReports.setOnClickListener(this);
+        createReport.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        switch(v.getId()) {
+            switch(v.getId())
+            {/*case R.id.homeViewRepBTN: {
+                Intent intent = new Intent(HomeActivity.this, **View Report Activity**.class);
+                startActivity(intent);
+                break;
+            }*/case R.id.homeCreateRepBTN: {
+                Intent intent = new Intent(HomeActivity.this, WaterReportActivity.class);
+                startActivity(intent);
+                break;
+            }
             case R.id.home_logout: {
                 Intent intent = new Intent(HomeActivity.this, SplashActivity.class);
                 startActivity(intent);
