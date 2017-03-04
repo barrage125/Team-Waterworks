@@ -43,11 +43,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
             switch(v.getId())
-            {/*case R.id.homeViewRepBTN: {
-                Intent intent = new Intent(HomeActivity.this, **View Report Activity**.class);
+            {case R.id.homeViewRepBTN: {
+                Intent intent = new Intent(HomeActivity.this, AllWaterReportsActivity.class);
                 startActivity(intent);
                 break;
-            }*/case R.id.homeCreateRepBTN: {
+            }case R.id.homeCreateRepBTN: {
                 Intent intent = new Intent(HomeActivity.this, WaterReportActivity.class);
                 startActivity(intent);
                 break;

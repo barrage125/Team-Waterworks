@@ -41,4 +41,9 @@ public class ReportsManager {
         //todo: dbHelper.getReportsByAuthor(username);
         return null;
     }
+
+    public static Collection<WaterReport> getAllReports() {
+        //todo: dbHelper.getAllReports();
+        return null;
+    }
 }
