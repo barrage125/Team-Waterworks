@@ -225,18 +225,14 @@ public class DBHelper extends SQLiteOpenHelper {
      * @param report to find id
      * @return report's id in SQLite
      */
-    private int getReportID(WaterReport report) throws NoSuchElementException {
+    private int getReportID(WaterReport report) throws NoSuchElementException, IOException {
         // Instance vars
         SQLiteDatabase db = getReadableDatabase();
         String location = "";
         int id;
 
         // Get report values
-        try {
-            location = report.getLocationString();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        location = report.getLocationString();
 
         String author = report.getAuthor();
         String type = report.getType();
@@ -273,33 +269,22 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
-    public boolean updateReport(WaterReport new_report, WaterReport old_report) throws Exception {
-        try {
-            String id = Integer.toString(old_report.getId());
+    public void updateReport(int report_id, WaterReport new_report) throws Exception {
+            String id = Integer.toString(report_id);
             SQLiteDatabase db = getReadableDatabase();
 
             // New value for one column
             ContentValues values = new ContentValues();
-            try {
-                values.put("location", new_report.getLocationString());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            values.put("location", new_report.getLocationString());
             values.put("author", new_report.getAuthor());
             values.put("type", new_report.getType());
             values.put("condition", new_report.getCondition());
 
-            // Which row to update, based on the title
-            String selection = "__id__ LIKE ?";
+            // Which report to update, based on id
+            String selection = "__id__ = ?";
             String[] selectionArgs = { id };
 
             int count = db.update("AllReports", values, selection, selectionArgs);
-
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
     }
 
     // Location location, String author, String type, String condition

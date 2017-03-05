@@ -46,8 +46,18 @@ public class ReportsManager {
     }
 
 
-    public static boolean editReport(WaterReport report, Location location, String author, String type, String condition) {
-        //dbHelper.updateReport(...)
+    public static boolean editReport(int old_report_id, WaterReport new_report) {
+        try {
+            dbHelper.updateReport(old_report_id, new_report);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.e("Location invalid", "Could not retrieve location string");
+            return false;
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("Unknown error", "Report may or may not be saved");
+        }
+
         return true;
     }
 
