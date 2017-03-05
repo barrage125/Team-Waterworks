@@ -233,7 +233,7 @@ public class DBHelper extends SQLiteOpenHelper {
         String location = "";
         int id;
 
-        // Get report values
+        // Get passed in report values
         location = report.getLocationAsString();
 
         String author = report.getAuthor();
@@ -329,24 +329,26 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
-    // If user tries to make a report with same location and type
-//    public boolean isReport(WaterReport report) {
-//        SQLiteDatabase db = getReadableDatabase();
-//
-//        // Declare the values we're looking for in the table
-//        String[] projection = {"username"};
-//        String selection = "username = ?";
-//        String[] selectionArgs = {username};
-//
-//        // Query db
-//        Cursor cursor = db.query("AllUsers",
-//                projection,
-//                selection,
-//                selectionArgs,
-//                null,
-//                null,
-//                null
-//        );
-//        return cursor.getCount() > 0;
-//    }
+    // If user tries to make a water location report with same location
+    public boolean isReport(WaterReport report) throws Exception {
+        SQLiteDatabase db = getReadableDatabase();
+        String location = report.getLocationAsString();
+
+        // Tell db what we're looking for (projection) and our actual query string (selection)
+        String[] projection = {"location"};
+        String selection = "location = ?";
+        String[] selectionArgs = {location};
+
+        // Query db
+        Cursor cursor = db.query("AllReports",
+                projection,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null
+        );
+
+        return cursor.getCount() > 0;
+    }
 }

@@ -8,27 +8,35 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.NoSuchElementException;
 
-/**
- * anna
- * 3/2/17
- */
-
 public class ReportsManager {
     private static DBHelper dbHelper;
 
     public static void setDBHelper(Context c) {
         dbHelper = new DBHelper(c, 1);
     }
-
+    
     public static boolean newReport(Location location, String author, String type, String condition) {
         WaterReport report = new WaterReport(location, author, type, condition);
+
+        // First check if water location report already exists
 //        if (type.equals("location")) {
-//          if (isValidReport(report)) {
-//              Log.e("Report Exists", "A water location report for that location and condition already exists!");
-//              return false;
-//          }
+            try {
+                if (isValidReport(report)) {
+                    Log.e("Report Exists", "A water location report for that location already exists!");
+                    return false;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                Log.e("Loc Serialize Error", "Could not get location as a String when checking isValidReport");
+                return false;
+            } catch (Exception e) {
+                e.printStackTrace();
+                Log.e("Unknown Error", "Failed to check if water location report already exists");
+                return false;
+            }
 //        }
 
+        // Add the new report
         try {
             dbHelper.addReport(report);
             return true;
@@ -98,9 +106,8 @@ public class ReportsManager {
     }
 
 
-    // Returns true if the "Hey there's water here" report already exists
-    public static boolean isValidReport(WaterReport report) {
-        //return dbHelper.isReport(report);
-        return true;
+    // Returns true if the water location report already exists
+    public static boolean isValidReport(WaterReport report) throws Exception {
+        return dbHelper.isReport(report);
     }
 }
