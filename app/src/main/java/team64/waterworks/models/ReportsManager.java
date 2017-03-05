@@ -22,9 +22,11 @@ public class ReportsManager {
 
     public static boolean newReport(Location location, String author, String type, String condition) {
         WaterReport report = new WaterReport(location, author, type, condition);
-//        if (isValidReport(report)) {
-//            Log.e("Report Exists", "A report with that location, type, and condition already exists!");
-//            return false;
+//        if (type.equals("location")) {
+//          if (isValidReport(report)) {
+//              Log.e("Report Exists", "A water location report for that location and condition already exists!");
+//              return false;
+//          }
 //        }
 
         try {
@@ -95,6 +97,8 @@ public class ReportsManager {
         return null;
     }
 
+
+    // Returns true if the "Hey there's water here" report already exists
     public static boolean isValidReport(WaterReport report) {
         //return dbHelper.isReport(report);
         return true;

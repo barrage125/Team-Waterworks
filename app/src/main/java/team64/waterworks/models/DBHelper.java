@@ -329,7 +329,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
-    // Returns if the user exists
+    // If user tries to make a report with same location and type
 //    public boolean isReport(WaterReport report) {
 //        SQLiteDatabase db = getReadableDatabase();
 //
