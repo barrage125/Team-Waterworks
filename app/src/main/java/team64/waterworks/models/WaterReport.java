@@ -59,13 +59,24 @@ public class WaterReport {
      * WaterReport report = new WaterReport();
      * report.getLocationString();
      */
-    public String getLocationString() throws IOException {
+    public String getLocationAsString() throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(baos);
         oos.writeObject(this.location);
         oos.close();
         return Base64.encodeToString(baos.toByteArray(),0);
     }
+
+
+    // Turn string into Location object
+    public static Location deserialize(String s) throws IOException, ClassNotFoundException {
+        byte [] data = Base64.decode(s ,0);
+        ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(data));
+        Object o  = ois.readObject();
+        ois.close();
+        return (Location) o;
+    }
+
 
     /**
      * set location

@@ -25,21 +25,26 @@ public class Profile implements Serializable {
         birthday = "";
     }
 
+
     public Profile(String title, String address, String email, String birthday) {
         this.title = title;
         this.address = address;
         this.email = email;
         this.birthday = birthday;
     }
-    public static Profile deserialize( String s ) throws IOException, ClassNotFoundException {
+
+
+    // Turn string into Profile object
+    public static Profile deserialize(String s) throws IOException, ClassNotFoundException {
         byte [] data = Base64.decode(s ,0);
         ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(data));
         Object o  = ois.readObject();
         ois.close();
-        return (Profile)o;
+        return (Profile) o;
     }
 
-    /** Write the object to a Base64 string. */
+
+    // Turn Profile object called on into String
     public String serialize() throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(baos);
@@ -47,6 +52,7 @@ public class Profile implements Serializable {
         oos.close();
         return Base64.encodeToString(baos.toByteArray(),0);
     }
+
 
     public String getTitle() {
         return title;

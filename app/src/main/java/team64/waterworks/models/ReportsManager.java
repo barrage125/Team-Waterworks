@@ -63,9 +63,27 @@ public class ReportsManager {
 
 
     public static WaterReport getReportByID(int id) {
-        //todo: dbHelper.getReportByID(id)
-        return null;
+        try {
+            return dbHelper.getReportByID(id);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.e("Loc Deserialize Error", "Location for found report couldn't be deserialized");
+            return null;
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            Log.e("Loc Deserialize Error", "Location for found report couldn't be deserialized");
+            return null;
+        } catch (NoSuchElementException e) {
+            e.printStackTrace();
+            Log.e("Report Not Found", "No report could be found by that ID");
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("Unknown error", "Report may or may not be saved");
+            return null;
+        }
     }
+
 
     public static Collection<WaterReport> getReportsByLocation(Location location) {
         //todo: dbHelper.getReportsByLocation(location);

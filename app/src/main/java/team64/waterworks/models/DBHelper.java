@@ -205,7 +205,7 @@ public class DBHelper extends SQLiteOpenHelper {
             // Create a new set of values for the new report row
             // IO Exception
             ContentValues values = new ContentValues();
-            values.put("location", report.getLocationString());
+            values.put("location", report.getLocationAsString());
 
             values.put("author", report.getAuthor());
             values.put("type", report.getType());
@@ -222,6 +222,8 @@ public class DBHelper extends SQLiteOpenHelper {
     /**
      * Returns reports ID in sqlite, should only be used in add report method
      * other methods should use the getID getter in Water Report class otherwise
+     * Doesn't search by id, searches without knowing what the ID would be
+     * searches by all other report info and returns what it's ID is
      * @param report to find id
      * @return report's id in SQLite
      */
@@ -232,7 +234,7 @@ public class DBHelper extends SQLiteOpenHelper {
         int id;
 
         // Get report values
-        location = report.getLocationString();
+        location = report.getLocationAsString();
 
         String author = report.getAuthor();
         String type = report.getType();
@@ -263,19 +265,19 @@ public class DBHelper extends SQLiteOpenHelper {
         } else {
             id = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow("__id__")));
             cursor.close();
+            return id;
         }
-
-        return id;
     }
 
 
+    // updates report based on report's known id
     public void updateReport(int report_id, WaterReport new_report) throws Exception {
             String id = Integer.toString(report_id);
             SQLiteDatabase db = getReadableDatabase();
 
             // New value for one column
             ContentValues values = new ContentValues();
-            values.put("location", new_report.getLocationString());
+            values.put("location", new_report.getLocationAsString());
             values.put("author", new_report.getAuthor());
             values.put("type", new_report.getType());
             values.put("condition", new_report.getCondition());
@@ -287,10 +289,13 @@ public class DBHelper extends SQLiteOpenHelper {
             int count = db.update("AllReports", values, selection, selectionArgs);
     }
 
+
+    // Returns report that matches passed in ID
     // Location location, String author, String type, String condition
-    public User getReport(int ID, Location location, String author, String type, String condition) {
+    public WaterReport getReportByID(int ID) throws Exception {
         String id = Integer.toString(ID);
         SQLiteDatabase db = getReadableDatabase();
+
         String[] projection = { "__id__", "location", "author", "type", "condition" };
 
         String selection = "__id__ = ?";
@@ -306,23 +311,20 @@ public class DBHelper extends SQLiteOpenHelper {
                 null
         );
 
-        if (cursor.moveToFirst()) {
-            id = cursor.getString(cursor.getColumnIndexOrThrow("__id__"));
-            String profile = cursor.getString(cursor.getColumnIndexOrThrow("profile"));
-
-            cursor.close();
-            User user = null;
-//            try {
-//                user = new User(name, username, password, Profile.deserialize(profile));
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            } catch (ClassNotFoundException e) {
-//                e.printStackTrace();
-//            }
-            return user;
+        // If cursor is empty (no report was found) throw error
+        if (!(cursor.moveToFirst())) {
+            throw new NoSuchElementException();
         } else {
+            // create String values found from report that matched ID in db
+            String location = cursor.getString(cursor.getColumnIndexOrThrow("location"));
+            String author = cursor.getString(cursor.getColumnIndexOrThrow("author"));
+            String type = cursor.getString(cursor.getColumnIndexOrThrow("type"));
+            String condition = cursor.getString(cursor.getColumnIndexOrThrow("condition"));
             cursor.close();
-            return null;
+
+            WaterReport report = new WaterReport(WaterReport.deserialize(location), author, type, condition);
+            report.setId(ID);
+            return report;
         }
     }
 
