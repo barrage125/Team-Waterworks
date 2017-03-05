@@ -22,9 +22,10 @@ public class ReportsManager {
 
     public static boolean newReport(Location location, String author, String type, String condition) {
         WaterReport report = new WaterReport(location, author, type, condition);
-        if (isValidReport(report)) {
-            throw new IllegalArgumentException("This report already exists");
-        }
+//        if (isValidReport(report)) {
+//            Log.e("Report Exists", "A report with that location, type, and condition already exists!");
+//            return false;
+//        }
 
         try {
             dbHelper.addReport(report);

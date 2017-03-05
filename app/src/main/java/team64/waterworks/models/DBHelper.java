@@ -102,7 +102,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         // Which row to update, based on the title
         String selection = "username LIKE ?";
-        String[] selectionArgs = {username};
+        String[] selectionArgs = { username };
 
         int count = db.update("AllUsers", values, selection, selectionArgs);
         return true;
@@ -261,9 +261,9 @@ public class DBHelper extends SQLiteOpenHelper {
                 null
         );
 
-        // If cursor is empty (no report was found) it'll throw error
+        // If cursor is empty (no report was found) throw error
         if (!(cursor.moveToFirst())) {
-            throw new NoSuchElementException("No report found with that info!");
+            throw new NoSuchElementException();
         } else {
             id = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow("__id__")));
             cursor.close();
@@ -273,25 +273,25 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
-    public boolean updateReport(int ID, WaterReport report) {
+    public boolean updateReport(WaterReport new_report, WaterReport old_report) throws Exception {
         try {
-            String id = Integer.toString(ID);
+            String id = Integer.toString(old_report.getId());
             SQLiteDatabase db = getReadableDatabase();
 
             // New value for one column
             ContentValues values = new ContentValues();
             try {
-                values.put("location", report.getLocationString());
+                values.put("location", new_report.getLocationString());
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            values.put("author", report.getAuthor());
-            values.put("type", report.getType());
-            values.put("condition", report.getCondition());
+            values.put("author", new_report.getAuthor());
+            values.put("type", new_report.getType());
+            values.put("condition", new_report.getCondition());
 
             // Which row to update, based on the title
             String selection = "__id__ LIKE ?";
-            String[] selectionArgs = {id};
+            String[] selectionArgs = { id };
 
             int count = db.update("AllReports", values, selection, selectionArgs);
 
