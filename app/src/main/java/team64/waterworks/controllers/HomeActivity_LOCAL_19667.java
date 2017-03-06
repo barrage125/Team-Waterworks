@@ -45,7 +45,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
      */
     @Override
     public void onClick(View v) {
-<<<<<<< HEAD
             switch(v.getId()) {
             /*case R.id.homeViewRepBTN: {
                 Intent intent = new Intent(HomeActivity.this, **View Report Activity**.class);
@@ -72,33 +71,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 default: {
                     break;
                 }
-=======
-            switch(v.getId())
-            {case R.id.homeViewRepBTN: {
-                Intent intent = new Intent(HomeActivity.this, AllWaterReportsActivity.class);
-                startActivity(intent);
-                break;
-            }case R.id.homeCreateRepBTN: {
-                Intent intent = new Intent(HomeActivity.this, WaterReportActivity.class);
-                startActivity(intent);
-                break;
-            }
-            case R.id.home_logout: {
-                Intent intent = new Intent(HomeActivity.this, SplashActivity.class);
-                startActivity(intent);
-                AccountsManager.clearActiveAccount();
-                Toast.makeText(getApplicationContext(), "Logout successful", Toast.LENGTH_SHORT).show();
-                break;
-            }
-            case R.id.homeProfileBTN: {
-                Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
-                startActivity(intent);
-                break;
-            }
-            default: {
-                break;
-            }
->>>>>>> olivia
         }
     }
 }
