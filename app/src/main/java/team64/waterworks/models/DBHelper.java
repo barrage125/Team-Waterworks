@@ -431,4 +431,51 @@ class DBHelper extends SQLiteOpenHelper {
             return matching_entries;
         }
     }
+
+    /**
+     * Creates array list of all water reports in AllReports SQLite DB
+     * @return array list of all water reports
+     * @throws IOException if IO error occurs while writing stream header in deserialize()
+     * @throws ClassNotFoundException if Class of serialized object cannot be found in deserialize()
+     * @throws IllegalAccessException if WaterReport constructor called by class other than DBHelper
+     */
+    ArrayList<WaterReport> getAllReports() throws IOException, ClassNotFoundException,
+                                                               IllegalAccessException {
+        SQLiteDatabase db = getReadableDatabase();
+        ArrayList<WaterReport> all_entries = new ArrayList<>();
+
+        // Query string we pass to db
+        String selectQuery = "SELECT * FROM AllReports";
+
+        // Query db, creates cursor object that points at result set (matching db entries)
+        // passing null into columns bc need all attributes from report(s)
+        Cursor cursor = db.rawQuery( selectQuery, null );
+
+        // No reports were found
+        if (!(cursor.moveToFirst())) {
+            cursor.close();
+            throw new NoSuchElementException();
+        } else {
+            cursor.moveToLast();
+
+            // Recursively add reports to array list until at the end of cursor's result set
+            while (cursor.moveToNext()) {
+                // set values of report
+                long id = cursor.getLong(cursor.getColumnIndexOrThrow("_id"));
+                String author = cursor.getString(cursor.getColumnIndexOrThrow("author"));
+                String location = cursor.getString(cursor.getColumnIndexOrThrow("location"));
+                String type = cursor.getString(cursor.getColumnIndexOrThrow("type"));
+                String condition = cursor.getString(cursor.getColumnIndexOrThrow("condition"));
+                int user_rating = cursor.getInt(cursor.getColumnIndexOrThrow("user_rating"));
+                String date = cursor.getString(cursor.getColumnIndexOrThrow("date"));
+
+                WaterReport report = new WaterReport(id, WaterReport.deserialize(location), author,
+                                                     type, condition, user_rating, date);
+                all_entries.add(report);
+            }
+
+            cursor.close();
+            return all_entries;
+        }
+    }
 }

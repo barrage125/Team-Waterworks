@@ -146,6 +146,23 @@ public class ReportsManager {
     }
 
     /**
+     * Creates array list of all reports stored in AllReports SQLite DB
+     * @return array list of all reports
+     */
+    public static ArrayList<WaterReport> viewAllReports() {
+        try {
+            return dbHelper.getAllReports();
+        } catch (NoSuchElementException e) {
+            e.printStackTrace();
+            Log.e("No Reports Found", "No reports have been submitted yet");
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("Unknown Error", "Could not retrieve report(s)");
+        }
+        return null;
+    }
+
+    /**
      * Checks to see if passed in report already exists
      * @param report report to check
      * @return if the water location report already exists
