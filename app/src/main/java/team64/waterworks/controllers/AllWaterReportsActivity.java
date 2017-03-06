@@ -10,6 +10,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.support.v7.app.AppCompatActivity;
 import java.util.ArrayList;
+import java.util.Collection;
 
 import team64.waterworks.R;
 import team64.waterworks.models.*;
@@ -28,7 +29,7 @@ public class AllWaterReportsActivity extends AppCompatActivity{
         allWaterReportsText = (TextView) findViewById(R.id.all_reports_text);
         allWaterReportsList = (ListView) findViewById(R.id.all_reports_list);
 
-        reportsArrayList = new ArrayList<>(ReportsManager.getAllReports());
+        reportsArrayList = ReportsManager.viewAllReports();
 
         reportsArrayAdapter = new ArrayAdapter(getApplicationContext(), R.layout.activity_all_water_reports, reportsArrayList);
 
