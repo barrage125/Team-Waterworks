@@ -1,8 +1,6 @@
 package team64.waterworks.models;
-
 import android.location.Location;
 import android.util.Base64;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -13,14 +11,14 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class WaterReport {
 
-      /**** INSTANCE VARIABLES ****/
+class WaterReport {
+
+     /**** INSTANCE VARIABLES ****/
     private long id;
     private Location location;
     private String condition;
     private int user_rating;
-    private Date today;
 
     // Report will always be initially submitted by one author
     // Can't change report type when editing a report, that would change all of it's data
@@ -44,7 +42,7 @@ public class WaterReport {
      * @param type type of water report
      * @param condition condition of water based on water purity report
      */
-    public WaterReport(Location location, String author, String type, String condition) {
+    WaterReport(Location location, String author, String type, String condition) {
         this.location = location;
         this.condition = condition;
 
@@ -56,7 +54,7 @@ public class WaterReport {
         this.user_rating = 0;
 
         // Set the date
-        this.today = Calendar.getInstance().getTime();
+        Date today = Calendar.getInstance().getTime();
         this.date = df.format(today);
     }
 
@@ -75,11 +73,11 @@ public class WaterReport {
      * @param date when report was originally posted
      * @throws IllegalAccessException when class other than DBHelper tries to call this constructor
      */
-    public WaterReport(long ID, Location location, String author, String type, String condition,
-                       int user_rating, String date) throws IllegalAccessException {
+    WaterReport(long ID, Location location, String author, String type, String condition,
+                int user_rating, String date) throws IllegalAccessException {
         // condition check to make sure only DBHelper class calls this constructor
         // users shouldn't be able to set SQLite auto generated values like id
-        if (getClass().equals("class java.team64.waterworks.models.DBHelper")) {
+        if (getClass().toString().equals("class java.team64.waterworks.models.DBHelper")) {
             this.id = ID;
             this.location = location;
             this.author = author;
@@ -101,7 +99,7 @@ public class WaterReport {
      * @return location as string
      * @throws IOException if IO error occurs while writing stream header
      */
-    public static String getLocationAsString(Location report_location_obj) throws IOException {
+    static String getLocationAsString(Location report_location_obj) throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(baos);
         oos.writeObject(report_location_obj);
@@ -117,7 +115,7 @@ public class WaterReport {
      * @throws IOException if IO error occurs while writing stream header
      * @throws ClassNotFoundException if Class of serialized object cannot be found
      */
-    public static Location deserialize(String loc) throws IOException, ClassNotFoundException {
+    static Location deserialize(String loc) throws IOException, ClassNotFoundException {
         byte[] data = Base64.decode(loc, 0);
         ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(data));
         Object o = ois.readObject();
@@ -141,7 +139,7 @@ public class WaterReport {
      * Get location of water in report
      * @return location of water
      */
-    public Location getLocation() {
+    Location getLocation() {
         return this.location;
     }
 
@@ -149,7 +147,7 @@ public class WaterReport {
      * Get condition of water in report
      * @return condition of water
      */
-    public String getCondition() {
+    String getCondition() {
         return this.condition;
     }
 
@@ -157,13 +155,13 @@ public class WaterReport {
      * Get user rating of water body in report
      * @return user rating
      */
-    public int getRating() { return this.user_rating; }
+    int getRating() { return this.user_rating; }
 
     /**
      * Get user who initially submitted water report
      * @return author of water report
      */
-    public String getAuthor() {
+    String getAuthor() {
         return this.author;
     }
 
@@ -171,7 +169,7 @@ public class WaterReport {
      * Get type of water report (historical, location, purity)
      * @return type of water report
      */
-    public String getType() {
+    String getType() {
         return this.type;
     }
 
@@ -179,7 +177,7 @@ public class WaterReport {
      * Get date water report was initially submitted
      * @return date
      */
-    public String getDate() { return this.date; }
+    String getDate() { return this.date; }
 
 
        /*************/

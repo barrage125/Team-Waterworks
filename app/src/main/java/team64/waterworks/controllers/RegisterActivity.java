@@ -1,5 +1,4 @@
 package team64.waterworks.controllers;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -12,42 +11,47 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import java.util.Arrays;
 import java.util.List;
-
 import team64.waterworks.R;
 import team64.waterworks.models.AccountsManager;
 
+
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button reg,regcanc;
-    private Spinner acctType;
     private EditText reguser, regpass;
     private ProgressDialog progressDialog;
 
+    /**
+     * Initializes all variables needed for register activity
+     * @param savedInstanceState data passed into register activity
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
         // Initialize Views
-        reg = (Button) findViewById(R.id.reg_button);
+        Button reg = (Button) findViewById(R.id.reg_button);
         reguser = (EditText) findViewById(R.id.reg_user);
         regpass = (EditText) findViewById(R.id.reg_password);
-        regcanc = (Button) findViewById(R.id.reg_cancel);
-        acctType = (Spinner) findViewById(R.id.spinnerAcctType);
+        Button regcanc = (Button) findViewById(R.id.reg_cancel);
+        Spinner acctType = (Spinner) findViewById(R.id.spinnerAcctType);
         progressDialog = new ProgressDialog(this);
 
         // Listeners for all buttons
         reg.setOnClickListener(this);
         regcanc.setOnClickListener(this);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item, (List<String>) Arrays.asList("User", "Worker", "Manager", "Admin"));
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,
+                                       Arrays.asList("User", "Worker", "Manager", "Admin"));
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         acctType.setAdapter(adapter);
     }
 
+    /**
+     * Registers a new user
+     */
     private void registerUser() {
         // Declare username and password vars
         String username = reguser.getText().toString();
@@ -68,17 +72,24 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         } else {
             progressDialog.setMessage("Registering user...");
             progressDialog.show();
+
             if(!AccountsManager.newUser("", username, password)) {
-                Log.d("HEY","DANGER WILL ROBINSON");
+                progressDialog.dismiss();
+                Log.d("Sorry","An error occurred");
+            } else {
+                AccountsManager.setActiveAccount(AccountsManager.getAccountWithCreds(username, password));
+                progressDialog.dismiss();
+                Toast.makeText(getApplicationContext(), "Registration Successful", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
+                startActivity(intent);
             }
-            AccountsManager.setActiveAccount(AccountsManager.getAccount(username, password));
-            progressDialog.dismiss();
-            Toast.makeText(getApplicationContext(), "Registration Successful",Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
-            startActivity(intent);
         }
     }
 
+    /**
+     * called when register button is clicked, saves new user to database and logs them in
+     * @param v register view
+     */
     @Override
     public void onClick(View v) {
         // Switch cases for each button, this way we're not declaring a new View.OnclickListener

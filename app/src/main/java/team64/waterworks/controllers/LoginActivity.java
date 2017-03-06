@@ -1,5 +1,4 @@
 package team64.waterworks.controllers;
-
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,17 +8,21 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import team64.waterworks.R;
 import team64.waterworks.models.*;
 
+
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button login,cancel;
+    private Button login;
     private EditText pass,user;
     private TextView error;
     int counter = 3;
 
+    /**
+     * Initializes all variables needed for login activity
+     * @param savedInstanceState data passed into login activity
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +32,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         login = (Button) findViewById(R.id.login_button);
         pass = (EditText) findViewById(R.id.password);
         user = (EditText) findViewById(R.id.username);
-        cancel = (Button) findViewById(R.id.cancel_button);
+        Button cancel = (Button) findViewById(R.id.cancel_button);
         error = (TextView) findViewById(R.id.error_message);
         error.setVisibility(View.GONE);
 
@@ -38,6 +41,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         cancel.setOnClickListener(this);
     }
 
+    /**
+     * Called when Login button is clicked
+     * @param v the login view
+     */
     @Override
     public void onClick(View v) {
         switch(v.getId()) {
@@ -45,7 +52,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 // Declare username and password vars
                 String username = user.getText().toString();
                 String password = pass.getText().toString();
-                Account account = AccountsManager.getAccount(username, password);
+                Account account = AccountsManager.getAccountWithCreds(username, password);
 
                 // Prevents fields from being empty
                 if (TextUtils.isEmpty(username) | TextUtils.isEmpty(password)) {
@@ -60,7 +67,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
                     AccountsManager.setActiveAccount(account);
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-//                    intent.putExtra("USER", users_db.getUser(username, password));
+//                    intent.putExtra("USER", users_db.AccountWithCreds(username, password));
                     startActivity(intent);
                 } else {
                     Toast.makeText(getApplicationContext(), "Incorrect username/password combination",Toast.LENGTH_SHORT).show();

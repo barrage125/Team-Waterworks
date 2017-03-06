@@ -1,34 +1,27 @@
 package team64.waterworks.models;
 
-import java.io.Serializable;
 
-/**
- * anna
- * 2/22/17
- */
-
-public class User extends Account implements Serializable {
+class User extends Account {
 
     /**
      * Constructor that takes all three required fields for any Account.
-     *
      * @param name the User's name
      * @param username the User's UNIQUE username
      * @param pw the User's password
      */
-    private Profile profile;
-
-    public User(String name, String username, String pw)  {
+    User(String name, String username, String pw)  {
         super(name, username, pw);
     }
 
-    public User(String name, String username, String pw, Profile profile)  {
+    /**
+     * User Constructor that can additionally take in a profile paramater
+     * @param name user's name
+     * @param username user's username
+     * @param pw user's password
+     * @param profile user's profile
+     */
+    User(String name, String username, String pw, Profile profile)  {
         this(name, username, pw);
         setProfile(profile);
-    }
-
-    public Profile createProfile(String title, String address, String email, String birthday) {
-        profile = new Profile(title, address, email, birthday);
-        return profile;
     }
 }
