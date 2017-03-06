@@ -13,7 +13,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 
-class WaterReport implements Serializable {
+public class WaterReport implements Serializable {
 
      /**** INSTANCE VARIABLES ****/
     private long id;

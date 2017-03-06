@@ -1,9 +1,4 @@
 package team64.waterworks.controllers;
-
-/**
- * Created by oliviamurkcaya on 3/3/17.
- */
-
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -15,11 +10,14 @@ import java.util.Collection;
 import team64.waterworks.R;
 import team64.waterworks.models.*;
 
+
 public class AllWaterReportsActivity extends AppCompatActivity{
     private TextView allWaterReportsText;
     private ListView allWaterReportsList;
+
     private ArrayAdapter<WaterReport> reportsArrayAdapter;
     private ArrayList<WaterReport> reportsArrayList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

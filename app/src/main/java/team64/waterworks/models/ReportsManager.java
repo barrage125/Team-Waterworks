@@ -145,7 +145,6 @@ public class ReportsManager {
         return null;
     }
 
-<<<<<<< HEAD
     /**
      * Creates array list of all reports stored in AllReports SQLite DB
      * @return array list of all reports
@@ -180,10 +179,4 @@ public class ReportsManager {
         }
         return true;
     }
-=======
-    public static Collection<WaterReport> getAllReports() {
-        //todo: dbHelper.getAllReports();
-        return null;
-    }
->>>>>>> olivia
 }
