@@ -56,6 +56,7 @@ public class WaterReport {
     }
 
     // Constructor used ONLY by DBHelper, SHOULD NOT BE CALLED OTHERWISE
+
     public WaterReport(long ID, Location location, String author, String type, String condition, int user_rating, String date) throws Exception {
         // condition check to make sure only DBhelper calls this constructor
         // users shouldn't be able to set final attributes like author, type, and date

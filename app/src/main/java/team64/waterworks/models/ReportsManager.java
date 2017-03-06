@@ -112,10 +112,10 @@ public class ReportsManager {
     }
 
 
-    // return all reports that were written by passed in user
-    public static ArrayList<WaterReport> getReportsByAuthor(String username) throws Exception {
+    // return all reports that were written by passed in author
+    public static ArrayList<WaterReport> getReportsByAuthor(String author) throws Exception {
         try {
-            return dbHelper.getReportsByAuthor(username);
+            return dbHelper.getReportsByAuthor(author);
         } catch (NoSuchElementException e) {
             e.printStackTrace();
             Log.e("No Reports Found", "No reports have been written by that user");

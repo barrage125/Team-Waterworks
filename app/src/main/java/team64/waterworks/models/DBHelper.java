@@ -368,13 +368,45 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
     // returns array list of water reports that were written by passed in username
-    public static ArrayList<WaterReport> getReportsByAuthor(String username) throws Exception {
+    public ArrayList<WaterReport> getReportsByAuthor(String author) throws Exception {
+        SQLiteDatabase db = getReadableDatabase();
         ArrayList<WaterReport> matching_entries = new ArrayList<WaterReport>();
 
+        // Query string we pass to db, selectionArgs replaces ? in selection String
+        String selection = "author = ?";
+        String[] selectionArgs = {author};
 
-        if (matching_entries.isEmpty()) {
+        // Query db, creates cursor object that points at result set (matching entries from db query)
+        // passing null into columns bc we want all attributes from report(s) written by passed in user
+        Cursor cursor = db.query("AllReports",
+                null,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null
+        );
+
+        // No reports written by that user were found
+        if (!(cursor.moveToFirst())) {
             throw new NoSuchElementException();
+        } else {
+            cursor.moveToLast();
+            while (cursor.moveToNext()) {
+                // values of report written by user
+                long id = cursor.getLong(cursor.getColumnIndexOrThrow("_id"));
+                String location = cursor.getString(cursor.getColumnIndexOrThrow("location"));
+                String type = cursor.getString(cursor.getColumnIndexOrThrow("type"));
+                String condition = cursor.getString(cursor.getColumnIndexOrThrow("condition"));
+                int user_rating = cursor.getInt(cursor.getColumnIndexOrThrow("user_rating"));
+                String date = cursor.getString(cursor.getColumnIndexOrThrow("date"));
+
+                WaterReport report = new WaterReport(id, WaterReport.deserialize(location), author, type, condition, user_rating, date);
+                matching_entries.add(report);
+            }
+
+            cursor.close();
+            return matching_entries;
         }
-        return matching_entries;
     }
 }
