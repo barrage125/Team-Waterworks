@@ -33,9 +33,11 @@ public class ReportsManager {
         // Checks if water location report already exists
 //        if (type.equals("location")) {
             try {
-                if (isValidReport(report)) {
-                    Log.e("Report Exists", "A water location report for that location already exists!");
-                    return false;
+                if (location != null) {
+                    if (isValidReport(report)) {
+                        Log.e("Report Exists", "A water location report for that location already exists!");
+                        return false;
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();

@@ -199,7 +199,7 @@ public class AccountsManager {
      * @param new_account newly active account
      */
     public static void setActiveAccount(Account new_account) {
-        if (activeAccount == null) {
+        if (new_account == null) {
             Log.e("Null Active Account", "Can't set a null account as logged in user!");
         }
         activeAccount = new_account;

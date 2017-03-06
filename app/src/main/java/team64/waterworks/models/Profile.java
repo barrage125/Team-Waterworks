@@ -5,9 +5,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
 
-public class Profile {
+public class Profile implements Serializable {
     private String title, address, email, birthday;
 
     /**
@@ -43,6 +44,10 @@ public class Profile {
      * @throws ClassNotFoundException if Class of serialized object cannot be found
      */
     static Profile deserialize(String prof) throws IOException, ClassNotFoundException {
+        if (prof.equals("")) {
+            return new Profile();
+        }
+
         byte [] data = Base64.decode(prof ,0);
         ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(data));
         Object o  = ois.readObject();
@@ -55,10 +60,14 @@ public class Profile {
      * @return String representation of Profile object
      * @throws IOException if IO error occurs while writing stream header
      */
-    String serialize() throws IOException {
+    static String serialize(Profile profile) throws IOException {
+        if (profile == null) {
+            return "";
+        }
+
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(baos);
-        oos.writeObject(this);
+        oos.writeObject(profile);
         oos.close();
         return Base64.encodeToString(baos.toByteArray(),0);
     }

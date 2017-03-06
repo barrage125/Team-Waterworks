@@ -27,29 +27,30 @@
             android:text="My Profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/homeProfileBTN"
+            android:id="@+id/view_profile_btn"
             android:layout_below="@+id/login_status"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_toLeftOf="@+id/homeCreateRepBTN"
-            android:layout_toStartOf="@+id/homeCreateRepBTN" />
+            android:layout_toLeftOf="@+id/create_report_btn"
+            android:layout_toStartOf="@+id/create_report_btn" />
 
         <Button
-            android:id="@+id/home_logout"
+            android:id="@+id/logout_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Logout"
-            android:layout_below="@+id/homeProfileBTN"
+            android:layout_below="@+id/view_profile_btn"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_toStartOf="@+id/homeCreateRepBTN" />
+            android:layout_toStartOf="@+id/create_report_btn"
+            android:layout_toLeftOf="@+id/create_report_btn" />
 
         <Button
             android:text="Create Report"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/homeCreateRepBTN"
-            android:layout_above="@+id/home_logout"
+            android:id="@+id/create_report_btn"
+            android:layout_above="@+id/logout_btn"
             android:layout_toRightOf="@+id/login_status"
             android:layout_marginLeft="11dp"
             android:layout_marginStart="11dp" />
@@ -58,11 +59,11 @@
             android:text="View Reports"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/homeCreateRepBTN"
-            android:layout_alignLeft="@+id/homeCreateRepBTN"
-            android:layout_alignStart="@+id/homeCreateRepBTN"
+            android:layout_below="@+id/create_report_btn"
+            android:layout_alignLeft="@+id/create_report_btn"
+            android:layout_alignStart="@+id/create_report_btn"
             android:id="@+id/homeViewRepBTN"
-            android:layout_alignRight="@+id/homeCreateRepBTN"
-            android:layout_alignEnd="@+id/homeCreateRepBTN" />
+            android:layout_alignRight="@+id/create_report_btn"
+            android:layout_alignEnd="@+id/create_report_btn" />
 
 </RelativeLayout>

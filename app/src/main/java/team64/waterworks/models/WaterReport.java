@@ -6,13 +6,14 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 
-class WaterReport {
+class WaterReport implements Serializable {
 
      /**** INSTANCE VARIABLES ****/
     private long id;
@@ -99,7 +100,11 @@ class WaterReport {
      * @return location as string
      * @throws IOException if IO error occurs while writing stream header
      */
-    static String getLocationAsString(Location report_location_obj) throws IOException {
+    static String serialize(Location report_location_obj) throws IOException {
+        if (report_location_obj == null) {
+            return "";
+        }
+
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(baos);
         oos.writeObject(report_location_obj);
@@ -116,6 +121,10 @@ class WaterReport {
      * @throws ClassNotFoundException if Class of serialized object cannot be found
      */
     static Location deserialize(String loc) throws IOException, ClassNotFoundException {
+        if (loc.equals("")) {
+            return new Location("");
+        }
+
         byte[] data = Base64.decode(loc, 0);
         ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(data));
         Object o = ois.readObject();

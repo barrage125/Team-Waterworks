@@ -51,6 +51,7 @@ public class ProfileActivity extends AppCompatActivity {
             account.getProfile().setEmail(txtEmail.getText().toString());
             account.getProfile().setTitle(txtTitle.getText().toString());
 
+            // Saves newly edited profile to SQLite and return to home screen
             if (AccountsManager.editAccount(account)) {
                 Intent intent = new Intent(ProfileActivity.this, HomeActivity.class);
                 startActivity(intent);

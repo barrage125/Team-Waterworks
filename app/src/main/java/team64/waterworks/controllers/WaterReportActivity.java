@@ -55,8 +55,10 @@ public class WaterReportActivity extends AppCompatActivity implements View.OnCli
                 String type = txtType.getText().toString();
                 String author = account.getUsername();
                 Location location = new Location("");
+
                 location.setLongitude(Double.parseDouble(txtLong.getText().toString()));
                 location.setLatitude(Double.parseDouble(txtLat.getText().toString()));
+
                 if (ReportsManager.newReport(location, author, type, condition)) {
                     Intent intent = new Intent(WaterReportActivity.this, HomeActivity.class);
                     startActivity(intent);
@@ -65,6 +67,7 @@ public class WaterReportActivity extends AppCompatActivity implements View.OnCli
                     Toast.makeText(getApplicationContext(), "Unable to submit", Toast.LENGTH_SHORT).show();
                 }
             }
+
             case R.id.wrCancelButton: {
                 Intent intent = new Intent(WaterReportActivity.this, HomeActivity.class);
                 startActivity(intent);

@@ -25,9 +25,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         Account account = AccountsManager.getActiveAccount();
 
         // Initialize views
-        Button logout = (Button) findViewById(R.id.home_logout);
-        Button myProfile = (Button) findViewById(R.id.homeProfileBTN);
-        Button viewReports = (Button) findViewById(R.id.homeCreateRepBTN);
+        Button logout = (Button) findViewById(R.id.logout_btn);
+        Button myProfile = (Button) findViewById(R.id.view_profile_btn);
+        Button viewReports = (Button) findViewById(R.id.create_report_btn);
         Button createReport = (Button) findViewById(R.id.homeViewRepBTN);
         TextView welcome = (TextView) findViewById(R.id.welcome_message);
         welcome.setText("Welcome to Waterworks " + account.getUsername() + "!");
@@ -51,19 +51,19 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
                 break;
             }*/
-                case R.id.homeCreateRepBTN: {
+                case R.id.create_report_btn: {
                     Intent intent = new Intent(HomeActivity.this, WaterReportActivity.class);
                     startActivity(intent);
                     break;
                 }
-                case R.id.home_logout: {
+                case R.id.logout_btn: {
                     Intent intent = new Intent(HomeActivity.this, SplashActivity.class);
                     startActivity(intent);
                     AccountsManager.clearActiveAccount();
                     Toast.makeText(getApplicationContext(), "Logout successful", Toast.LENGTH_SHORT).show();
                     break;
                 }
-                case R.id.homeProfileBTN: {
+                case R.id.view_profile_btn: {
                     Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
                     startActivity(intent);
                     break;
