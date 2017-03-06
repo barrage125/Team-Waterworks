@@ -19,6 +19,7 @@
         <activity android:name="team64.waterworks.controllers.RegisterActivity" />
         <activity android:name="team64.waterworks.controllers.ProfileActivity" />
         <activity android:name="team64.waterworks.controllers.WaterReportActivity" />
+        <activity android:name="team64.waterworks.controllers.AllWaterReportsActivity" />
     </application>
 
 </manifest>

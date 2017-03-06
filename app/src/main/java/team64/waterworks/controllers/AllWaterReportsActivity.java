@@ -29,8 +29,9 @@ public class AllWaterReportsActivity extends AppCompatActivity{
 
         reportsArrayList = ReportsManager.viewAllReports();
 
-        reportsArrayAdapter = new ArrayAdapter(getApplicationContext(), R.layout.activity_all_water_reports, reportsArrayList);
-
-        allWaterReportsList.setAdapter(reportsArrayAdapter);
+        if (reportsArrayList != null) {
+            reportsArrayAdapter = new ArrayAdapter<>(this, R.layout.activity_all_water_reports, reportsArrayList);
+            allWaterReportsList.setAdapter(reportsArrayAdapter);
+        }
     }
 }
