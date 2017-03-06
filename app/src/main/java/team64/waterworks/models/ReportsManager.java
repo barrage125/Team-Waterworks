@@ -12,10 +12,24 @@ import java.util.NoSuchElementException;
 public class ReportsManager {
     private static DBHelper dbHelper;
 
+
+    /**
+     * set a new DBHelper to manage
+     * @param c Context of the caller
+     */
     public static void setDBHelper(Context c) {
         dbHelper = new DBHelper(c, 1);
     }
 
+
+    /**
+     * Create a new Water Report
+     * @param location location of water you're reporting
+     * @param author user creating the report
+     * @param type type of water report (historical, location, or purity)
+     * @param condition condition of the water on a scale of 1-5 (health risk, poor, ok, great, pristine)
+     * @return if the report was created successfully or not
+     */
     public static boolean newReport(Location location, String author, String type, String condition) {
         WaterReport report = new WaterReport(location, author, type, condition);
 
@@ -53,6 +67,11 @@ public class ReportsManager {
     }
 
 
+    /**
+     * Edit the passed in report values and save into SQLite
+     * @param report to be edited and saved
+     * @return if the report was successfully edited and saved in SQLite
+     */
     public static boolean editReport(WaterReport report) {
         try {
             dbHelper.updateReport(report);
@@ -69,6 +88,11 @@ public class ReportsManager {
     }
 
 
+    /**
+     * Lookup report that corresponds to the passed in ID
+     * @param id id of the report looking up
+     * @return report that corresponds to the passed in ID
+     */
     public static WaterReport getReportByID(long id) {
         try {
             return dbHelper.getReportByID(id);
@@ -92,8 +116,17 @@ public class ReportsManager {
     }
 
 
-    // return all reports that match passed in location
-    public static ArrayList<WaterReport> getReportsByLocation(Location location) throws Exception {
+    /**
+     * Create ArrayList of all reports in SQLite that correspond to the passed in location object
+     * @param location location of the reports needed
+     * @return ArrayList of reports that correspond to passed in location
+     * @throws IOException when location object passed in
+     * @throws NoSuchElementException
+     * @throws Exception
+     */
+    public static ArrayList<WaterReport> getReportsByLocation(Location location) throws IOException,
+                                                                                        NoSuchElementException,
+                                                                                        Exception {
         try {
             return dbHelper.getReportsByLocation(location);
         } catch (IOException e) {

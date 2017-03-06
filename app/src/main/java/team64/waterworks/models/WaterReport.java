@@ -14,27 +14,32 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class WaterReport {
+
+      /**** INSTANCE VARIABLES ****/
     private long id;
     private Location location;
     private String condition;
     private int user_rating;
+    private Date today;
 
-    // As far as I can tell, there are no cases where these should be changed
-    // The report is first submitted by this author, that doesn't change
-    // You wouldn't change a report type when editing a report, that would change all of it's data
-    // The report is first submitted as a certain date, that doesn't change (shouldn't rewrite history)
+    // Report will always be initially submitted by one author
+    // Can't change report type when editing a report, that would change all of it's data
+    // Report will always be initially submitted at a certain date
     private final String author;
     private final String type;
     private final String date;
 
-    // Date formatting instance data, only used for constructor
-    private DateFormat df = new SimpleDateFormat("MM/dd/yyy HH:mm");
-    Date today;
+
+     /**** CLASS VARIABLES ****/
+    private static final DateFormat df = new SimpleDateFormat("MM/dd/yyy HH:mm");
 
 
+       /******************/
+      /** CONSTRUCTORS **/
+     /******************/
     /**
      * Create a new water report.
-     * @param location location of report
+     * @param location location of water reported
      * @param author author of report
      * @param type type of water report
      * @param condition condition of water based on water purity report
@@ -55,11 +60,25 @@ public class WaterReport {
         this.date = df.format(today);
     }
 
-    // Constructor used ONLY by DBHelper, SHOULD NOT BE CALLED OTHERWISE
-
-    public WaterReport(long ID, Location location, String author, String type, String condition, int user_rating, String date) throws Exception {
-        // condition check to make sure only DBhelper calls this constructor
-        // users shouldn't be able to set final attributes like author, type, and date
+    /**
+     * Water Report Constructor, used ONLY by DBHelper, SHOULD NOT BE CALLED OTHERWISE
+     * Creates an instance of a Water Report that's already stored in SQLite
+     * Not used for creating a new Water Report that isn't already in SQLite
+     * Used when looking up a water report directly from SQLite and need and instance of that report
+     * as a Water Report object
+     * @param ID id of water report from water report found in SQLite
+     * @param location of water reported
+     * @param author user who wrote the water report
+     * @param type type of water report (historical, location, or purity)
+     * @param condition condition of water
+     * @param user_rating user rating of water location
+     * @param date when report was originally posted
+     * @throws IllegalAccessException when class other than DBHelper tries to call this constructor
+     */
+    public WaterReport(long ID, Location location, String author, String type, String condition,
+                       int user_rating, String date) throws IllegalAccessException {
+        // condition check to make sure only DBHelper class calls this constructor
+        // users shouldn't be able to set SQLite auto generated values like id
         if (getClass().equals("class java.team64.waterworks.models.DBHelper")) {
             this.id = ID;
             this.location = location;
@@ -74,9 +93,13 @@ public class WaterReport {
     }
 
 
+       /*************/
+      /** METHODS **/
+     /*************/
     /**
-     * get location as a string
-     * @return location string
+     * Get location as a string
+     * @return location as string
+     * @throws IOException if IO error occurs while writing stream header
      */
     public static String getLocationAsString(Location report_location_obj) throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -86,13 +109,16 @@ public class WaterReport {
         return Base64.encodeToString(baos.toByteArray(),0);
     }
 
-
-    // Turn string into Location object
-    // Made serialization and deseralization Base64 because that's the only kind I know how to do
-    // Calling convention:
-    // WaterReport.deserialize(report_location)
-    public static Location deserialize(String s) throws IOException, ClassNotFoundException {
-        byte[] data = Base64.decode(s, 0);
+    /**
+     * Turn string into Location object
+     * WaterReport.deserialize(report_location_string)
+     * @param loc report's location as a string
+     * @return Location object
+     * @throws IOException if IO error occurs while writing stream header
+     * @throws ClassNotFoundException if Class of serialized object cannot be found
+     */
+    public static Location deserialize(String loc) throws IOException, ClassNotFoundException {
+        byte[] data = Base64.decode(loc, 0);
         ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(data));
         Object o = ois.readObject();
         ois.close();
@@ -100,90 +126,83 @@ public class WaterReport {
     }
 
 
-
-
-    /*****************************
-     * GETTERS AND SETTERS
-     ****************************/
-
+       /*************/
+      /** GETTERS **/
+     /*************/
     /**
-     * get ID
-     * @return id
+     * Get report's ID
+     * @return id of report
      */
     public long getId() {
         return this.id;
     }
 
     /**
-     * get location
-     * @return location
+     * Get location of water in report
+     * @return location of water
      */
     public Location getLocation() {
         return this.location;
     }
 
     /**
-     * get condition
-     * @return condition
+     * Get condition of water in report
+     * @return condition of water
      */
     public String getCondition() {
         return this.condition;
     }
 
     /**
-     * get user rating
+     * Get user rating of water body in report
      * @return user rating
      */
     public int getRating() { return this.user_rating; }
 
     /**
-     * get author
-     * @return author
+     * Get user who initially submitted water report
+     * @return author of water report
      */
     public String getAuthor() {
         return this.author;
     }
 
     /**
-     * get type
-     * @return type
+     * Get type of water report (historical, location, purity)
+     * @return type of water report
      */
     public String getType() {
         return this.type;
     }
 
     /**
+     * Get date water report was initially submitted
      * @return date
      */
     public String getDate() { return this.date; }
 
 
-
-
+       /*************/
+      /** SETTERS **/
+     /*************/
     /**
-     * set ID
-     * @param id new id
-     */
-    public void setId(long id) { this.id = id; }
-
-    /**
-     * set location
-     * @param location new location
+     * Set location of water report
+     * @param location new location of water report
      */
     public void setLocation(Location location) {
         this.location = location;
     }
 
     /**
-     * set condition
-     * @param condition new condition
+     * Set condition of water quality
+     * @param condition new condition of water
      */
     public void setCondition(String condition) {
         this.condition = condition;
     }
 
     /**
-     * set user rating
+     * Set user rating of water location
      * @param rating new user rating
      */
     public void setRating(int rating) { this.user_rating = rating; }
