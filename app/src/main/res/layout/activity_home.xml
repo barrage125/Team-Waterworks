@@ -24,19 +24,45 @@
             android:layout_below="@id/welcome_message"/>
 
         <Button
-            android:id="@+id/home_logout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/login_status"
-            android:text="Logout"/>
-
-        <Button
             android:text="My Profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/homeProfileBTN"
             android:layout_below="@+id/login_status"
-            android:layout_toRightOf="@+id/home_logout"
-            android:layout_toEndOf="@+id/home_logout"
-            android:id="@+id/homeProfileBTN" />
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_toLeftOf="@+id/homeCreateRepBTN"
+            android:layout_toStartOf="@+id/homeCreateRepBTN" />
+
+        <Button
+            android:id="@+id/home_logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Logout"
+            android:layout_below="@+id/homeProfileBTN"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@+id/homeCreateRepBTN" />
+
+        <Button
+            android:text="Create Report"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/homeCreateRepBTN"
+            android:layout_above="@+id/home_logout"
+            android:layout_toRightOf="@+id/login_status"
+            android:layout_marginLeft="11dp"
+            android:layout_marginStart="11dp" />
+
+        <Button
+            android:text="View Reports"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/homeCreateRepBTN"
+            android:layout_alignLeft="@+id/homeCreateRepBTN"
+            android:layout_alignStart="@+id/homeCreateRepBTN"
+            android:id="@+id/homeViewRepBTN"
+            android:layout_alignRight="@+id/homeCreateRepBTN"
+            android:layout_alignEnd="@+id/homeCreateRepBTN" />
 
 </RelativeLayout>
