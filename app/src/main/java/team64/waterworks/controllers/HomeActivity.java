@@ -27,8 +27,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         // Initialize views
         Button logout = (Button) findViewById(R.id.logout_btn);
         Button myProfile = (Button) findViewById(R.id.view_profile_btn);
-        Button viewReports = (Button) findViewById(R.id.create_report_btn);
-        Button createReport = (Button) findViewById(R.id.homeViewRepBTN);
+        Button viewReports = (Button) findViewById(R.id.homeViewRepBTN);
+        Button createReport = (Button) findViewById(R.id.create_report_btn);
         TextView welcome = (TextView) findViewById(R.id.welcome_message);
         welcome.setText("Welcome to Waterworks " + account.getUsername() + "!");
 
@@ -45,13 +45,12 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
      */
     @Override
     public void onClick(View v) {
-<<<<<<< HEAD
             switch(v.getId()) {
-            /*case R.id.homeViewRepBTN: {
-                Intent intent = new Intent(HomeActivity.this, **View Report Activity**.class);
-                startActivity(intent);
-                break;
-            }*/
+                case R.id.homeViewRepBTN: {
+                    Intent intent = new Intent(HomeActivity.this, AllWaterReportsActivity.class);
+                    startActivity(intent);
+                    break;
+                }
                 case R.id.create_report_btn: {
                     Intent intent = new Intent(HomeActivity.this, WaterReportActivity.class);
                     startActivity(intent);
@@ -72,33 +71,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 default: {
                     break;
                 }
-=======
-            switch(v.getId())
-            {case R.id.homeViewRepBTN: {
-                Intent intent = new Intent(HomeActivity.this, AllWaterReportsActivity.class);
-                startActivity(intent);
-                break;
-            }case R.id.homeCreateRepBTN: {
-                Intent intent = new Intent(HomeActivity.this, WaterReportActivity.class);
-                startActivity(intent);
-                break;
-            }
-            case R.id.home_logout: {
-                Intent intent = new Intent(HomeActivity.this, SplashActivity.class);
-                startActivity(intent);
-                AccountsManager.clearActiveAccount();
-                Toast.makeText(getApplicationContext(), "Logout successful", Toast.LENGTH_SHORT).show();
-                break;
-            }
-            case R.id.homeProfileBTN: {
-                Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
-                startActivity(intent);
-                break;
-            }
-            default: {
-                break;
-            }
->>>>>>> olivia
         }
     }
 }
