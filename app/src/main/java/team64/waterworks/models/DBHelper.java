@@ -90,11 +90,10 @@ class DBHelper extends SQLiteOpenHelper {
      /*********************/
     /**
      * Adds a new account to AllUsers SQLite DB
-     * @return if account was added successfully
      * @throws NoSuchAlgorithmException if Base64 algo for hashPassword() not found
      * @throws IOException if IO error occurs while writing stream header in getProfile().serialize()
      */
-    public void addAccount(Account account) throws NoSuchAlgorithmException, IOException {
+    void addAccount(Account account) throws NoSuchAlgorithmException, IOException {
         SQLiteDatabase db = getWritableDatabase();
 
         // Create a new set of values for new account row
@@ -114,7 +113,7 @@ class DBHelper extends SQLiteOpenHelper {
      * @return hashed password
      * @throws NoSuchAlgorithmException if the Base64 algo cannot be found
      */
-    public static String hashPassword(String password) throws NoSuchAlgorithmException {
+    private static String hashPassword(String password) throws NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("SHA-256");
         md.update((USERS_DB_SALT + password).getBytes());
         byte[] digest = md.digest();
@@ -127,7 +126,7 @@ class DBHelper extends SQLiteOpenHelper {
      * @param account Account to update
      * @throws IOException IO error occurs while writing stream header in getProfile().serialize()
      */
-    public void updateAccount(Account account) throws IOException {
+    void updateAccount(Account account) throws IOException {
         String username = account.getUsername();
         SQLiteDatabase db = getReadableDatabase();
 
@@ -153,9 +152,9 @@ class DBHelper extends SQLiteOpenHelper {
      * @throws ClassNotFoundException if Class of serialized object cannot be found in deserialize()
      * @throws IOException if IO error occurs while writing stream header in deserialize()
      */
-    public Account AccountWithCreds(String username, String password) throws NoSuchAlgorithmException,
-                                                                         ClassNotFoundException,
-                                                                         IOException {
+    Account AccountWithCreds(String username, String password) throws NoSuchAlgorithmException,
+                                                                      ClassNotFoundException,
+                                                                      IOException {
         SQLiteDatabase db = getReadableDatabase();
 
         // Info we want from user that matches passed in username/password
@@ -179,38 +178,35 @@ class DBHelper extends SQLiteOpenHelper {
             String profile = cursor.getString(cursor.getColumnIndexOrThrow("profile"));
             cursor.close();
 
-            User user = new User(name, username, password, Profile.deserialize(profile));
-            return user;
+            return new User(name, username, password, Profile.deserialize(profile));
         }
     }
 
     /**
-     * Determines if a user with the passed in username exists in the AllUsers SQLite DB
-     * @param username
-     * @return
+     * Determines if an account with the passed in username exists in the AllUsers SQLite DB
+     * @param username username to search for
+     * @return if account with corresponding username exists
      */
-    public boolean isUser(String username) {
+    boolean isAccount(String username) {
         SQLiteDatabase db = getReadableDatabase();
+        boolean answer;
 
-        // Declare the values we're looking for in the table
-        String[] projection = {"username"};
+        // Info we want from account that matches passed in username
+        String[] columns = {"username"};
+
+        // Query string we pass to db, selectionArgs replaces ? in selection String
         String selection = "username = ?";
-        String[] selectionArgs = {username};
+        String[] selectionArgs = { username };
 
-        // Query db
-        Cursor cursor = db.query("AllUsers",
-                                  projection,
-                                  selection,
-                                  selectionArgs,
-                                  null,
-                                  null,
-                                  null
-                                );
-        return cursor.getCount() > 0;
+        // Query db, creates cursor object that points at result set (matching db entries)
+        Cursor cursor = db.query("AllUsers", columns, selection, selectionArgs,
+                                  null, null, null);
+
+        // If result set in cursor has 0 entries, then the account doesn't exist
+        answer = (cursor.getCount() > 0);
+        cursor.close();
+        return answer;
     }
-
-
-
 
 
 
@@ -222,7 +218,7 @@ class DBHelper extends SQLiteOpenHelper {
      * @param report new Water Report to be added
      * @throws IOException if IO error occurs while writing stream header in getLocationAsString()
      */
-    public void addReport(WaterReport report) throws IOException {
+    void addReport(WaterReport report) throws IOException {
         SQLiteDatabase db = getWritableDatabase();
 
         // Create a new set of values for the new report row
@@ -244,7 +240,7 @@ class DBHelper extends SQLiteOpenHelper {
      * @param report water report to update
      * @throws IOException if IO error occurs while writing stream header in getLocationAsString()
      */
-    public void updateReport(WaterReport report) throws IOException {
+    void updateReport(WaterReport report) throws IOException {
         String id = Long.toString(report.getId());
         SQLiteDatabase db = getReadableDatabase();
 
@@ -255,7 +251,7 @@ class DBHelper extends SQLiteOpenHelper {
         values.put("condition", report.getCondition());
         values.put("user_rating", report.getRating());
 
-        // Query string for db, find row that matches passed in id
+        // Query string for db, find row matching passed in id, selectionArgs replaces ?
         String selection = "_id = ?";
         String[] selectionArgs = { id };
 
@@ -271,8 +267,8 @@ class DBHelper extends SQLiteOpenHelper {
      * @throws ClassNotFoundException if Class of serialized object cannot be found in deserialize()
      * @throws IllegalAccessException if WaterReport constructor called by class other than DBHelper
      */
-    public WaterReport getReportByID(long ID) throws IOException, ClassNotFoundException,
-                                                                  IllegalAccessException {
+    WaterReport getReportByID(long ID) throws IOException, ClassNotFoundException,
+                                                           IllegalAccessException {
         String id = Long.toString(ID);
         SQLiteDatabase db = getReadableDatabase();
 
@@ -301,9 +297,8 @@ class DBHelper extends SQLiteOpenHelper {
             String date = cursor.getString(cursor.getColumnIndexOrThrow("date"));
             cursor.close();
 
-            WaterReport report = new WaterReport(ID, WaterReport.deserialize(location), author,
-                                                 type, condition, user_rating, date);
-            return report;
+            return new WaterReport(ID, WaterReport.deserialize(location), author, type, condition,
+                                   user_rating, date);
         }
     }
 
@@ -313,7 +308,7 @@ class DBHelper extends SQLiteOpenHelper {
      * @return if water report already exists
      * @throws IOException if IO error occurs while writing stream header in getLocationAsString()
      */
-    public boolean isReport(WaterReport report) throws IOException {
+    boolean isReport(WaterReport report) throws IOException {
         SQLiteDatabase db = getReadableDatabase();
         String location = WaterReport.getLocationAsString(report.getLocation());
 
@@ -342,10 +337,10 @@ class DBHelper extends SQLiteOpenHelper {
      * @throws IOException if IO error occurs while writing stream header in getLocationAsString()
      * @throws IllegalAccessException if WaterReport constructor called by class other than DBHelper
      */
-    public ArrayList<WaterReport> getReportsByLocation(Location LOCATION) throws IOException,
+    ArrayList<WaterReport> getReportsByLocation(Location LOCATION) throws IOException,
                                                                           IllegalAccessException {
         SQLiteDatabase db = getReadableDatabase();
-        ArrayList<WaterReport> matching_entries = new ArrayList<WaterReport>();
+        ArrayList<WaterReport> matching_entries = new ArrayList<>();
         String location = WaterReport.getLocationAsString(LOCATION);
 
         // Query string we pass to db, selectionArgs replaces ? in selection String
@@ -392,11 +387,11 @@ class DBHelper extends SQLiteOpenHelper {
      * @throws ClassNotFoundException if Class of serialized object cannot be found in deserialize()
      * @throws IllegalAccessException if WaterReport constructor called by class other than DBHelper
      */
-    public ArrayList<WaterReport> getReportsByAuthor(String author) throws IOException,
-                                                                           ClassNotFoundException,
-                                                                           IllegalAccessException {
+    ArrayList<WaterReport> getReportsByAuthor(String author) throws IOException,
+                                                                    ClassNotFoundException,
+                                                                    IllegalAccessException {
         SQLiteDatabase db = getReadableDatabase();
-        ArrayList<WaterReport> matching_entries = new ArrayList<WaterReport>();
+        ArrayList<WaterReport> matching_entries = new ArrayList<>();
 
         // Query string we pass to db, selectionArgs replaces ? in selection String
         String selection = "author = ?";

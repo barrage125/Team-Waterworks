@@ -42,7 +42,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     /**
-     * Called when Login button is clicked
+     * Called when any button on login view is clicked
      * @param v the login view
      */
     @Override

@@ -87,7 +87,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     }
 
     /**
-     * called when register button is clicked, saves new user to database and logs them in
+     * called when any button on register view is clicked
      * @param v register view
      */
     @Override

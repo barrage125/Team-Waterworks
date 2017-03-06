@@ -13,25 +13,24 @@ import team64.waterworks.models.*;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button logout, myProfile, viewReports, createReport;
-    private TextView welcome;
-    private Account account;
-
+    /**
+     * Initializes all variables needed for home activity
+     * @param savedInstanceState data passed into home activity
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        account = AccountsManager.getActiveAccount();
+        Account account = AccountsManager.getActiveAccount();
 
         // Initialize views
-        logout = (Button) findViewById(R.id.home_logout);
-        myProfile = (Button) findViewById(R.id.homeProfileBTN);
-        viewReports = (Button) findViewById(R.id.homeCreateRepBTN);
-        createReport = (Button) findViewById(R.id.homeViewRepBTN);
-        welcome = (TextView) findViewById(R.id.welcome_message);
-        welcome.setText("Welcome to Waterworks!");
-
+        Button logout = (Button) findViewById(R.id.home_logout);
+        Button myProfile = (Button) findViewById(R.id.homeProfileBTN);
+        Button viewReports = (Button) findViewById(R.id.homeCreateRepBTN);
+        Button createReport = (Button) findViewById(R.id.homeViewRepBTN);
+        TextView welcome = (TextView) findViewById(R.id.welcome_message);
+        welcome.setText("Welcome to Waterworks " + account.getUsername() + "!");
 
         // Listeners for all buttons
         logout.setOnClickListener(this);
@@ -40,33 +39,38 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         createReport.setOnClickListener(this);
     }
 
+    /**
+     * Called when any button on home view is clicked
+     * @param v the home view
+     */
     @Override
     public void onClick(View v) {
-            switch(v.getId())
-            {/*case R.id.homeViewRepBTN: {
+            switch(v.getId()) {
+            /*case R.id.homeViewRepBTN: {
                 Intent intent = new Intent(HomeActivity.this, **View Report Activity**.class);
                 startActivity(intent);
                 break;
-            }*/case R.id.homeCreateRepBTN: {
-                Intent intent = new Intent(HomeActivity.this, WaterReportActivity.class);
-                startActivity(intent);
-                break;
-            }
-            case R.id.home_logout: {
-                Intent intent = new Intent(HomeActivity.this, SplashActivity.class);
-                startActivity(intent);
-                AccountsManager.clearActiveAccount();
-                Toast.makeText(getApplicationContext(), "Logout successful", Toast.LENGTH_SHORT).show();
-                break;
-            }
-            case R.id.homeProfileBTN: {
-                Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
-                startActivity(intent);
-                break;
-            }
-            default: {
-                break;
-            }
+            }*/
+                case R.id.homeCreateRepBTN: {
+                    Intent intent = new Intent(HomeActivity.this, WaterReportActivity.class);
+                    startActivity(intent);
+                    break;
+                }
+                case R.id.home_logout: {
+                    Intent intent = new Intent(HomeActivity.this, SplashActivity.class);
+                    startActivity(intent);
+                    AccountsManager.clearActiveAccount();
+                    Toast.makeText(getApplicationContext(), "Logout successful", Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                case R.id.homeProfileBTN: {
+                    Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
+                    startActivity(intent);
+                    break;
+                }
+                default: {
+                    break;
+                }
         }
     }
 }

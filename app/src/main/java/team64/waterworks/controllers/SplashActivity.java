@@ -35,7 +35,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     /**
-     * Called when any button is clicked
+     * Called when any button on splash view is clicked
      * @param v splash view
      */
     @Override

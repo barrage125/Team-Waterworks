@@ -26,6 +26,14 @@ public abstract class Account {
         return profile;
     }
 
+    /**
+     * Creates a new profile
+     * @param title title of profile
+     * @param address account's address
+     * @param email account's email
+     * @param birthday account's birthday
+     * @return new Profile object created
+     */
     public Profile createProfile(String title, String address, String email, String birthday) {
         profile = new Profile(title, address, email, birthday);
         return profile;
@@ -33,9 +41,9 @@ public abstract class Account {
 
     /**
      * Add or replace the Profile associated with an Account
-     * @param profile
+     * @param profile new profile
      */
-    public void setProfile(Profile profile) {
+    void setProfile(Profile profile) {
         this.profile = profile;
     }
 
@@ -55,6 +63,10 @@ public abstract class Account {
         return username;
     }
 
+    /**
+     * Get password associated with this account
+     * @return the account's password
+     */
     public String getPassword() { return password; }
 
     /**

@@ -226,7 +226,7 @@ public class AccountsManager {
      * @return if account with passed in username exists or not
      */
     public static boolean isValidAccount(String username) {
-        return dbHelper.isUser(username);
+        return dbHelper.isAccount(username);
     }
 
 

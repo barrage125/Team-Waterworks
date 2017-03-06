@@ -1,5 +1,4 @@
 package team64.waterworks.controllers;
-
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
@@ -16,21 +15,17 @@ import team64.waterworks.models.AccountsManager;
 import team64.waterworks.models.ReportsManager;
 
 
-/**
- * Created by Alexander on 3/3/2017.
- */
-
 public class WaterReportActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button submit, cancel;
     EditText txtLong, txtLat, txtType, txtCondition;
 
     private Account account;
-    private Location location;
-    private String author;
-    private String type;
-    private String condition;
 
+    /**
+     * Initializes all variables needed for water report activity
+     * @param savedInstanceState data passed into water report activity
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,14 +43,18 @@ public class WaterReportActivity extends AppCompatActivity implements View.OnCli
         cancel.setOnClickListener(this);
     }
 
+    /**
+     * Called when any button on water report view is clicked
+     * @param v water report view
+     */
     @Override
     public void onClick(View v){
         switch (v.getId()) {
             case R.id.wrSubmitButton: {
-                condition = txtCondition.getText().toString();
-                type = txtType.getText().toString();
-                author = account.getUsername();
-                location = new Location("");
+                String condition = txtCondition.getText().toString();
+                String type = txtType.getText().toString();
+                String author = account.getUsername();
+                Location location = new Location("");
                 location.setLongitude(Double.parseDouble(txtLong.getText().toString()));
                 location.setLatitude(Double.parseDouble(txtLat.getText().toString()));
                 if (ReportsManager.newReport(location, author, type, condition)) {
