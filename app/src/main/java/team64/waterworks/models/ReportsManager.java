@@ -5,6 +5,7 @@ import android.location.Location;
 import android.util.Log;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.NoSuchElementException;
 
@@ -14,7 +15,7 @@ public class ReportsManager {
     public static void setDBHelper(Context c) {
         dbHelper = new DBHelper(c, 1);
     }
-    
+
     public static boolean newReport(Location location, String author, String type, String condition) {
         WaterReport report = new WaterReport(location, author, type, condition);
 
@@ -44,10 +45,6 @@ public class ReportsManager {
             e.printStackTrace();
             Log.e("Location invalid", "Could not retrieve location string");
             return false;
-        } catch (NoSuchElementException e) {
-            e.printStackTrace();
-            Log.e("No such report", "Water Report id can't be set, it wasn't found in db");
-            return false;
         } catch (Exception e) {
             e.printStackTrace();
             Log.e("Unknown error", "Report may or may not be saved");
@@ -56,23 +53,23 @@ public class ReportsManager {
     }
 
 
-    public static boolean editReport(int old_report_id, WaterReport new_report) {
+    public static boolean editReport(WaterReport report) {
         try {
-            dbHelper.updateReport(old_report_id, new_report);
+            dbHelper.updateReport(report);
         } catch (IOException e) {
             e.printStackTrace();
             Log.e("Location invalid", "Could not retrieve location string");
             return false;
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e("Unknown error", "Report may or may not be saved");
+            Log.e("Unknown error", "Could not edit report, report may or may not be updated");
         }
 
         return true;
     }
 
 
-    public static WaterReport getReportByID(int id) {
+    public static WaterReport getReportByID(long id) {
         try {
             return dbHelper.getReportByID(id);
         } catch (IOException e) {
@@ -89,20 +86,45 @@ public class ReportsManager {
             return null;
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e("Unknown error", "Report may or may not be saved");
+            Log.e("Unknown error", "Could not retrieve report with that ID");
             return null;
         }
     }
 
 
-    public static Collection<WaterReport> getReportsByLocation(Location location) {
-        //todo: dbHelper.getReportsByLocation(location);
-        return null;
+    // return all reports that match passed in location
+    public static ArrayList<WaterReport> getReportsByLocation(Location location) throws Exception {
+        try {
+            return dbHelper.getReportsByLocation(location);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.e("Unknown error", "Could not convert location to string for querying db");
+            return null;
+        } catch (NoSuchElementException e) {
+            e.printStackTrace();
+            Log.e("No Reports Found", "No reports matched that location");
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("Unknown Error", "Could not retrieve report(s) with that location");
+            return null;
+        }
     }
 
-    public static Collection<WaterReport> getReportsByAuthor(String username) {
-        //todo: dbHelper.getReportsByAuthor(username);
-        return null;
+
+    // return all reports that were written by passed in user
+    public static ArrayList<WaterReport> getReportsByAuthor(String username) throws Exception {
+        try {
+            return dbHelper.getReportsByAuthor(username);
+        } catch (NoSuchElementException e) {
+            e.printStackTrace();
+            Log.e("No Reports Found", "No reports have been written by that user");
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("Unknown Error", "Could not retrieve report(s) written by that user");
+            return null;
+        }
     }
 
 

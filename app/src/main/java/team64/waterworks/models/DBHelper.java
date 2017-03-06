@@ -1,23 +1,18 @@
 package team64.waterworks.models;
-import team64.waterworks.models.User;
-
-import android.accounts.Account;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.location.Location;
 import android.util.Base64;
-import android.util.Log;
 
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
-import team64.waterworks.models.Profile;
 
 public class DBHelper extends SQLiteOpenHelper {
     // AllUsers DB strings
@@ -27,7 +22,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     // Water Reports DB String
     private static final String REPORT_DATABASE_NAME = "AllReports";
-    private static final String REPORT_DATABASE_CREATE = "CREATE TABLE AllReports ( _id INTEGER PRIMARY KEY, location TEXT, author TEXT, type TEXT, condition TEXT )";
+    private static final String REPORT_DATABASE_CREATE = "CREATE TABLE AllReports ( _id INTEGER PRIMARY KEY, location TEXT, author TEXT, type TEXT, condition TEXT, user_rating TEXT, date TEXT )";
     private static final String REPORT_SALT = "!*aS{f8t8$5)9asf(l";
 
     private boolean report_db = false;
@@ -189,121 +184,73 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {}
 
 
+
     /**
      *
      * WATER REPORT METHODS
      *
      **/
 
-
     // Adds water report to SQLite
     // returns if the report was successfully added or not
-    // will throw general exception if anything else goes wrong
     public void addReport(WaterReport report) throws Exception {
             SQLiteDatabase db = getWritableDatabase();
 
             // Create a new set of values for the new report row
-            // IO Exception
+            // IO Exception may occur here
             ContentValues values = new ContentValues();
-            values.put("location", report.getLocationAsString());
-
+            values.put("location", WaterReport.getLocationAsString(report.getLocation()));
             values.put("author", report.getAuthor());
             values.put("type", report.getType());
             values.put("condition", report.getCondition());
+            values.put("user_rating", report.getRating());
+            values.put("date", report.getDate());
 
             // Insert the new report (row), returns primary key value of new row
-            long newRowId = db.insert("AllReports", null, values);
+            db.insert("AllReports", null, values);
 
-            // Set the Water Report objects ID var to the id set automatically by SQlite
-            // NoSuchElement exception
-            report.setId(getReportID(report));
-    }
-
-    /**
-     * Returns reports ID in sqlite, should only be used in add report method
-     * other methods should use the getID getter in Water Report class otherwise
-     * Doesn't search by id, searches without knowing what the ID would be
-     * searches by all other report info and returns what it's ID is
-     * @param report to find id
-     * @return report's id in SQLite
-     */
-    private int getReportID(WaterReport report) throws NoSuchElementException, IOException {
-        // Instance vars
-        SQLiteDatabase db = getReadableDatabase();
-        String location = "";
-        int id;
-
-        // Get passed in report values
-        location = report.getLocationAsString();
-
-        String author = report.getAuthor();
-        String type = report.getType();
-        String condition = report.getCondition();
-
-        // Tell db what we're looking for (projection) and our actual query string (selection)
-        String[] projection = { "__id__" };
-        String selection = "location = ? AND author = ? AND type = ? AND condition = ?";
-        String[] selectionArgs = new String[4];
-        selectionArgs[0] = location;
-        selectionArgs[1] = author;
-        selectionArgs[2] = type;
-        selectionArgs[3] = condition;
-
-        // query db
-        Cursor cursor = db.query("AllReports",
-                projection,
-                selection,
-                selectionArgs,
-                null,
-                null,
-                null
-        );
-
-        // If cursor is empty (no report was found) throw error
-        if (!(cursor.moveToFirst())) {
-            throw new NoSuchElementException();
-        } else {
-            id = Integer.parseInt(cursor.getString(cursor.getColumnIndexOrThrow("__id__")));
-            cursor.close();
-            return id;
-        }
+            // Set the passed in report object's ID var to the id set automatically by SQlite
+            // NoSuchElement exception may occur here
+            // report.setId(newRowId);
     }
 
 
     // updates report based on report's known id
-    public void updateReport(int report_id, WaterReport new_report) throws Exception {
-            String id = Integer.toString(report_id);
+    public void updateReport(WaterReport report) throws Exception {
+            String id = Long.toString(report.getId());
             SQLiteDatabase db = getReadableDatabase();
 
-            // New value for one column
+            // New values for columns (report attributes). id, author, type, and date not included
+            // bc they're final attributes and shouldn't be able to be changed
             ContentValues values = new ContentValues();
-            values.put("location", new_report.getLocationAsString());
-            values.put("author", new_report.getAuthor());
-            values.put("type", new_report.getType());
-            values.put("condition", new_report.getCondition());
+            values.put("location", WaterReport.getLocationAsString(report.getLocation()));
+            values.put("condition", report.getCondition());
+            values.put("user_rating", report.getRating());
 
-            // Which report to update, based on id
-            String selection = "__id__ = ?";
+            // Query string for db, find row that matches passed in id
+            String selection = "_id = ?";
             String[] selectionArgs = { id };
 
+            // update the values for the row that matches the passed in id
             int count = db.update("AllReports", values, selection, selectionArgs);
     }
 
 
     // Returns report that matches passed in ID
-    // Location location, String author, String type, String condition
-    public WaterReport getReportByID(int ID) throws Exception {
-        String id = Integer.toString(ID);
+    public WaterReport getReportByID(long ID) throws Exception {
+        String id = Long.toString(ID);
         SQLiteDatabase db = getReadableDatabase();
 
-        String[] projection = { "__id__", "location", "author", "type", "condition" };
+        // Info we want from report that matches passed in ID
+        String[] columns = { "location", "author", "type", "condition", "user_rating", "date" };
 
-        String selection = "__id__ = ?";
-        String[] selectionArgs = new String[1];
-        selectionArgs[0] = id;
+        // Query string we pass to db, selectionArgs replaces ? in selection String
+        String selection = "_id = ?";
+        String[] selectionArgs = { id };
 
+        // Query db, creates cursor object that points at result set (matching entries from db query)
         Cursor cursor = db.query("AllReports",
-                projection,
+                columns,
                 selection,
                 selectionArgs,
                 null,
@@ -320,10 +267,11 @@ public class DBHelper extends SQLiteOpenHelper {
             String author = cursor.getString(cursor.getColumnIndexOrThrow("author"));
             String type = cursor.getString(cursor.getColumnIndexOrThrow("type"));
             String condition = cursor.getString(cursor.getColumnIndexOrThrow("condition"));
+            int user_rating = cursor.getInt(cursor.getColumnIndexOrThrow("user_rating"));
+            String date = cursor.getString(cursor.getColumnIndexOrThrow("date"));
             cursor.close();
 
-            WaterReport report = new WaterReport(WaterReport.deserialize(location), author, type, condition);
-            report.setId(ID);
+            WaterReport report = new WaterReport(ID, WaterReport.deserialize(location), author, type, condition, user_rating, date);
             return report;
         }
     }
@@ -332,16 +280,33 @@ public class DBHelper extends SQLiteOpenHelper {
     // If user tries to make a water location report with same location
     public boolean isReport(WaterReport report) throws Exception {
         SQLiteDatabase db = getReadableDatabase();
-        String location = report.getLocationAsString();
+        String location = WaterReport.getLocationAsString(report.getLocation());
 
-        // Tell db what we're looking for (projection) and our actual query string (selection)
-        String[] projection = {"location"};
+        // Info we want from report that matches passed in ID
+        // Ex: query db table to find if there are any rows that match location Starbucks
+        // id   location        author
+        // 1    Starbucks       mom
+        // 2    Target          dad
+        // 3    Starbucks       sister
+
+        // We only want to know if there are rows that have a Starbucks location, we don't care
+        // about the author or id, so our columns = {"location"}
+        String[] columns = {"location"};
+
+        // Query string we pass to db, selectionArgs replaces ? in selection String
+        // For our selection string, we want to find places that match starbucks
+        // selection = "location = Starbucks";
         String selection = "location = ?";
         String[] selectionArgs = {location};
 
-        // Query db
+        // Query db, creates cursor object that points at result set (matching entries from db query)
+        // When we do Cursor cursor = db.query(table_name, columns, selection, ....)
+        // we will have a cursor that points to a set of all the matching entries in the table:
+        // Cursor -> null
+        //           Starbucks
+        //           Starbucks
         Cursor cursor = db.query("AllReports",
-                projection,
+                columns,
                 selection,
                 selectionArgs,
                 null,
@@ -349,6 +314,67 @@ public class DBHelper extends SQLiteOpenHelper {
                 null
         );
 
-        return cursor.getCount() > 0;
+        // If cursor has any rows in it,
+        boolean answer = (cursor.getCount() > 0);
+        cursor.close();
+
+        return answer;
+    }
+
+
+    // returns array list of water reports that match passed in Location
+    public ArrayList<WaterReport> getReportsByLocation(Location LOCATION) throws Exception {
+        SQLiteDatabase db = getReadableDatabase();
+        ArrayList<WaterReport> matching_entries = new ArrayList<WaterReport>();
+        String location = WaterReport.getLocationAsString(LOCATION);
+
+        // Query string we pass to db, selectionArgs replaces ? in selection String
+        String selection = "location = ?";
+        String[] selectionArgs = {location};
+
+        // Query db, creates cursor object that points at result set (matching entries from db query)
+        // passing null into columns bc we want all attributes from report(s) that match passed in location
+        Cursor cursor = db.query("AllReports",
+                null,
+                selection,
+                selectionArgs,
+                null,
+                null,
+                null
+        );
+
+        // No reports with that location were found
+        if (!(cursor.moveToFirst())) {
+            throw new NoSuchElementException();
+        } else {
+            cursor.moveToLast();
+            while (cursor.moveToNext()) {
+                // values of report that matched location
+                long id = cursor.getLong(cursor.getColumnIndexOrThrow("_id"));
+                String author = cursor.getString(cursor.getColumnIndexOrThrow("author"));
+                String type = cursor.getString(cursor.getColumnIndexOrThrow("type"));
+                String condition = cursor.getString(cursor.getColumnIndexOrThrow("condition"));
+                int user_rating = cursor.getInt(cursor.getColumnIndexOrThrow("user_rating"));
+                String date = cursor.getString(cursor.getColumnIndexOrThrow("date"));
+
+                WaterReport report = new WaterReport(id, LOCATION, author, type, condition, user_rating, date);
+                matching_entries.add(report);
+            }
+
+            cursor.close();
+            return matching_entries;
+        }
+    }
+
+
+    // returns array list of water reports that were written by passed in username
+    public static ArrayList<WaterReport> getReportsByAuthor(String username) throws Exception {
+        ArrayList<WaterReport> matching_entries = new ArrayList<WaterReport>();
+
+
+        if (matching_entries.isEmpty()) {
+            throw new NoSuchElementException();
+        }
+        return matching_entries;
     }
 }

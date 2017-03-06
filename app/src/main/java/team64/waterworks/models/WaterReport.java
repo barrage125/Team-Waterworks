@@ -14,7 +14,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class WaterReport {
-    private int id;
+    private long id;
     private Location location;
     private String condition;
     private int user_rating;
@@ -55,17 +55,32 @@ public class WaterReport {
         this.date = df.format(today);
     }
 
+    // Constructor used ONLY by DBHelper, SHOULD NOT BE CALLED OTHERWISE
+    public WaterReport(long ID, Location location, String author, String type, String condition, int user_rating, String date) throws Exception {
+        // condition check to make sure only DBhelper calls this constructor
+        // users shouldn't be able to set final attributes like author, type, and date
+        if (getClass().equals("class java.team64.waterworks.models.DBHelper")) {
+            this.id = ID;
+            this.location = location;
+            this.author = author;
+            this.type = type;
+            this.condition = condition;
+            this.user_rating = user_rating;
+            this.date = date;
+        } else {
+            throw new IllegalAccessException();
+        }
+    }
+
 
     /**
      * get location as a string
      * @return location string
-     * Should be called on WaterReport object, ex:
-     * report.getLocationAsString();
      */
-    public String getLocationAsString() throws IOException {
+    public static String getLocationAsString(Location report_location_obj) throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(baos);
-        oos.writeObject(this.location);
+        oos.writeObject(report_location_obj);
         oos.close();
         return Base64.encodeToString(baos.toByteArray(),0);
     }
@@ -94,7 +109,7 @@ public class WaterReport {
      * get ID
      * @return id
      */
-    public int getId() {
+    public long getId() {
         return this.id;
     }
 
@@ -118,7 +133,7 @@ public class WaterReport {
      * get user rating
      * @return user rating
      */
-    public int getUser_rating() { return this.user_rating; }
+    public int getRating() { return this.user_rating; }
 
     /**
      * get author
@@ -148,7 +163,7 @@ public class WaterReport {
      * set ID
      * @param id new id
      */
-    public void setId(int id) { this.id = id; }
+    public void setId(long id) { this.id = id; }
 
     /**
      * set location
