@@ -1,8 +1,11 @@
 package team64.waterworks.controllers;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,6 +24,7 @@ public class WaterReportActivity extends AppCompatActivity implements View.OnCli
     EditText txtLong, txtLat, txtType, txtCondition;
 
     private Account account;
+    private ProgressDialog progressDialog;
 
     /**
      * Initializes all variables needed for water report activity
@@ -41,6 +45,8 @@ public class WaterReportActivity extends AppCompatActivity implements View.OnCli
 
         submit.setOnClickListener(this);
         cancel.setOnClickListener(this);
+
+        progressDialog = new ProgressDialog(this);
     }
 
     /**
@@ -54,17 +60,24 @@ public class WaterReportActivity extends AppCompatActivity implements View.OnCli
                 String condition = txtCondition.getText().toString();
                 String type = txtType.getText().toString();
                 String author = account.getUsername();
-                Location location = new Location("");
+                String latitude = txtLat.getText().toString();
+                String longitude = txtLong.getText().toString();
 
-                location.setLongitude(Double.parseDouble(txtLong.getText().toString()));
-                location.setLatitude(Double.parseDouble(txtLat.getText().toString()));
-
-                if (ReportsManager.newReport(location, author, type, condition)) {
-                    Intent intent = new Intent(WaterReportActivity.this, HomeActivity.class);
-                    startActivity(intent);
-                    Toast.makeText(getApplicationContext(), "Report submitted", Toast.LENGTH_SHORT).show();
+                if (TextUtils.isEmpty(latitude) | TextUtils.isEmpty(longitude)) {
+                    txtLat.setError("Coordinates cannot be blank!");
                 } else {
-                    Toast.makeText(getApplicationContext(), "Unable to submit", Toast.LENGTH_SHORT).show();
+                    progressDialog.setMessage("Submitting report...");
+                    progressDialog.show();
+
+                    if (!(ReportsManager.newReport(Double.parseDouble(latitude), Double.parseDouble(longitude), author, type, condition))) {
+                        progressDialog.dismiss();
+                        Toast.makeText(getApplicationContext(), "Unable to submit", Toast.LENGTH_SHORT).show();
+                    } else {
+                        progressDialog.dismiss();
+                        Intent intent = new Intent(WaterReportActivity.this, HomeActivity.class);
+                        startActivity(intent);
+                        Toast.makeText(getApplicationContext(), "Report submitted", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
 

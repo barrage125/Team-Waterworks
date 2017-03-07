@@ -102,38 +102,32 @@ public class WaterReport implements Serializable {
     /**
      * Get location as a string for storing in the AllReports db
      * @return location as string "latitude:longitude"
-     * @throws IOException if IO error occurs while writing stream header
      */
-    static String storeLocation(Location report_location_obj) throws IOException {
-        if (report_location_obj == null) {
-            return "";
-        }
-
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ObjectOutputStream oos = new ObjectOutputStream(baos);
-        oos.writeObject(report_location_obj);
-        oos.close();
-        return Base64.encodeToString(baos.toByteArray(),0);
+    static String storeLocation(double latitude, double longitude) {
+        String location = Double.toString(latitude) + ":" + Double.toString(longitude);
+        return location;
     }
 
     /**
-     * Turn string into Location object
-     * WaterReport.deserialize(report_location_string)
+     * Grab latitude from location string in AllReports DB
+     * used when creating a report object from AllReports DB
      * @param loc report's location as a string
-     * @return Location object
-     * @throws IOException if IO error occurs while writing stream header
-     * @throws ClassNotFoundException if Class of serialized object cannot be found
+     * @return a double array of the latitude and longitude coordinates
      */
-    static Location deserialize(String loc) throws IOException, ClassNotFoundException {
-        if (loc.equals("")) {
-            return new Location("");
-        }
+    static double loadLatitude(String loc) {
+        String[] coords = loc.split(":");
+        return Double.parseDouble(coords[0]);
+    }
 
-        byte[] data = Base64.decode(loc, 0);
-        ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(data));
-        Object o = ois.readObject();
-        ois.close();
-        return (Location) o;
+    /**
+     * Grab longitude from location string in AllReports DB
+     * used when creating a report object from AllReports DB
+     * @param loc report's location as a string
+     * @return a double array of the latitude and longitude coordinates
+     */
+    static double loadLongitude(String loc) {
+        String[] coords = loc.split(":");
+        return Double.parseDouble(coords[1]);
     }
 
 

@@ -21,14 +21,13 @@ public class ReportsManager {
 
     /**
      * Create a new Water Report and add it to AllReports SQLite DB
-     * @param location location of water you're reporting
      * @param author user creating the report
      * @param type type of water report (historical, location, or purity)
      * @param condition condition of the water on a scale of health risk, poor, ok, great, pristine
      * @return if the report was created successfully or not
      */
-    public static boolean newReport(Location location, String author, String type, String condition) {
-        WaterReport report = new WaterReport(, location, author, type, condition);
+    public static boolean newReport(double latitude, double longitude, String author, String type, String condition) {
+        WaterReport report = new WaterReport(latitude, longitude, author, type, condition);
 
         // Checks if water location report already exists
 //        if (type.equals("location")) {

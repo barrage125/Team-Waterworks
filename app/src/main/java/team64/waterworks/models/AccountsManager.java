@@ -170,7 +170,7 @@ public class AccountsManager {
             Log.e("Unable to Hash Password", "Algorithm for hashing password not found!");
         } catch (ClassNotFoundException | IOException e) {
             e.printStackTrace();
-            Log.e("Profile Serialize Error", "Failed to deserialize profile");
+            Log.e("Profile Serialize Error", "Failed to loadLocation profile");
         } catch (Exception e) {
             e.printStackTrace();
             Log.e("Unknown Error", "Worker may or may not be saved.");

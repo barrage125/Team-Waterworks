@@ -151,8 +151,8 @@ class DBHelper extends SQLiteOpenHelper {
      * @param password of account
      * @return Account matching the corresponding username/password combo
      * @throws NoSuchAlgorithmException if Base64 algo cannot be found in hashPassword()
-     * @throws ClassNotFoundException if Class of serialized object cannot be found in deserialize()
-     * @throws IOException if IO error occurs while writing stream header in deserialize()
+     * @throws ClassNotFoundException if Class of serialized object cannot be found in loadLocation()
+     * @throws IOException if IO error occurs while writing stream header in loadLocation()
      */
     Account AccountWithCreds(String username, String password) throws NoSuchAlgorithmException,
                                                                       ClassNotFoundException,
@@ -265,8 +265,8 @@ class DBHelper extends SQLiteOpenHelper {
      * Returns report with the corresponding ID
      * @param ID id of the water report
      * @return Water Report object with the corresponding ID
-     * @throws IOException if IO error occurs while writing stream header in deserialize()
-     * @throws ClassNotFoundException if Class of serialized object cannot be found in deserialize()
+     * @throws IOException if IO error occurs while writing stream header in loadLocation()
+     * @throws ClassNotFoundException if Class of serialized object cannot be found in loadLocation()
      * @throws IllegalAccessException if WaterReport constructor called by class other than DBHelper
      */
     WaterReport getReportByID(long ID) throws IOException, ClassNotFoundException,
@@ -299,7 +299,7 @@ class DBHelper extends SQLiteOpenHelper {
             String date = cursor.getString(cursor.getColumnIndexOrThrow("date"));
             cursor.close();
 
-            return new WaterReport(ID, , WaterReport.deserialize(location), , author, type,
+            return new WaterReport(ID, , WaterReport.loadLocation(location), , author, type,
                     condition, user_rating, date);
         }
     }
@@ -386,8 +386,8 @@ class DBHelper extends SQLiteOpenHelper {
      * Creates array list of water reports that were submitted by the corresponding user
      * @param author user we're searching for
      * @return array list of water reports written by specified user
-     * @throws IOException if IO error occurs while writing stream header in deserialize()
-     * @throws ClassNotFoundException if Class of serialized object cannot be found in deserialize()
+     * @throws IOException if IO error occurs while writing stream header in loadLocation()
+     * @throws ClassNotFoundException if Class of serialized object cannot be found in loadLocation()
      * @throws IllegalAccessException if WaterReport constructor called by class other than DBHelper
      */
     ArrayList<WaterReport> getReportsByAuthor(String author) throws IOException,
@@ -422,7 +422,7 @@ class DBHelper extends SQLiteOpenHelper {
                 int user_rating = cursor.getInt(cursor.getColumnIndexOrThrow("user_rating"));
                 String date = cursor.getString(cursor.getColumnIndexOrThrow("date"));
 
-                WaterReport report = new WaterReport(id, , WaterReport.deserialize(location), ,
+                WaterReport report = new WaterReport(id, , WaterReport.loadLocation(location), ,
                         author, type, condition, user_rating, date);
                 matching_entries.add(report);
             }
@@ -435,8 +435,8 @@ class DBHelper extends SQLiteOpenHelper {
     /**
      * Creates array list of all water reports in AllReports SQLite DB
      * @return array list of all water reports
-     * @throws IOException if IO error occurs while writing stream header in deserialize()
-     * @throws ClassNotFoundException if Class of serialized object cannot be found in deserialize()
+     * @throws IOException if IO error occurs while writing stream header in loadLocation()
+     * @throws ClassNotFoundException if Class of serialized object cannot be found in loadLocation()
      * @throws IllegalAccessException if WaterReport constructor called by class other than DBHelper
      */
     ArrayList<WaterReport> getAllReports() throws IOException, ClassNotFoundException,
@@ -469,7 +469,7 @@ class DBHelper extends SQLiteOpenHelper {
                 int user_rating = cursor.getInt(cursor.getColumnIndexOrThrow("user_rating"));
                 String date = cursor.getString(cursor.getColumnIndexOrThrow("date"));
 
-                WaterReport report = new WaterReport(id, , WaterReport.deserialize(location), ,
+                WaterReport report = new WaterReport(id, , WaterReport.loadLocation(location), ,
                         author, type, condition, user_rating, date);
                 all_entries.add(report);
             }
