@@ -93,7 +93,7 @@ class DBHelper extends SQLiteOpenHelper {
     /**
      * Adds a new account to AllUsers SQLite DB
      * @throws NoSuchAlgorithmException if Base64 algo for hashPassword() not found
-     * @throws IOException if IO error occurs while writing stream header in getProfile().serialize()
+     * @throws IOException if IO error occurs while writing stream header in getProfile().storeLocation()
      */
     void addAccount(Account account) throws NoSuchAlgorithmException, IOException {
         SQLiteDatabase db = getWritableDatabase();
@@ -126,7 +126,7 @@ class DBHelper extends SQLiteOpenHelper {
      * Updates an already existing account in AllUsers SQLite DB
      * For every changed field, new values need to be set on account in editAccount activity
      * @param account Account to update
-     * @throws IOException IO error occurs while writing stream header in getProfile().serialize()
+     * @throws IOException IO error occurs while writing stream header in getProfile().storeLocation()
      */
     void updateAccount(Account account) throws IOException {
         String username = account.getUsername();
@@ -218,14 +218,14 @@ class DBHelper extends SQLiteOpenHelper {
     /**
      * Adds a new Water Report to AllReports SQLite DB
      * @param report new Water Report to be added
-     * @throws IOException if IO error occurs while writing stream header in serialize()
+     * @throws IOException if IO error occurs while writing stream header in storeLocation()
      */
     void addReport(WaterReport report) throws IOException {
         SQLiteDatabase db = getWritableDatabase();
 
         // Create a new set of values for the new report row
         ContentValues values = new ContentValues();
-        values.put("location", "");
+        values.put("location", WaterReport.storeLocation(report.getLocation()));
         values.put("author", report.getAuthor());
         values.put("type", report.getType());
         values.put("condition", report.getCondition());
@@ -240,7 +240,7 @@ class DBHelper extends SQLiteOpenHelper {
      * Updates an already existing report in AllReports SQLite DB
      * For every changed field, new values need to be set on report in editReport activity
      * @param report water report to update
-     * @throws IOException if IO error occurs while writing stream header in serialize()
+     * @throws IOException if IO error occurs while writing stream header in storeLocation()
      */
     void updateReport(WaterReport report) throws IOException {
         String id = Long.toString(report.getId());
@@ -249,7 +249,7 @@ class DBHelper extends SQLiteOpenHelper {
         // New values for columns (report attributes). id, author, type, and date not included
         // bc they're final attributes and shouldn't be changeable
         ContentValues values = new ContentValues();
-        values.put("location", WaterReport.serialize(report.getLocation()));
+        values.put("location", WaterReport.storeLocation(report.getLocation()));
         values.put("condition", report.getCondition());
         values.put("user_rating", report.getRating());
 
@@ -299,8 +299,8 @@ class DBHelper extends SQLiteOpenHelper {
             String date = cursor.getString(cursor.getColumnIndexOrThrow("date"));
             cursor.close();
 
-            return new WaterReport(ID, WaterReport.deserialize(location), author, type, condition,
-                                   user_rating, date);
+            return new WaterReport(ID, , WaterReport.deserialize(location), , author, type,
+                    condition, user_rating, date);
         }
     }
 
@@ -308,12 +308,12 @@ class DBHelper extends SQLiteOpenHelper {
      * Checks if water report with same location already exists
      * @param report water report to check
      * @return if water report already exists
-     * @throws IOException if IO error occurs while writing stream header in serialize()
+     * @throws IOException if IO error occurs while writing stream header in storeLocation()
      */
     boolean isReport(WaterReport report) throws IOException {
         SQLiteDatabase db = getReadableDatabase();
-        Log.e("Location at isReport", WaterReport.serialize(report.getLocation()));
-        String location = WaterReport.serialize(report.getLocation());
+        Log.e("Location at isReport", WaterReport.storeLocation(report.getLocation()));
+        String location = WaterReport.storeLocation(report.getLocation());
 
         // Info we want from report that matches passed in ID
         String[] columns = {"location"};
@@ -337,14 +337,14 @@ class DBHelper extends SQLiteOpenHelper {
      * Creates array list of water reports that match corresponding Location
      * @param LOCATION location we're searching for water reports
      * @return array list of water reports in specified location
-     * @throws IOException if IO error occurs while writing stream header in serialize()
+     * @throws IOException if IO error occurs while writing stream header in storeLocation()
      * @throws IllegalAccessException if WaterReport constructor called by class other than DBHelper
      */
     ArrayList<WaterReport> getReportsByLocation(Location LOCATION) throws IOException,
                                                                           IllegalAccessException {
         SQLiteDatabase db = getReadableDatabase();
         ArrayList<WaterReport> matching_entries = new ArrayList<>();
-        String location = WaterReport.serialize(LOCATION);
+        String location = WaterReport.storeLocation(LOCATION);
 
         // Query string we pass to db, selectionArgs replaces ? in selection String
         String selection = "location = ?";
@@ -372,8 +372,8 @@ class DBHelper extends SQLiteOpenHelper {
                 int user_rating = cursor.getInt(cursor.getColumnIndexOrThrow("user_rating"));
                 String date = cursor.getString(cursor.getColumnIndexOrThrow("date"));
 
-                WaterReport report = new WaterReport(id, LOCATION, author, type, condition,
-                                                     user_rating, date);
+                WaterReport report = new WaterReport(id, , LOCATION, , author, type,
+                        condition, user_rating, date);
                 matching_entries.add(report);
             }
 
@@ -422,8 +422,8 @@ class DBHelper extends SQLiteOpenHelper {
                 int user_rating = cursor.getInt(cursor.getColumnIndexOrThrow("user_rating"));
                 String date = cursor.getString(cursor.getColumnIndexOrThrow("date"));
 
-                WaterReport report = new WaterReport(id, WaterReport.deserialize(location), author,
-                                                     type, condition, user_rating, date);
+                WaterReport report = new WaterReport(id, , WaterReport.deserialize(location), ,
+                        author, type, condition, user_rating, date);
                 matching_entries.add(report);
             }
 
@@ -469,8 +469,8 @@ class DBHelper extends SQLiteOpenHelper {
                 int user_rating = cursor.getInt(cursor.getColumnIndexOrThrow("user_rating"));
                 String date = cursor.getString(cursor.getColumnIndexOrThrow("date"));
 
-                WaterReport report = new WaterReport(id, WaterReport.deserialize(location), author,
-                                                     type, condition, user_rating, date);
+                WaterReport report = new WaterReport(id, , WaterReport.deserialize(location), ,
+                        author, type, condition, user_rating, date);
                 all_entries.add(report);
             }
 

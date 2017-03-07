@@ -43,7 +43,7 @@ public class AccountsManager {
             return false;
         } catch (IOException e) {
             e.printStackTrace();
-            Log.e("Profile Serialize Error", "Failed to serialize profile");
+            Log.e("Profile Serialize Error", "Failed to storeLocation profile");
             return false;
         } catch (Exception e) {
             e.printStackTrace();
@@ -78,7 +78,7 @@ public class AccountsManager {
             return false;
         } catch (IOException e) {
             e.printStackTrace();
-            Log.e("Profile Serialize Error", "Failed to serialize profile");
+            Log.e("Profile Serialize Error", "Failed to storeLocation profile");
             return false;
         } catch (Exception e) {
             e.printStackTrace();
@@ -112,7 +112,7 @@ public class AccountsManager {
             return false;
         } catch (IOException e) {
             e.printStackTrace();
-            Log.e("Profile Serialize Error", "Failed to serialize profile");
+            Log.e("Profile Serialize Error", "Failed to storeLocation profile");
             return false;
         } catch (Exception e) {
             e.printStackTrace();
@@ -146,7 +146,7 @@ public class AccountsManager {
             return false;
         } catch (IOException e) {
             e.printStackTrace();
-            Log.e("Profile Serialize Error", "Failed to serialize profile");
+            Log.e("Profile Serialize Error", "Failed to storeLocation profile");
             return false;
         } catch (Exception e) {
             e.printStackTrace();
@@ -189,7 +189,7 @@ public class AccountsManager {
             return true;
         } catch (IOException e) {
             e.printStackTrace();
-            Log.e("Profile Serialize Error", "Failed to serialize profile");
+            Log.e("Profile Serialize Error", "Failed to storeLocation profile");
         }
         return false;
     }

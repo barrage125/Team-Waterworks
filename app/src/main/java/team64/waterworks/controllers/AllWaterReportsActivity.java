@@ -11,12 +11,13 @@ import team64.waterworks.R;
 import team64.waterworks.models.*;
 
 
-public class AllWaterReportsActivity extends AppCompatActivity{
+public class AllWaterReportsActivity extends AppCompatActivity {
     private TextView allWaterReportsText;
-    private ListView allWaterReportsList;
 
-    private ArrayAdapter<WaterReport> reportsArrayAdapter;
+    private ListView mainListView;
+
     private ArrayList<WaterReport> reportsArrayList;
+    private ArrayAdapter<WaterReport> reportsArrayAdapter;
 
 
     @Override
@@ -25,13 +26,14 @@ public class AllWaterReportsActivity extends AppCompatActivity{
         setContentView(R.layout.activity_all_water_reports);
 
         allWaterReportsText = (TextView) findViewById(R.id.all_reports_text);
-        allWaterReportsList = (ListView) findViewById(R.id.all_reports_list);
+        mainListView = (ListView) findViewById(R.id.all_reports_list);
+
 
         reportsArrayList = ReportsManager.viewAllReports();
 
         if (reportsArrayList != null) {
-            reportsArrayAdapter = new ArrayAdapter<>(this, layout.simple_list_item_1, reportsArrayList);
-            allWaterReportsList.setAdapter(reportsArrayAdapter);
+            reportsArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, reportsArrayList);
+            mainListView.setAdapter(reportsArrayAdapter);
         }
     }
 }

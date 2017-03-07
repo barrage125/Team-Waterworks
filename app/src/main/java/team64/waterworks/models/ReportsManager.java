@@ -28,7 +28,7 @@ public class ReportsManager {
      * @return if the report was created successfully or not
      */
     public static boolean newReport(Location location, String author, String type, String condition) {
-        WaterReport report = new WaterReport(location, author, type, condition);
+        WaterReport report = new WaterReport(, location, author, type, condition);
 
         // Checks if water location report already exists
 //        if (type.equals("location")) {

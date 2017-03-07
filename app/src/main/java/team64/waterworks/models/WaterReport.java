@@ -17,7 +17,8 @@ public class WaterReport implements Serializable {
 
      /**** INSTANCE VARIABLES ****/
     private long id;
-    private Location location;
+    private double latitude;
+    private double longitude;
     private String condition;
     private int user_rating;
 
@@ -38,13 +39,15 @@ public class WaterReport implements Serializable {
      /******************/
     /**
      * Create a new water report.
-     * @param location location of water reported
+     * @param latitude lat of the map pin (water location)
+     * @param longitude longitude of the map pin (water location)
      * @param author author of report
      * @param type type of water report
      * @param condition condition of water based on water purity report
      */
-    WaterReport(Location location, String author, String type, String condition) {
-        this.location = location;
+    WaterReport(double latitude, double longitude, String author, String type, String condition) {
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.condition = condition;
 
         this.author = author;
@@ -66,21 +69,22 @@ public class WaterReport implements Serializable {
      * Used when looking up a water report directly from SQLite and need and instance of that report
      * as a Water Report object
      * @param ID id of water report from water report found in SQLite
-     * @param location of water reported
+     * @param latitude lat of the map pin (water location)
+     *@param longitude longitude of the map pin (water location)
      * @param author user who wrote the water report
      * @param type type of water report (historical, location, or purity)
      * @param condition condition of water
      * @param user_rating user rating of water location
-     * @param date when report was originally posted
-     * @throws IllegalAccessException when class other than DBHelper tries to call this constructor
+     * @param date when report was originally posted      @throws IllegalAccessException when class other than DBHelper tries to call this constructor
      */
-    WaterReport(long ID, Location location, String author, String type, String condition,
+    WaterReport(long ID, double latitude, double longitude, String author, String type, String condition,
                 int user_rating, String date) throws IllegalAccessException {
         // condition check to make sure only DBHelper class calls this constructor
         // users shouldn't be able to set SQLite auto generated values like id
         if (getClass().toString().equals("class java.team64.waterworks.models.DBHelper")) {
             this.id = ID;
-            this.location = location;
+            this.latitude = latitude;
+            this.longitude = longitude;
             this.author = author;
             this.type = type;
             this.condition = condition;
@@ -96,11 +100,11 @@ public class WaterReport implements Serializable {
       /** METHODS **/
      /*************/
     /**
-     * Get location as a string
-     * @return location as string
+     * Get location as a string for storing in the AllReports db
+     * @return location as string "latitude:longitude"
      * @throws IOException if IO error occurs while writing stream header
      */
-    static String serialize(Location report_location_obj) throws IOException {
+    static String storeLocation(Location report_location_obj) throws IOException {
         if (report_location_obj == null) {
             return "";
         }
@@ -145,11 +149,19 @@ public class WaterReport implements Serializable {
     }
 
     /**
-     * Get location of water in report
-     * @return location of water
+     * Get latitude of water location in report
+     * @return latitude of water location
      */
-    Location getLocation() {
-        return this.location;
+    double getLatitude() {
+        return this.latitude;
+    }
+
+    /**
+     * Get longitude of water location in report
+     * @return longitude of water location
+     */
+    double getLongitude() {
+        return this.longitude;
     }
 
     /**
@@ -193,11 +205,19 @@ public class WaterReport implements Serializable {
       /** SETTERS **/
      /*************/
     /**
-     * Set location of water report
-     * @param location new location of water report
+     * Set latitude of water location in report
+     * @param latitude new latitude of water location
      */
-    public void setLocation(Location location) {
-        this.location = location;
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    /**
+     * Set latitude of water location in report
+     * @param longitude new latitude of water location
+     */
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
     /**
