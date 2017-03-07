@@ -5,7 +5,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.support.v7.app.AppCompatActivity;
 import java.util.ArrayList;
-import java.util.Collection;
+import android.R.layout;
 
 import team64.waterworks.R;
 import team64.waterworks.models.*;
@@ -30,7 +30,7 @@ public class AllWaterReportsActivity extends AppCompatActivity{
         reportsArrayList = ReportsManager.viewAllReports();
 
         if (reportsArrayList != null) {
-            reportsArrayAdapter = new ArrayAdapter<>(this, R.layout.activity_all_water_reports, reportsArrayList);
+            reportsArrayAdapter = new ArrayAdapter<>(this, layout.simple_list_item_1, reportsArrayList);
             allWaterReportsList.setAdapter(reportsArrayAdapter);
         }
     }
