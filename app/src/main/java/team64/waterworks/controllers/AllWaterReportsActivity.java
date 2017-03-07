@@ -13,11 +13,9 @@ import team64.waterworks.models.*;
 
 public class AllWaterReportsActivity extends AppCompatActivity {
     private TextView allWaterReportsText;
-
     private ListView mainListView;
-
-    private ArrayList<WaterReport> reportsArrayList;
-    private ArrayAdapter<WaterReport> reportsArrayAdapter;
+    private ArrayList<String> reportsArrayList;
+    private ArrayAdapter<String> reportsArrayAdapter;
 
 
     @Override
@@ -30,6 +28,7 @@ public class AllWaterReportsActivity extends AppCompatActivity {
 
 
         reportsArrayList = ReportsManager.viewAllReports();
+        //reportsArrayList.get(0);
 
         if (reportsArrayList != null) {
             reportsArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, reportsArrayList);

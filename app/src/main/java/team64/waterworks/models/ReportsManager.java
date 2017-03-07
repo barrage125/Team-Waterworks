@@ -145,7 +145,7 @@ public class ReportsManager {
      * Creates array list of all reports stored in AllReports SQLite DB
      * @return array list of all reports
      */
-    public static ArrayList<WaterReport> viewAllReports() {
+    public static ArrayList<String> viewAllReports() {
         try {
             return dbHelper.getAllReports();
         } catch (NoSuchElementException e) {

@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 
@@ -438,10 +440,10 @@ class DBHelper extends SQLiteOpenHelper {
      * @throws ClassNotFoundException if Class of serialized object cannot be found in loadLocation()
      * @throws IllegalAccessException if WaterReport constructor called by class other than DBHelper
      */
-    ArrayList<WaterReport> getAllReports() throws IOException, ClassNotFoundException,
+    ArrayList<String> getAllReports() throws IOException, ClassNotFoundException,
                                                                IllegalAccessException {
         SQLiteDatabase db = getReadableDatabase();
-        ArrayList<WaterReport> all_entries = new ArrayList<>();
+        ArrayList<String> all_entries = new ArrayList<>();
 
         // Query string we pass to db
         String selectQuery = "SELECT * FROM AllReports";
@@ -468,10 +470,12 @@ class DBHelper extends SQLiteOpenHelper {
                 int user_rating = cursor.getInt(cursor.getColumnIndexOrThrow("user_rating"));
                 String date = cursor.getString(cursor.getColumnIndexOrThrow("date"));
 
-                WaterReport report = new WaterReport(id, WaterReport.loadLatitude(loc),
-                                                     WaterReport.loadLongitude(loc), author, type,
-                                                     condition, user_rating, date);
-                all_entries.add(report);
+                // Put them in String array
+                String[] report = { Long.toString(id), loc, author, type, condition,
+                                    Integer.toString(user_rating), date};
+                List<String> string_report = Arrays.asList(report);
+
+                all_entries.addAll(string_report);
             }
 
             cursor.close();
