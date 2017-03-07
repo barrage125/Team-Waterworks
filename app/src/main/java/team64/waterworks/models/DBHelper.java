@@ -442,8 +442,8 @@ class DBHelper extends SQLiteOpenHelper {
      */
     ArrayList<String> getAllReports() throws IOException, ClassNotFoundException,
                                                                IllegalAccessException {
-        SQLiteDatabase db = getReadableDatabase();
-        ArrayList<String> all_entries = new ArrayList<>();
+        SQLiteDatabase db = getWritableDatabase();
+        ArrayList<String> all_entries = new ArrayList<String>();
 
         // Query string we pass to db
         String selectQuery = "SELECT * FROM AllReports";
@@ -457,10 +457,8 @@ class DBHelper extends SQLiteOpenHelper {
             cursor.close();
             throw new NoSuchElementException();
         } else {
-            cursor.moveToLast();
-
             // Recursively add reports to array list until at the end of cursor's result set
-            while (cursor.moveToNext()) {
+            while (cursor.isAfterLast() == false) {
                 // set values of report
                 long id = cursor.getLong(cursor.getColumnIndexOrThrow("_id"));
                 String author = cursor.getString(cursor.getColumnIndexOrThrow("author"));
@@ -470,12 +468,14 @@ class DBHelper extends SQLiteOpenHelper {
                 int user_rating = cursor.getInt(cursor.getColumnIndexOrThrow("user_rating"));
                 String date = cursor.getString(cursor.getColumnIndexOrThrow("date"));
 
-                // Put them in String array
-                String[] report = { Long.toString(id), loc, author, type, condition,
-                                    Integer.toString(user_rating), date};
-                List<String> string_report = Arrays.asList(report);
+                // Put them in String
+                String report = '(' + Long.toString(id) + ')' + ' ' + '(' + loc + ')' + ' ' +
+                                '(' + author + ')' + ' ' + '(' + type + ')' + ' ' + '(' +
+                                condition + ')' + ' ' + '(' + Integer.toString(user_rating) + ')'
+                                + ' ' + '(' + date + ')';
 
-                all_entries.addAll(string_report);
+                all_entries.add(report);
+                cursor.moveToNext();
             }
 
             cursor.close();
