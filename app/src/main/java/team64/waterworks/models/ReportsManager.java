@@ -32,11 +32,9 @@ public class ReportsManager {
         // Checks if water location report already exists
 //        if (type.equals("location")) {
             try {
-                if (location != null) {
-                    if (isValidReport(report)) {
-                        Log.e("Report Exists", "A water location report for that location already exists!");
-                        return false;
-                    }
+                if (locationTaken(latitude, longitude)) {
+                    Log.e("Report Exists", "A water location report for that location already exists!");
+                    return false;
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -104,15 +102,14 @@ public class ReportsManager {
 
     /**
      * Create ArrayList of all reports in SQLite that correspond to the passed in location object
-     * @param location location of the reports needed
      * @return ArrayList of reports that correspond to passed in location
      * @throws IOException when location object passed in
      * @throws NoSuchElementException
      * @throws Exception
      */
-    public static ArrayList<WaterReport> getReportsByLocation(Location location) throws Exception {
+    public static ArrayList<WaterReport> getReportsByLocation(double latitude, double longitude) throws Exception {
         try {
-            return dbHelper.getReportsByLocation(location);
+            return dbHelper.getReportsByLocation(latitude, longitude);
         } catch (IOException e) {
             e.printStackTrace();
             Log.e("Loc Serialize Error", "Could not convert location to string for querying db");
@@ -162,13 +159,14 @@ public class ReportsManager {
     }
 
     /**
-     * Checks to see if passed in report already exists
-     * @param report report to check
-     * @return if the water location report already exists
+     * Checks to see if a report already exists in location
+     * @param latitude latitude of location
+     * @param longitude longitude of location
+     * @return if the water location is already taken
      */
-    private static boolean isValidReport(WaterReport report) {
+    private static boolean locationTaken(double latitude, double longitude) {
         try {
-            return dbHelper.isReport(report);
+            return dbHelper.isLocation(latitude, longitude);
         } catch (IOException e) {
             e.printStackTrace();
             Log.e("Loc Serialize Error", "Could not convert location to string for querying db");

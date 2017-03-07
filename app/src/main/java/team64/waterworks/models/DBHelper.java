@@ -225,7 +225,7 @@ class DBHelper extends SQLiteOpenHelper {
 
         // Create a new set of values for the new report row
         ContentValues values = new ContentValues();
-        values.put("location", WaterReport.storeLocation(report.getLocation()));
+        values.put("location", WaterReport.storeLocation(report.getLatitude(), report.getLongitude()));
         values.put("author", report.getAuthor());
         values.put("type", report.getType());
         values.put("condition", report.getCondition());
@@ -249,7 +249,7 @@ class DBHelper extends SQLiteOpenHelper {
         // New values for columns (report attributes). id, author, type, and date not included
         // bc they're final attributes and shouldn't be changeable
         ContentValues values = new ContentValues();
-        values.put("location", WaterReport.storeLocation(report.getLocation()));
+        values.put("location", WaterReport.storeLocation(report.getLatitude(), report.getLongitude()));
         values.put("condition", report.getCondition());
         values.put("user_rating", report.getRating());
 
@@ -299,21 +299,20 @@ class DBHelper extends SQLiteOpenHelper {
             String date = cursor.getString(cursor.getColumnIndexOrThrow("date"));
             cursor.close();
 
-            return new WaterReport(ID, , WaterReport.loadLocation(location), , author, type,
-                    condition, user_rating, date);
+            return new WaterReport(ID, WaterReport.loadLatitude(location),
+                                   WaterReport.loadLongitude(location), author, type, condition,
+                                   user_rating, date);
         }
     }
 
     /**
      * Checks if water report with same location already exists
-     * @param report water report to check
      * @return if water report already exists
      * @throws IOException if IO error occurs while writing stream header in storeLocation()
      */
-    boolean isReport(WaterReport report) throws IOException {
+    boolean isLocation(double latitude, double longitude) throws IOException {
         SQLiteDatabase db = getReadableDatabase();
-        Log.e("Location at isReport", WaterReport.storeLocation(report.getLocation()));
-        String location = WaterReport.storeLocation(report.getLocation());
+        String location = WaterReport.storeLocation(latitude, longitude);
 
         // Info we want from report that matches passed in ID
         String[] columns = {"location"};
@@ -335,16 +334,15 @@ class DBHelper extends SQLiteOpenHelper {
 
     /**
      * Creates array list of water reports that match corresponding Location
-     * @param LOCATION location we're searching for water reports
      * @return array list of water reports in specified location
      * @throws IOException if IO error occurs while writing stream header in storeLocation()
      * @throws IllegalAccessException if WaterReport constructor called by class other than DBHelper
      */
-    ArrayList<WaterReport> getReportsByLocation(Location LOCATION) throws IOException,
+    ArrayList<WaterReport> getReportsByLocation(double latitude, double longitude) throws IOException,
                                                                           IllegalAccessException {
         SQLiteDatabase db = getReadableDatabase();
         ArrayList<WaterReport> matching_entries = new ArrayList<>();
-        String location = WaterReport.storeLocation(LOCATION);
+        String location = WaterReport.storeLocation(latitude, longitude);
 
         // Query string we pass to db, selectionArgs replaces ? in selection String
         String selection = "location = ?";
@@ -372,8 +370,8 @@ class DBHelper extends SQLiteOpenHelper {
                 int user_rating = cursor.getInt(cursor.getColumnIndexOrThrow("user_rating"));
                 String date = cursor.getString(cursor.getColumnIndexOrThrow("date"));
 
-                WaterReport report = new WaterReport(id, , LOCATION, , author, type,
-                        condition, user_rating, date);
+                WaterReport report = new WaterReport(id,latitude, longitude, author, type, condition,
+                                                     user_rating, date);
                 matching_entries.add(report);
             }
 
@@ -416,14 +414,15 @@ class DBHelper extends SQLiteOpenHelper {
             while (cursor.moveToNext()) {
                 // values of report written by user
                 long id = cursor.getLong(cursor.getColumnIndexOrThrow("_id"));
-                String location = cursor.getString(cursor.getColumnIndexOrThrow("location"));
+                String loc = cursor.getString(cursor.getColumnIndexOrThrow("location"));
                 String type = cursor.getString(cursor.getColumnIndexOrThrow("type"));
                 String condition = cursor.getString(cursor.getColumnIndexOrThrow("condition"));
                 int user_rating = cursor.getInt(cursor.getColumnIndexOrThrow("user_rating"));
                 String date = cursor.getString(cursor.getColumnIndexOrThrow("date"));
 
-                WaterReport report = new WaterReport(id, , WaterReport.loadLocation(location), ,
-                        author, type, condition, user_rating, date);
+                WaterReport report = new WaterReport(id, WaterReport.loadLatitude(loc),
+                                                     WaterReport.loadLongitude(loc), author, type,
+                                                     condition, user_rating, date);
                 matching_entries.add(report);
             }
 
@@ -463,14 +462,15 @@ class DBHelper extends SQLiteOpenHelper {
                 // set values of report
                 long id = cursor.getLong(cursor.getColumnIndexOrThrow("_id"));
                 String author = cursor.getString(cursor.getColumnIndexOrThrow("author"));
-                String location = cursor.getString(cursor.getColumnIndexOrThrow("location"));
+                String loc = cursor.getString(cursor.getColumnIndexOrThrow("location"));
                 String type = cursor.getString(cursor.getColumnIndexOrThrow("type"));
                 String condition = cursor.getString(cursor.getColumnIndexOrThrow("condition"));
                 int user_rating = cursor.getInt(cursor.getColumnIndexOrThrow("user_rating"));
                 String date = cursor.getString(cursor.getColumnIndexOrThrow("date"));
 
-                WaterReport report = new WaterReport(id, , WaterReport.loadLocation(location), ,
-                        author, type, condition, user_rating, date);
+                WaterReport report = new WaterReport(id, WaterReport.loadLatitude(loc),
+                                                     WaterReport.loadLongitude(loc), author, type,
+                                                     condition, user_rating, date);
                 all_entries.add(report);
             }
 
