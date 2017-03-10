@@ -146,7 +146,7 @@ public class WaterReport implements Serializable {
      * Get latitude of water location in report
      * @return latitude of water location
      */
-    double getLatitude() {
+    public double getLatitude() {
         return this.latitude;
     }
 
@@ -154,7 +154,7 @@ public class WaterReport implements Serializable {
      * Get longitude of water location in report
      * @return longitude of water location
      */
-    double getLongitude() {
+    public double getLongitude() {
         return this.longitude;
     }
 
@@ -162,7 +162,7 @@ public class WaterReport implements Serializable {
      * Get condition of water in report
      * @return condition of water
      */
-    String getCondition() {
+    public String getCondition() {
         return this.condition;
     }
 
@@ -170,13 +170,13 @@ public class WaterReport implements Serializable {
      * Get user rating of water body in report
      * @return user rating
      */
-    int getRating() { return this.user_rating; }
+    public int getRating() { return this.user_rating; }
 
     /**
      * Get user who initially submitted water report
      * @return author of water report
      */
-    String getAuthor() {
+    public String getAuthor() {
         return this.author;
     }
 
@@ -184,7 +184,7 @@ public class WaterReport implements Serializable {
      * Get type of water report (historical, location, purity)
      * @return type of water report
      */
-    String getType() {
+    public String getType() {
         return this.type;
     }
 
@@ -192,7 +192,7 @@ public class WaterReport implements Serializable {
      * Get date water report was initially submitted
      * @return date
      */
-    String getDate() { return this.date; }
+    public String getDate() { return this.date; }
 
 
        /*************/
