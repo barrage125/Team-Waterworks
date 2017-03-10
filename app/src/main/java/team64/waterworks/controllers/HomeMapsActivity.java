@@ -40,33 +40,37 @@ public class HomeMapsActivity extends FragmentActivity implements OnMapReadyCall
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
+        try {
+            mMap = googleMap;
 
-        mMap.setOnInfoWindowClickListener(this);
+            mMap.setOnInfoWindowClickListener(this);
 
-        ArrayList<String> waterReports = ReportsManager.viewAllReports();
+            ArrayList<String> waterReports = ReportsManager.viewAllReports();
 
-        if (waterReports != null) {
-            for (int i = 0; i < waterReports.size(); i++) {
-                String[] reportsData = waterReports.get(i).split(" ", 0);
-                String idString = reportsData[0].replace("(", "").replace(")","");
-                Long idLong = Long.parseLong(idString);
-                Double lng = ReportsManager.getReportByID(idLong).getLongitude();
-                Double lat = ReportsManager.getReportByID(idLong).getLatitude();
+            if (waterReports != null) {
+                for (int i = 0; i < waterReports.size(); i++) {
+                    String[] reportsData = waterReports.get(i).split(" ", 0);
+                    String idString = reportsData[0].replace("(", "").replace(")", "");
+                    Long idLong = Long.parseLong(idString);
+                    Double lng = ReportsManager.getReportByID(idLong).getLongitude();
+                    Double lat = ReportsManager.getReportByID(idLong).getLatitude();
 
-                Marker temp = mMap.addMarker(new MarkerOptions().position(new LatLng(lat, lng))
-                        .title("Water Report: " + ReportsManager.getReportByID(idLong).getId())
-                        .snippet("Longitude: " + lng + "\nLatitude: " + lat + "\nAuthor: "
-                                + ReportsManager.getReportByID(idLong).getAuthor()
-                                + "\nType: " + ReportsManager.getReportByID(idLong).getType()));
+                    Marker temp = mMap.addMarker(new MarkerOptions().position(new LatLng(lat, lng))
+                            .title("Water Report: " + ReportsManager.getReportByID(idLong).getId())
+                            .snippet("Longitude: " + lng + "\nLatitude: " + lat + "\nAuthor: "
+                                    + ReportsManager.getReportByID(idLong).getAuthor()
+                                    + "\nType: " + ReportsManager.getReportByID(idLong).getType()));
+                }
             }
+
+
+            // Add a marker and move camera
+            LatLng location = new LatLng(-34, 151);
+            mMap.addMarker(new MarkerOptions().position(location).title("WaterReport").snippet("Sydney, Australia"));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(location));
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-
-        // Add a marker and move camera
-        LatLng location = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(location).title("WaterReport").snippet("Sydney, Australia"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(location));
     }
 
     @Override
