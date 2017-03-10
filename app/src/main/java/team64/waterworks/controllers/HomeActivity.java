@@ -29,6 +29,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         Button myProfile = (Button) findViewById(R.id.view_profile_btn);
         Button viewReports = (Button) findViewById(R.id.homeViewRepBTN);
         Button createReport = (Button) findViewById(R.id.create_report_btn);
+        Button viewMap = (Button) findViewById(R.id.view_map_btn);
         TextView welcome = (TextView) findViewById(R.id.welcome_message);
         welcome.setText("Welcome to Waterworks " + account.getUsername() + "!");
 
@@ -37,6 +38,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         myProfile.setOnClickListener(this);
         viewReports.setOnClickListener(this);
         createReport.setOnClickListener(this);
+        viewMap.setOnClickListener(this);
     }
 
     /**
@@ -65,6 +67,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 case R.id.view_profile_btn: {
                     Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
+                    startActivity(intent);
+                    break;
+                }
+                case R.id.view_map_btn: {
+                    Intent intent = new Intent(HomeActivity.this, HomeMapsActivity.class);
                     startActivity(intent);
                     break;
                 }

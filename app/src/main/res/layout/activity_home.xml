@@ -66,4 +66,11 @@
             android:layout_alignRight="@+id/create_report_btn"
             android:layout_alignEnd="@+id/create_report_btn" />
 
+        <Button
+            android:id="@+id/view_map_btn"
+            android:text="View Map"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/homeViewRepBTN" />
+
 </RelativeLayout>
