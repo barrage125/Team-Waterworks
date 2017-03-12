@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:text="Longitude"
+        android:text="Longitude (enter a value between -180 and 180)"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/wrLongID" />
@@ -17,7 +17,7 @@
         android:id="@+id/wrLong" />
 
     <TextView
-        android:text="Latitude"
+        android:text="Latitude (enter a value between -90 and 90)"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/wrLatID" />

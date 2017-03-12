@@ -2,6 +2,7 @@ package team64.waterworks.controllers;
 
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -42,9 +43,7 @@ public class HomeMapsActivity extends FragmentActivity implements OnMapReadyCall
     public void onMapReady(GoogleMap googleMap) {
         try {
             mMap = googleMap;
-
             mMap.setOnInfoWindowClickListener(this);
-
             ArrayList<String> waterReports = ReportsManager.viewAllReports();
 
             if (waterReports != null) {
@@ -54,19 +53,19 @@ public class HomeMapsActivity extends FragmentActivity implements OnMapReadyCall
                     Long idLong = Long.parseLong(idString);
                     Double lng = ReportsManager.getReportByID(idLong).getLongitude();
                     Double lat = ReportsManager.getReportByID(idLong).getLatitude();
+                    LatLng location = new LatLng(lat, lng);
 
-                    Marker temp = mMap.addMarker(new MarkerOptions().position(new LatLng(lat, lng))
-                            .title("Water Report: " + ReportsManager.getReportByID(idLong).getId())
-                            .snippet("Longitude: " + lng + "\nLatitude: " + lat + "\nAuthor: "
-                                    + ReportsManager.getReportByID(idLong).getAuthor()
-                                    + "\nType: " + ReportsManager.getReportByID(idLong).getType()));
+                    mMap.addMarker(new MarkerOptions().position(location).title("Water " +
+                            "Report: " + idLong).snippet
+                            ("Lat/Long: " + lat + "/" + lng));
                 }
+            } else {
+                Toast.makeText(getApplicationContext(), "No reports have been added yet!",Toast.LENGTH_SHORT).show();
             }
-
 
             // Add a marker and move camera
             LatLng location = new LatLng(-34, 151);
-            mMap.addMarker(new MarkerOptions().position(location).title("WaterReport").snippet("Sydney, Australia"));
+            mMap.addMarker(new MarkerOptions().position(location).title("Water Report").snippet("Sydney, Australia"));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(location));
         } catch (Exception e) {
             e.printStackTrace();

@@ -55,7 +55,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Account account = AccountsManager.getAccountWithCreds(username, password);
 
                 // Prevents fields from being empty
-                if (TextUtils.isEmpty(username) | TextUtils.isEmpty(password)) {
+                if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
                     if(TextUtils.isEmpty(username)) {
                         user.setError("Username cannot be blank");
                     }

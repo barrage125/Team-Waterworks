@@ -269,10 +269,8 @@ class DBHelper extends SQLiteOpenHelper {
      * @return Water Report object with the corresponding ID
      * @throws IOException if IO error occurs while writing stream header in loadLocation()
      * @throws ClassNotFoundException if Class of serialized object cannot be found in loadLocation()
-     * @throws IllegalAccessException if WaterReport constructor called by class other than DBHelper
      */
-    WaterReport getReportByID(long ID) throws IOException, ClassNotFoundException,
-                                                           IllegalAccessException {
+    WaterReport getReportByID(long ID) throws IOException, ClassNotFoundException {
         String id = Long.toString(ID);
         SQLiteDatabase db = getReadableDatabase();
 
@@ -338,7 +336,6 @@ class DBHelper extends SQLiteOpenHelper {
      * Creates array list of water reports that match corresponding Location
      * @return array list of water reports in specified location
      * @throws IOException if IO error occurs while writing stream header in storeLocation()
-     * @throws IllegalAccessException if WaterReport constructor called by class other than DBHelper
      */
     ArrayList<WaterReport> getReportsByLocation(double latitude, double longitude) throws IOException,
                                                                           IllegalAccessException {
@@ -388,11 +385,9 @@ class DBHelper extends SQLiteOpenHelper {
      * @return array list of water reports written by specified user
      * @throws IOException if IO error occurs while writing stream header in loadLocation()
      * @throws ClassNotFoundException if Class of serialized object cannot be found in loadLocation()
-     * @throws IllegalAccessException if WaterReport constructor called by class other than DBHelper
      */
     ArrayList<WaterReport> getReportsByAuthor(String author) throws IOException,
-                                                                    ClassNotFoundException,
-                                                                    IllegalAccessException {
+                                                                    ClassNotFoundException {
         SQLiteDatabase db = getReadableDatabase();
         ArrayList<WaterReport> matching_entries = new ArrayList<>();
 
@@ -438,10 +433,8 @@ class DBHelper extends SQLiteOpenHelper {
      * @return array list of all water reports
      * @throws IOException if IO error occurs while writing stream header in loadLocation()
      * @throws ClassNotFoundException if Class of serialized object cannot be found in loadLocation()
-     * @throws IllegalAccessException if WaterReport constructor called by class other than DBHelper
      */
-    ArrayList<String> getAllReports() throws IOException, ClassNotFoundException,
-                                                               IllegalAccessException {
+    ArrayList<String> getAllReports() throws IOException, ClassNotFoundException {
         SQLiteDatabase db = getWritableDatabase();
         ArrayList<String> all_entries = new ArrayList<String>();
 

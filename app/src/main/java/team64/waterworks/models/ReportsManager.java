@@ -90,9 +90,6 @@ public class ReportsManager {
         } catch (NoSuchElementException e) {
             e.printStackTrace();
             Log.e("Report Not Found", "No report could be found by that ID");
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-            Log.e("Illegal ConstructorCall", "An illegal class called the WaterReport constructor");
         } catch (Exception e) {
             e.printStackTrace();
             Log.e("Unknown error", "Could not retrieve report with that ID");

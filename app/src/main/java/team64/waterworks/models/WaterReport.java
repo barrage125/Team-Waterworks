@@ -75,24 +75,18 @@ public class WaterReport implements Serializable {
      * @param type type of water report (historical, location, or purity)
      * @param condition condition of water
      * @param user_rating user rating of water location
-     * @param date when report was originally posted      @throws IllegalAccessException when class other than DBHelper tries to call this constructor
+     * @param date when report was originally posted
      */
     WaterReport(long ID, double latitude, double longitude, String author, String type, String condition,
-                int user_rating, String date) throws IllegalAccessException {
-        // condition check to make sure only DBHelper class calls this constructor
-        // users shouldn't be able to set SQLite auto generated values like id
-        if (getClass().toString().equals("class java.team64.waterworks.models.DBHelper")) {
-            this.id = ID;
-            this.latitude = latitude;
-            this.longitude = longitude;
-            this.author = author;
-            this.type = type;
-            this.condition = condition;
-            this.user_rating = user_rating;
-            this.date = date;
-        } else {
-            throw new IllegalAccessException();
-        }
+                int user_rating, String date) {
+        this.id = ID;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.author = author;
+        this.type = type;
+        this.condition = condition;
+        this.user_rating = user_rating;
+        this.date = date;
     }
 
 

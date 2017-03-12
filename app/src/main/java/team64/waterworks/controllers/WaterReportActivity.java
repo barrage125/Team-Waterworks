@@ -63,8 +63,12 @@ public class WaterReportActivity extends AppCompatActivity implements View.OnCli
                 String latitude = txtLat.getText().toString();
                 String longitude = txtLong.getText().toString();
 
-                if (TextUtils.isEmpty(latitude) | TextUtils.isEmpty(longitude)) {
+                if (TextUtils.isEmpty(latitude) || TextUtils.isEmpty(longitude)) {
                     txtLat.setError("Coordinates cannot be blank!");
+                } else if (Double.parseDouble(latitude) < -90 || Double.parseDouble(latitude) > 90) {
+                    txtLat.setError("Latitude must be between -90 and 90");
+                } else if (Double.parseDouble(longitude) < -180 || Double.parseDouble(longitude) > 180) {
+                    txtLong.setError("Longitude must be between -180 and 180");
                 } else {
                     progressDialog.setMessage("Submitting report...");
                     progressDialog.show();
@@ -80,11 +84,13 @@ public class WaterReportActivity extends AppCompatActivity implements View.OnCli
                     }
                 }
             }
+            break;
 
             case R.id.wrCancelButton: {
                 Intent intent = new Intent(WaterReportActivity.this, HomeActivity.class);
                 startActivity(intent);
             }
+            break;
         }
     }
 
