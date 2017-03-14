@@ -4,16 +4,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.location.Location;
 import android.util.Base64;
-import android.util.Log;
 
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.NoSuchElementException;
 
 
@@ -27,13 +23,21 @@ class DBHelper extends SQLiteOpenHelper {
                                                   "username TEXT, password TEXT, profile TEXT )";
     private static final String USERS_DB_SALT = "!*aS{f8t8$5)9asf(l";
 
-    // AllReports DB Strings
-    private static final String REPORT_DB_NAME = "AllReports";
-    private static final String REPORT_DB_CREATE = "CREATE TABLE AllReports " +
-                                                   "( _id INTEGER PRIMARY KEY, location TEXT, " +
-                                                   "author TEXT, type TEXT, condition TEXT, " +
-                                                   "user_rating TEXT, date TEXT )";
-    private boolean report_db;
+    // AllSourceReports DB Strings
+    private static final String SRC_REPORT_DB_NAME = "AllSourceReports";
+    private static final String SRC_REPORT_DB_CREATE = "CREATE TABLE AllSourceReports " +
+                                                       "( _id INTEGER PRIMARY KEY, location TEXT, " +
+                                                       "author TEXT, type TEXT, condition TEXT, " +
+                                                       "user_rating TEXT, date TEXT )";
+
+    // AllPurityReports DB Strings
+    private static final String PUR_REPORT_DB_NAME = "AllPurityReports";
+    private static final String PUR_REPORT_DB_CREATE = "CREATE TABLE AllPurityReports " +
+                                                       "( _id INTEGER PRIMARY KEY, location TEXT, " +
+                                                       "author TEXT, type TEXT, condition TEXT, " +
+                                                       "virus_ppm TEXT, contam_ppm TEXT, date TEXT )";
+    private boolean src_report_db;
+    private boolean pur_report_db;
 
 
        /******************/
@@ -47,18 +51,33 @@ class DBHelper extends SQLiteOpenHelper {
      */
     DBHelper(Context context) {
         super(context, USERS_DB_NAME, null, 1);
-        this.report_db = false;
+        this.src_report_db = false;
+        this.pur_report_db = false;
     }
 
     /**
-     * Constructor for Water Reports DB Helper
-     * Creates a SQLiteOpenHelper for a water report DB if it doesn't already exist
+     * Constructor for Water Source Reports DB Helper
+     * Creates a SQLiteOpenHelper for a water source report DB if it doesn't already exist
      * @param context context of caller, used in SQLite parent constructor
-     * @param switchy indicates caller intends to create a DBHelper for a water report db
+     * @param switch1 indicates caller intends to create a DBHelper for a water source report db
      */
-    DBHelper(Context context, int switchy) {
-        super(context, REPORT_DB_NAME, null, 1);
-        this.report_db = true;
+    DBHelper(Context context, int switch1) {
+        super(context, SRC_REPORT_DB_NAME, null, 1);
+        this.src_report_db = true;
+        this.pur_report_db = false;
+    }
+
+    /**
+     * Constructor for Water Purity Reports DB Helper
+     * Creates a SQLiteOpenHelper for a water purity report DB if it doesn't already exist
+     * @param context context of caller, used in SQLite parent constructor
+     * @param switch1 indicates caller intends to create a DBHelper for a water purity report db
+     * @param switch2 indicates caller intends to create a DBHelper for a water purity report db
+     */
+    DBHelper(Context context, int switch1, int switch2) {
+        super(context, PUR_REPORT_DB_NAME, null, 1);
+        this.src_report_db = false;
+        this.pur_report_db = true;
     }
 
 
@@ -72,8 +91,10 @@ class DBHelper extends SQLiteOpenHelper {
      */
     @Override
     public void onCreate(SQLiteDatabase database) {
-        if (this.report_db) {
-            database.execSQL(REPORT_DB_CREATE);
+        if (this.src_report_db) {
+            database.execSQL(SRC_REPORT_DB_CREATE);
+        } else if (this.pur_report_db) {
+            database.execSQL(PUR_REPORT_DB_CREATE);
         } else {
             database.execSQL(USERS_DB_CREATE);
         }
