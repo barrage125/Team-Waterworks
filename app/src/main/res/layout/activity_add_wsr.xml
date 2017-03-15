@@ -30,17 +30,20 @@
         android:id="@+id/wrLat" />
 
     <TextView
-        android:text="Type"
+        android:text="Water Type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/wrTypeID" />
 
-    <EditText
+    <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/wrType" />
+        android:id="@+id/wrType"
+        android:layout_marginBottom="26dp"
+        android:layout_above="@+id/reg_cancel"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
 
     <TextView
         android:text="Conditon"
@@ -48,12 +51,14 @@
         android:layout_height="wrap_content"
         android:id="@+id/wrCondID" />
 
-    <EditText
+    <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/wrCond" />
+        android:id="@+id/wrCond"
+        android:layout_marginBottom="26dp"
+        android:layout_above="@+id/reg_cancel"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <Button
         android:text="Submit"
@@ -66,4 +71,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/wrCancelButton" />
+
+
+
 </LinearLayout>

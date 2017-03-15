@@ -5,10 +5,14 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
+
+import java.util.Arrays;
 
 import team64.waterworks.R;
 import team64.waterworks.models.Account;
@@ -19,7 +23,8 @@ import team64.waterworks.models.WSRManager;
 public class AddWSRActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button submit, cancel;
-    EditText txtLong, txtLat, txtType, txtCondition;
+    EditText txtLong, txtLat;
+    Spinner _waterType, waterCond;
 
     private Account account;
     private ProgressDialog progressDialog;
@@ -38,13 +43,24 @@ public class AddWSRActivity extends AppCompatActivity implements View.OnClickLis
         cancel = (Button) findViewById(R.id.wrCancelButton);
         txtLong = (EditText) findViewById(R.id.wrLong);
         txtLat = (EditText) findViewById(R.id.wrLat);
-        txtType = (EditText) findViewById(R.id.wrType);
-        txtCondition = (EditText) findViewById(R.id.wrCond);
+        _waterType = (Spinner) findViewById(R.id.wrType);
+        waterCond = (Spinner) findViewById(R.id.wrCond);
 
         submit.setOnClickListener(this);
         cancel.setOnClickListener(this);
 
         progressDialog = new ProgressDialog(this);
+
+        ArrayAdapter<String> typeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,
+                Arrays.asList("Bottled", "Well", "Stream", "Lake", "Spring", "Other"));
+        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        _waterType.setAdapter(typeAdapter);
+
+        ArrayAdapter<String> condAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,
+                Arrays.asList("Waste", "Treatable-Clear", "Treatable-Muddy", "Potable"));
+        condAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        waterCond.setAdapter(condAdapter);
+
     }
 
     /**
@@ -55,11 +71,12 @@ public class AddWSRActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v){
         switch (v.getId()) {
             case R.id.wrSubmitButton: {
-                String condition = txtCondition.getText().toString();
-                String type = txtType.getText().toString();
+
                 String author = account.getUsername();
                 String latitude = txtLat.getText().toString();
                 String longitude = txtLong.getText().toString();
+                String waterType = _waterType.getSelectedItem().toString();
+                String waterCondition = waterCond.getSelectedItem().toString();
 
                 if (TextUtils.isEmpty(latitude) || TextUtils.isEmpty(longitude)) {
                     txtLat.setError("Coordinates cannot be blank!");
@@ -71,7 +88,7 @@ public class AddWSRActivity extends AppCompatActivity implements View.OnClickLis
                     progressDialog.setMessage("Submitting report...");
                     progressDialog.show();
 
-                    if (!(WSRManager.newSourceReport(Double.parseDouble(latitude), Double.parseDouble(longitude), author, type, condition))) {
+                    if (!(WSRManager.newSourceReport(Double.parseDouble(latitude), Double.parseDouble(longitude), author, waterType, waterCondition))) {
                         progressDialog.dismiss();
                         Toast.makeText(getApplicationContext(), "Unable to submit", Toast.LENGTH_SHORT).show();
                     } else {
