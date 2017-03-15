@@ -60,7 +60,7 @@ public class ListAllWSRActivity extends AppCompatActivity implements View.OnClic
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            // WSRManager.cleardb();
+                            WSRManager.clearWSRDB();
                             Intent intent = getIntent();
                             finish();
                             startActivity(intent);

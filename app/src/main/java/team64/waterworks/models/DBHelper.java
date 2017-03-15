@@ -467,7 +467,7 @@ class DBHelper extends SQLiteOpenHelper {
 
         // Query db, creates cursor object that points at result set (matching db entries)
         // passing null into columns bc need all attributes from report(s)
-        Cursor cursor = db.rawQuery( selectQuery, null );
+        Cursor cursor = db.rawQuery(selectQuery, null);
 
         // No reports were found
         if (!(cursor.moveToFirst())) {
@@ -487,9 +487,9 @@ class DBHelper extends SQLiteOpenHelper {
 
                 // Put them in String
                 String report = '(' + Long.toString(id) + ')' + ' ' + '(' + loc + ')' + ' ' +
-                                '(' + author + ')' + ' ' + '(' + type + ')' + ' ' + '(' +
-                                condition + ')' + ' ' + '(' + Integer.toString(user_rating) + ')'
-                                + ' ' + '(' + date + ')';
+                        '(' + author + ')' + ' ' + '(' + type + ')' + ' ' + '(' +
+                        condition + ')' + ' ' + '(' + Integer.toString(user_rating) + ')'
+                        + ' ' + '(' + date + ')';
 
                 all_entries.add(report);
                 cursor.moveToNext();
@@ -499,6 +499,12 @@ class DBHelper extends SQLiteOpenHelper {
             return all_entries;
         }
     }
+
+    void deleteAllWSR() {
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("DELETE FROM "+ SRC_REPORT_DB_NAME);
+    }
+
 
 
 
@@ -736,5 +742,10 @@ class DBHelper extends SQLiteOpenHelper {
             cursor.close();
             return all_entries;
         }
+    }
+
+    protected void deleteAllWPR() {
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("DELETE FROM "+ PUR_REPORT_DB_NAME);
     }
 }

@@ -143,6 +143,10 @@ public class WSRManager {
         return null;
     }
 
+    public static void clearWSRDB() {
+        dbHelper.deleteAllWSR();
+    }
+
     /**
      * Checks to see if a source report already exists in location
      * @param latitude latitude of location
