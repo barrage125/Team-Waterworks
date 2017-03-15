@@ -12,7 +12,7 @@ import team64.waterworks.R;
 import team64.waterworks.models.*;
 
 
-public class ViewWSRActivity extends AppCompatActivity {
+public class ListAllWSRActivity extends AppCompatActivity {
     private TextView allWaterReportsText;
     private TextView labels;
 
@@ -24,7 +24,7 @@ public class ViewWSRActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_all_water_reports);
+        setContentView(R.layout.activity_list_all_WSR);
         allWaterReportsText = (TextView) findViewById(R.id.all_reports_text);
         labels = (TextView) findViewById(R.id.labels);
 

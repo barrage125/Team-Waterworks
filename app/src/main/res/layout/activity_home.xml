@@ -23,54 +23,68 @@
             android:text="You are logged in"
             android:layout_below="@id/welcome_message"/>
 
+
+
+
         <Button
-            android:text="My Profile"
+            android:id="@+id/create_src_report_btn"
+            android:text="Create Water Source Report"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/login_status" />
+
+        <Button
+            android:id="@+id/list_all_WSR_btn"
+            android:text="View Water Source Reports"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/create_src_report_btn" />
+
+
+
+
+        <Button
+            android:id="@+id/create_pur_report_btn"
+            android:text="Create Water Purity Report"
+            android:layout_marginTop="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/list_all_WSR_btn" />
+
+        <Button
+            android:id="@+id/list_all_WPR_btn"
+            android:text="View Water Purity Reports"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/create_pur_report_btn" />
+
+
+
+
+        <Button
             android:id="@+id/view_profile_btn"
-            android:layout_below="@+id/login_status"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_toLeftOf="@+id/create_report_btn"
-            android:layout_toStartOf="@+id/create_report_btn" />
+            android:text="My Profile"
+            android:layout_marginTop="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/list_all_WPR_btn" />
 
         <Button
             android:id="@+id/logout_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="Logout"
-            android:layout_below="@+id/view_profile_btn"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_toStartOf="@+id/create_report_btn"
-            android:layout_toLeftOf="@+id/create_report_btn" />
-
-        <Button
-            android:text="Create Report"
+            android:layout_marginTop="50dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/create_report_btn"
-            android:layout_above="@+id/logout_btn"
-            android:layout_toRightOf="@+id/login_status"
-            android:layout_marginLeft="11dp"
-            android:layout_marginStart="11dp" />
-
-        <Button
-            android:text="View Reports"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/create_report_btn"
-            android:layout_alignLeft="@+id/create_report_btn"
-            android:layout_alignStart="@+id/create_report_btn"
-            android:id="@+id/homeViewRepBTN"
-            android:layout_alignRight="@+id/create_report_btn"
-            android:layout_alignEnd="@+id/create_report_btn" />
+            android:layout_below="@+id/list_all_WPR_btn"
+            android:layout_toRightOf="@id/view_profile_btn" />
 
         <Button
             android:id="@+id/view_map_btn"
             android:text="View Map"
+            android:layout_marginTop="50dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/homeViewRepBTN" />
+            android:layout_below="@+id/list_all_WPR_btn"
+            android:layout_toRightOf="@id/logout_btn"/>
 
 </RelativeLayout>

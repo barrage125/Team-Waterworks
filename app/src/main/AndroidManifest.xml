@@ -22,7 +22,7 @@
         <activity android:name=".controllers.RegisterActivity" />
         <activity android:name=".controllers.ProfileActivity" />
         <activity android:name=".controllers.AddWSRActivity" />
-        <activity android:name=".controllers.ViewWSRActivity" />
+        <activity android:name=".controllers.ListAllWSRActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

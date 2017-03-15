@@ -27,8 +27,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         // Initialize views
         Button logout = (Button) findViewById(R.id.logout_btn);
         Button myProfile = (Button) findViewById(R.id.view_profile_btn);
-        Button viewReports = (Button) findViewById(R.id.homeViewRepBTN);
-        Button createReport = (Button) findViewById(R.id.create_report_btn);
+        Button viewReports = (Button) findViewById(R.id.list_all_WSR_btn);
+        Button createReport = (Button) findViewById(R.id.create_src_report_btn);
         Button viewMap = (Button) findViewById(R.id.view_map_btn);
         TextView welcome = (TextView) findViewById(R.id.welcome_message);
         welcome.setText("Welcome to Waterworks " + account.getUsername() + "!");
@@ -48,12 +48,12 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
             switch(v.getId()) {
-                case R.id.homeViewRepBTN: {
-                    Intent intent = new Intent(HomeActivity.this, ViewWSRActivity.class);
+                case R.id.list_all_WSR_btn: {
+                    Intent intent = new Intent(HomeActivity.this, ListAllWSRActivity.class);
                     startActivity(intent);
                     break;
                 }
-                case R.id.create_report_btn: {
+                case R.id.create_src_report_btn: {
                     Intent intent = new Intent(HomeActivity.this, AddWSRActivity.class);
                     startActivity(intent);
                     break;
