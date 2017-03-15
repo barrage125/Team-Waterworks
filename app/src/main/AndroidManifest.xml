@@ -21,15 +21,15 @@
         <activity android:name=".controllers.HomeActivity" />
         <activity android:name=".controllers.RegisterActivity" />
         <activity android:name=".controllers.ProfileActivity" />
-        <activity android:name=".controllers.WaterReportActivity" />
-        <activity android:name=".controllers.AllWaterReportsActivity" />
+        <activity android:name=".controllers.AddWSRActivity" />
+        <activity android:name=".controllers.ViewWSRActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".controllers.HomeMapsActivity"
+            android:name=".controllers.MapActivity"
             android:label="@string/title_activity_home_maps">
         </activity>
     </application>

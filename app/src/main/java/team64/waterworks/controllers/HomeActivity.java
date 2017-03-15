@@ -49,12 +49,12 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
             switch(v.getId()) {
                 case R.id.homeViewRepBTN: {
-                    Intent intent = new Intent(HomeActivity.this, AllWaterReportsActivity.class);
+                    Intent intent = new Intent(HomeActivity.this, ViewWSRActivity.class);
                     startActivity(intent);
                     break;
                 }
                 case R.id.create_report_btn: {
-                    Intent intent = new Intent(HomeActivity.this, WaterReportActivity.class);
+                    Intent intent = new Intent(HomeActivity.this, AddWSRActivity.class);
                     startActivity(intent);
                     break;
                 }
@@ -71,7 +71,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     break;
                 }
                 case R.id.view_map_btn: {
-                    Intent intent = new Intent(HomeActivity.this, HomeMapsActivity.class);
+                    Intent intent = new Intent(HomeActivity.this, MapActivity.class);
                     startActivity(intent);
                     break;
                 }

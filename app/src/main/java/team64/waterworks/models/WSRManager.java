@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
 
-public class ReportsManager {
+public class WSRManager {
     private static DBHelper dbHelper;
 
     /**
-     * set a new DBHelper for AllReports SQLite DB
+     * set a new DBHelper for AllSourceReports SQLite DB
      * @param c Context of the caller
      */
     public static void setDBHelper(Context c) {
@@ -139,24 +139,24 @@ public class ReportsManager {
     }
 
     /**
-     * Creates array list of all reports stored in AllReports SQLite DB
-     * @return array list of all reports
+     * Creates array list of all water source reports stored in AllSourceReports SQLite DB
+     * @return array list of all water source reports
      */
-    public static ArrayList<String> viewAllReports() {
+    public static ArrayList<String> viewAllSourceReports() {
         try {
             return dbHelper.getAllSourceReports();
         } catch (NoSuchElementException e) {
             e.printStackTrace();
-            Log.e("No Reports Found", "No reports have been submitted yet");
+            Log.e("No Source Reports Found", "No source reports have been submitted yet");
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e("Unknown Error", "Could not retrieve report(s)");
+            Log.e("Unknown Error", "Could not retrieve source report(s)");
         }
         return null;
     }
 
     /**
-     * Checks to see if a report already exists in location
+     * Checks to see if a source report already exists in location
      * @param latitude latitude of location
      * @param longitude longitude of location
      * @return if the water location is already taken
@@ -169,7 +169,7 @@ public class ReportsManager {
             Log.e("Loc Serialize Error", "Could not convert location to string for querying db");
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e("Unknown Error", "Could not retrieve report(s) written by that user");
+            Log.e("Unknown Error", "Could not retrieve source report(s) written by that user");
         }
         return true;
     }

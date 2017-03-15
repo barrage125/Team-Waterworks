@@ -1,19 +1,18 @@
 package team64.waterworks.controllers;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.support.v7.app.AppCompatActivity;
 import java.util.ArrayList;
-import android.R.layout;
+
 import android.widget.Toast;
 
 import team64.waterworks.R;
 import team64.waterworks.models.*;
 
 
-public class AllWaterReportsActivity extends AppCompatActivity {
+public class ViewWSRActivity extends AppCompatActivity {
     private TextView allWaterReportsText;
     private TextView labels;
 
@@ -30,10 +29,10 @@ public class AllWaterReportsActivity extends AppCompatActivity {
         labels = (TextView) findViewById(R.id.labels);
 
         listView = (ListView) findViewById(R.id.all_reports_list);
-        reports = ReportsManager.viewAllReports();
+        reports = WSRManager.viewAllSourceReports();
 
         // If array list of all reports isn't empty, populate listview
-        if (reports != null && ReportsManager.viewAllReports().size() > 0) {
+        if (reports != null && WSRManager.viewAllSourceReports().size() > 0) {
             adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, reports);
             listView.setAdapter(adapter);
             labels.setText("     (id) (location) (auth) (type) (cond) (rating) (date)");

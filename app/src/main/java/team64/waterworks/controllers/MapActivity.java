@@ -14,9 +14,9 @@ import java.util.ArrayList;
 import com.google.android.gms.maps.model.Marker;
 
 import team64.waterworks.R;
-import team64.waterworks.models.ReportsManager;
+import team64.waterworks.models.WSRManager;
 
-public class HomeMapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener{
+public class MapActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener{
 
     private GoogleMap mMap;
 
@@ -43,15 +43,15 @@ public class HomeMapsActivity extends FragmentActivity implements OnMapReadyCall
         try {
             mMap = googleMap;
             mMap.setOnInfoWindowClickListener(this);
-            ArrayList<String> waterReports = ReportsManager.viewAllReports();
+            ArrayList<String> waterReports = WSRManager.viewAllSourceReports();
 
             if (waterReports != null) {
                 for (int i = 0; i < waterReports.size(); i++) {
                     String[] reportsData = waterReports.get(i).split(" ", 0);
                     String idString = reportsData[0].replace("(", "").replace(")", "");
                     Long idLong = Long.parseLong(idString);
-                    Double lng = ReportsManager.getSourceReportByID(idLong).getLongitude();
-                    Double lat = ReportsManager.getSourceReportByID(idLong).getLatitude();
+                    Double lng = WSRManager.getSourceReportByID(idLong).getLongitude();
+                    Double lat = WSRManager.getSourceReportByID(idLong).getLatitude();
                     LatLng location = new LatLng(lat, lng);
 
                     mMap.addMarker(new MarkerOptions().position(location).title("Water " +

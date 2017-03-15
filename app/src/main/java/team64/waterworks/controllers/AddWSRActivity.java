@@ -13,10 +13,10 @@ import android.widget.Toast;
 import team64.waterworks.R;
 import team64.waterworks.models.Account;
 import team64.waterworks.models.AccountsManager;
-import team64.waterworks.models.ReportsManager;
+import team64.waterworks.models.WSRManager;
 
 
-public class WaterReportActivity extends AppCompatActivity implements View.OnClickListener {
+public class AddWSRActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button submit, cancel;
     EditText txtLong, txtLat, txtType, txtCondition;
@@ -71,12 +71,12 @@ public class WaterReportActivity extends AppCompatActivity implements View.OnCli
                     progressDialog.setMessage("Submitting report...");
                     progressDialog.show();
 
-                    if (!(ReportsManager.newSourceReport(Double.parseDouble(latitude), Double.parseDouble(longitude), author, type, condition))) {
+                    if (!(WSRManager.newSourceReport(Double.parseDouble(latitude), Double.parseDouble(longitude), author, type, condition))) {
                         progressDialog.dismiss();
                         Toast.makeText(getApplicationContext(), "Unable to submit", Toast.LENGTH_SHORT).show();
                     } else {
                         progressDialog.dismiss();
-                        Intent intent = new Intent(WaterReportActivity.this, HomeActivity.class);
+                        Intent intent = new Intent(AddWSRActivity.this, HomeActivity.class);
                         startActivity(intent);
                         Toast.makeText(getApplicationContext(), "Report submitted", Toast.LENGTH_SHORT).show();
                     }
@@ -85,7 +85,7 @@ public class WaterReportActivity extends AppCompatActivity implements View.OnCli
             break;
 
             case R.id.wrCancelButton: {
-                Intent intent = new Intent(WaterReportActivity.this, HomeActivity.class);
+                Intent intent = new Intent(AddWSRActivity.this, HomeActivity.class);
                 startActivity(intent);
             }
             break;
