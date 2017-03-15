@@ -69,6 +69,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     AccountsManager.setActiveAccount(account);
                     Log.d("Authority Level", "Auth level of logged in account is: " + account.getAuthLevel());
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                    finish();
                     startActivity(intent);
                 } else {
                     Toast.makeText(getApplicationContext(), "Incorrect username/password combination",Toast.LENGTH_SHORT).show();

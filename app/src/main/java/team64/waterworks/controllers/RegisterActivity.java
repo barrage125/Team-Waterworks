@@ -103,6 +103,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
             case R.id.reg_cancel:
                 Intent intent = new Intent(RegisterActivity.this, SplashActivity.class);
+                finish();
                 startActivity(intent);
                 Toast.makeText(getApplicationContext(), "Registration canceled",Toast.LENGTH_SHORT).show();
                 break;

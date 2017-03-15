@@ -54,6 +54,7 @@ public class ProfileActivity extends AppCompatActivity {
             // Saves newly edited profile to SQLite and return to home screen
             if (AccountsManager.editAccount(account)) {
                 Intent intent = new Intent(ProfileActivity.this, HomeActivity.class);
+                finish();
                 startActivity(intent);
                 Toast.makeText(getApplicationContext(), "Profile Saved", Toast.LENGTH_SHORT).show();
             } else {

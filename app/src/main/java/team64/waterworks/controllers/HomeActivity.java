@@ -25,20 +25,34 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         Account account = AccountsManager.getActiveAccount();
 
         // Initialize buttons
-        Button logout = (Button) findViewById(R.id.logout_btn);
-        Button myProfile = (Button) findViewById(R.id.view_profile_btn);
-        Button viewReports = (Button) findViewById(R.id.list_all_WSR_btn);
-        Button createReport = (Button) findViewById(R.id.create_src_report_btn);
-        Button viewMap = (Button) findViewById(R.id.view_map_btn);
         TextView welcome = (TextView) findViewById(R.id.welcome_message);
         welcome.setText("Welcome to Waterworks " + account.getUsername() + "!");
+
+        Button logout = (Button) findViewById(R.id.logout_btn);
+        Button myProfile = (Button) findViewById(R.id.view_profile_btn);
+        Button viewMap = (Button) findViewById(R.id.view_map_btn);
+
+        Button createSourceReport = (Button) findViewById(R.id.create_src_report_btn);
+        Button listAllSourceReports = (Button) findViewById(R.id.list_all_WSR_btn);
+
+        Button createPurReport = (Button) findViewById(R.id.create_pur_report_btn);
+        Button listAllPurReports = (Button) findViewById(R.id.list_all_WPR_btn);
 
         // Listeners for all buttons
         logout.setOnClickListener(this);
         myProfile.setOnClickListener(this);
-        viewReports.setOnClickListener(this);
-        createReport.setOnClickListener(this);
         viewMap.setOnClickListener(this);
+        createSourceReport.setOnClickListener(this);
+        listAllSourceReports.setOnClickListener(this);
+
+        // If user auth level, can't view or add purity reports
+        if (account.getAuthLevel().equals("user")) {
+            createPurReport.setVisibility(View.GONE);
+            listAllPurReports.setVisibility(View.GONE);
+        } else {
+            createPurReport.setOnClickListener(this);
+            listAllPurReports.setOnClickListener(this);
+        }
     }
 
     /**

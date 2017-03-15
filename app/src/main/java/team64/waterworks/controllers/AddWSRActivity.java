@@ -77,6 +77,7 @@ public class AddWSRActivity extends AppCompatActivity implements View.OnClickLis
                     } else {
                         progressDialog.dismiss();
                         Intent intent = new Intent(AddWSRActivity.this, HomeActivity.class);
+                        finish();
                         startActivity(intent);
                         Toast.makeText(getApplicationContext(), "Report submitted", Toast.LENGTH_SHORT).show();
                     }

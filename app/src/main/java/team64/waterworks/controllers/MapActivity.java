@@ -44,6 +44,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
             mMap = googleMap;
             mMap.setOnInfoWindowClickListener(this);
             ArrayList<String> waterReports = WSRManager.viewAllSourceReports();
+            LatLng location = new LatLng(50,50);
 
             if (waterReports != null) {
                 for (int i = 0; i < waterReports.size(); i++) {
@@ -52,7 +53,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
                     Long idLong = Long.parseLong(idString);
                     Double lng = WSRManager.getSourceReportByID(idLong).getLongitude();
                     Double lat = WSRManager.getSourceReportByID(idLong).getLatitude();
-                    LatLng location = new LatLng(lat, lng);
+                    location = new LatLng(lat, lng);
 
                     mMap.addMarker(new MarkerOptions().position(location).title("Water " +
                             "Report: " + idLong).snippet
@@ -63,8 +64,6 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
             }
 
             // Add a marker and move camera
-            LatLng location = new LatLng(-34, 151);
-            mMap.addMarker(new MarkerOptions().position(location).title("Water Report").snippet("Sydney, Australia"));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(location));
         } catch (Exception e) {
             e.printStackTrace();
