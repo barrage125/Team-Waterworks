@@ -31,7 +31,7 @@ public class AddWSRActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_WSR);
+        setContentView(R.layout.activity_add_wsr);
         account = AccountsManager.getActiveAccount();
 
         submit = (Button) findViewById(R.id.wrSubmitButton);

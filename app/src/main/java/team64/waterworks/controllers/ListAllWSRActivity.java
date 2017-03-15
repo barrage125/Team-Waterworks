@@ -24,7 +24,7 @@ public class ListAllWSRActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list_all_WSR);
+        setContentView(R.layout.activity_list_all_wsr);
         allWaterReportsText = (TextView) findViewById(R.id.all_reports_text);
         labels = (TextView) findViewById(R.id.labels);
 
