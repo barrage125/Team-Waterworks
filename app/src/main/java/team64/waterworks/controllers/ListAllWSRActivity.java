@@ -61,7 +61,8 @@ public class ListAllWSRActivity extends AppCompatActivity implements View.OnClic
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             // WSRManager.cleardb();
-                            Intent intent = new Intent(ListAllWSRActivity.this, ListAllWSRActivity.class);
+                            Intent intent = getIntent();
+                            finish();
                             startActivity(intent);
                         }
                     })
