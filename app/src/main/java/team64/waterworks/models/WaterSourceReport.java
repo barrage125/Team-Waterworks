@@ -1,19 +1,11 @@
 package team64.waterworks.models;
-import android.location.Location;
-import android.util.Base64;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 
-public class WaterSourceReport implements Serializable {
+public class WaterSourceReport {
 
      /**** INSTANCE VARIABLES ****/
     private long id;
@@ -94,7 +86,7 @@ public class WaterSourceReport implements Serializable {
       /** METHODS **/
      /*************/
     /**
-     * Get location as a string for storing in the AllReports db
+     * Get location as a string for storing in the AllSourceReports db
      * @return location as string "latitude:longitude"
      */
     static String storeLocation(double latitude, double longitude) {
@@ -103,8 +95,8 @@ public class WaterSourceReport implements Serializable {
     }
 
     /**
-     * Grab latitude from location string in AllReports DB
-     * used when creating a report object from AllReports DB
+     * Grab latitude from location string in AllSourceReports DB
+     * used when creating a report object from AllSourceReports DB
      * @param loc report's location as a string
      * @return a double array of the latitude and longitude coordinates
      */
@@ -114,8 +106,8 @@ public class WaterSourceReport implements Serializable {
     }
 
     /**
-     * Grab longitude from location string in AllReports DB
-     * used when creating a report object from AllReports DB
+     * Grab longitude from location string in AllSourceReports DB
+     * used when creating a report object from AllSourceReports DB
      * @param loc report's location as a string
      * @return a double array of the latitude and longitude coordinates
      */
