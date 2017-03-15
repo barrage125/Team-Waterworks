@@ -3,6 +3,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -66,8 +67,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 } else if ( account != null) {
                     Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
                     AccountsManager.setActiveAccount(account);
+                    Log.d("Authority Level", "Auth level of logged in account is: " + account.getAuthLevel());
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-//                    intent.putExtra("USER", users_db.AccountWithCreds(username, password));
                     startActivity(intent);
                 } else {
                     Toast.makeText(getApplicationContext(), "Incorrect username/password combination",Toast.LENGTH_SHORT).show();

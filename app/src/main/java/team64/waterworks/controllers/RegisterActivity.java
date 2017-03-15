@@ -12,7 +12,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 import java.util.Arrays;
-import java.util.List;
+
 import team64.waterworks.R;
 import team64.waterworks.models.AccountsManager;
 
@@ -20,6 +20,7 @@ import team64.waterworks.models.AccountsManager;
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText reguser, regpass;
+    private Spinner acctType;
     private ProgressDialog progressDialog;
 
     /**
@@ -36,7 +37,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         reguser = (EditText) findViewById(R.id.reg_user);
         regpass = (EditText) findViewById(R.id.reg_password);
         Button regcanc = (Button) findViewById(R.id.reg_cancel);
-        Spinner acctType = (Spinner) findViewById(R.id.spinnerAcctType);
+        acctType = (Spinner) findViewById(R.id.spinnerAcctType);
         progressDialog = new ProgressDialog(this);
 
         // Listeners for all buttons
@@ -44,18 +45,19 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         regcanc.setOnClickListener(this);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item,
-                                       Arrays.asList("User", "Worker", "Manager", "Admin"));
+                                       Arrays.asList("user", "worker", "manager", "admin"));
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         acctType.setAdapter(adapter);
     }
 
     /**
-     * Registers a new user
+     * Registers a new account
      */
-    private void registerUser() {
-        // Declare username and password vars
+    private void registerAccount() {
+        // Declare username, password, and authority level vars
         String username = reguser.getText().toString();
         String password = regpass.getText().toString();
+        String auth_level = acctType.getSelectedItem().toString();
 
         // If empty fields
         if (TextUtils.isEmpty(username)) {
@@ -70,10 +72,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         if (AccountsManager.isValidAccount(username)) {
             reguser.setError("Username already taken");
         } else {
-            progressDialog.setMessage("Registering user...");
+            progressDialog.setMessage("Registering account...");
             progressDialog.show();
 
-            if(!AccountsManager.newUser("", username, password)) {
+            if(!AccountsManager.newAccount("", username, password, auth_level)) {
                 progressDialog.dismiss();
                 Log.d("Sorry","An error occurred");
             } else {
@@ -96,7 +98,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         // and writing our own onClick method every time we need a new button
         switch(v.getId()) {
             case R.id.reg_button:
-                registerUser();
+                registerAccount();
                 break;
 
             case R.id.reg_cancel:

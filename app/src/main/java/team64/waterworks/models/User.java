@@ -11,10 +11,11 @@ class User extends Account {
      */
     User(String name, String username, String pw)  {
         super(name, username, pw);
+        this.setAuthLevel("user");
     }
 
     /**
-     * User Constructor that can additionally take in a profile paramater
+     * User Constructor that can take in additional profile parameter
      * @param name user's name
      * @param username user's username
      * @param pw user's password

@@ -2,7 +2,7 @@ package team64.waterworks.models;
 
 
 public abstract class Account {
-    private String name, username, password;
+    private String name, username, password, auth_level;
     private Profile profile;
 
     /**
@@ -15,6 +15,7 @@ public abstract class Account {
         this.name = name;
         this.username = username;
         this.password = pw;
+        this.auth_level = "account";
         this.profile = new Profile("", "", "", "");
     }
 
@@ -68,6 +69,19 @@ public abstract class Account {
      * @return the account's password
      */
     public String getPassword() { return password; }
+
+    /**
+     * Get authority level associated with this account
+     * @return the account's authority level
+     */
+    public String getAuthLevel() { return auth_level; }
+
+    /**
+     * set the authority level of this account to a different level
+     */
+    protected void setAuthLevel(String auth_level) {
+        this.auth_level = auth_level;
+    }
 
     /**
      * Generate a hashcode for this Account based on the Account's unique

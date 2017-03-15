@@ -11,6 +11,19 @@ class Worker extends User {
      */
     Worker(String name, String username, String pw) {
         super(name, username, pw);
+        this.setAuthLevel("worker");
+    }
+
+    /**
+     * Worker Constructor that can take in additional profile parameter
+     * @param name worker's name
+     * @param username worker's username
+     * @param pw worker's password
+     * @param profile worker's profile
+     */
+    Worker(String name, String username, String pw, Profile profile)  {
+        this(name, username, pw);
+        setProfile(profile);
     }
 
 }

@@ -16,10 +16,10 @@
 
     <Button
         android:id="@+id/clr_WSR_btn"
-        android:text="Clear Water Source Reports DB"
-        android:textSize="10dp"
-        android:layout_width="130dp"
-        android:layout_marginLeft="60dp"
+        android:text="Clear"
+        android:textSize="15dp"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="100dp"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/all_reports_text"/>
 

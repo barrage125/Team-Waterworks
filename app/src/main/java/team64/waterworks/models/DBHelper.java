@@ -17,11 +17,12 @@ class DBHelper extends SQLiteOpenHelper {
 
     /**** CLASS VARIABLES ****/
     // AllUsers DB strings
-    private static final String USERS_DB_NAME = "AllUsers";
-    private static final String USERS_DB_CREATE = "CREATE TABLE AllUsers " +
-                                                  "( _id INTEGER PRIMARY KEY, name TEXT, " +
-                                                  "username TEXT, password TEXT, profile TEXT )";
-    private static final String USERS_DB_SALT = "!*aS{f8t8$5)9asf(l";
+    private static final String ACCOUNTS_DB_NAME = "AllAccounts";
+    private static final String ACCOUNTS_DB_CREATE = "CREATE TABLE AllAccounts " +
+                                                     "( _id INTEGER PRIMARY KEY, name TEXT, " +
+                                                     "username TEXT, password TEXT, profile TEXT, " +
+                                                     "auth_level TEXT )";
+    private static final String ACCOUNTS_DB_SALT = "!*aS{f8t8$5)9asf(l";
 
     // AllSourceReports DB Strings
     private static final String SRC_REPORT_DB_NAME = "AllSourceReports";
@@ -44,13 +45,13 @@ class DBHelper extends SQLiteOpenHelper {
       /** CONSTRUCTORS **/
      /******************/
     /**
-     * Constructor for AllUsers DB Helper
-     * Creates a SQLiteOpenHelper for a user DB if it doesn't already exist
+     * Constructor for AllAccounts DB Helper
+     * Creates a SQLiteOpenHelper for an account DB if it doesn't already exist
      * @param context context of caller, used in SQLiteOpenHelper constructor
      *
      */
     DBHelper(Context context) {
-        super(context, USERS_DB_NAME, null, 1);
+        super(context, ACCOUNTS_DB_NAME, null, 1);
         this.src_report_db = false;
         this.pur_report_db = false;
     }
@@ -96,7 +97,7 @@ class DBHelper extends SQLiteOpenHelper {
         } else if (this.pur_report_db) {
             database.execSQL(PUR_REPORT_DB_CREATE);
         } else {
-            database.execSQL(USERS_DB_CREATE);
+            database.execSQL(ACCOUNTS_DB_CREATE);
         }
     }
 
@@ -110,11 +111,13 @@ class DBHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {}
 
 
-       /*********************/
-      /** USER DB METHODS **/
-     /*********************/
+
+
+       /*************************/
+      /** ACCOUNTS DB METHODS **/
+     /*************************/
     /**
-     * Adds a new account to AllUsers SQLite DB
+     * Adds a new account to AllAccounts SQLite DB
      * @throws NoSuchAlgorithmException if Base64 algo for hashPassword() not found
      */
     void addAccount(Account account) throws NoSuchAlgorithmException {
@@ -126,9 +129,10 @@ class DBHelper extends SQLiteOpenHelper {
         values.put("username", account.getUsername());
         values.put("password", hashPassword(account.getPassword()));
         values.put("profile", "");
+        values.put("auth_level", account.getAuthLevel());
 
         // Insert the new account (row), returns primary key value of new row
-        db.insert("AllUsers", null, values);
+        db.insert("AllAccounts", null, values);
     }
 
     /**
@@ -139,13 +143,13 @@ class DBHelper extends SQLiteOpenHelper {
      */
     private static String hashPassword(String password) throws NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("SHA-256");
-        md.update((USERS_DB_SALT + password).getBytes());
+        md.update((ACCOUNTS_DB_SALT + password).getBytes());
         byte[] digest = md.digest();
         return Base64.encodeToString(digest, Base64.DEFAULT);
     }
 
     /**
-     * Updates an already existing account in AllUsers SQLite DB
+     * Updates an already existing account in AllAccounts SQLite DB
      * For every changed field, new values need to be set on account in editAccount activity
      * @param account Account to update
      * @throws IOException IO error occurs while writing stream header in getProfile().storeLocation()
@@ -164,32 +168,33 @@ class DBHelper extends SQLiteOpenHelper {
         String[] selectionArgs = { username };
 
         // update the values for the row that matches the passed in username
-        db.update("AllUsers", values, selection, selectionArgs);
+        db.update("AllAccounts", values, selection, selectionArgs);
     }
 
     /**
-     * Finds account in the AllUsers SQLite DB with the corresponding username/password combination
+     * Finds account in the AllAccounts SQLite DB with the corresponding username/password combination
      * @param username username of account
      * @param password of account
      * @return Account matching the corresponding username/password combo
      * @throws NoSuchAlgorithmException if Base64 algo cannot be found in hashPassword()
      * @throws ClassNotFoundException if Class of serialized object cannot be found in loadLocation()
      * @throws IOException if IO error occurs while writing stream header in loadLocation()
+     * @throws NoSuchElementException if the proper authority level hasn't been set (probs = account)
      */
     Account AccountWithCreds(String username, String password) throws NoSuchAlgorithmException,
                                                                       ClassNotFoundException,
-                                                                      IOException {
+                                                                      IOException, NoSuchElementException {
         SQLiteDatabase db = getReadableDatabase();
 
-        // Info we want from user that matches passed in username/password
-        String[] columns = { "name", "username", "password", "profile" };
+        // Info we want from account that matches passed in username/password
+        String[] columns = { "name", "username", "password", "profile", "auth_level" };
 
         // Query string we pass to db, selectionArgs replaces ? in selection String
         String selection = "username = ? AND password = ?";
         String[] selectionArgs = { username, hashPassword(password) };
 
         // Query db, creates cursor object that points at result set (matching db entries)
-        Cursor cursor = db.query("AllUsers", columns, selection, selectionArgs,
+        Cursor cursor = db.query("AllAccounts", columns, selection, selectionArgs,
                                   null, null, null);
 
         // If cursor is empty (no account was found) throw error
@@ -200,14 +205,25 @@ class DBHelper extends SQLiteOpenHelper {
             // create String values found from account with matching creds
             String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
             String profile = cursor.getString(cursor.getColumnIndexOrThrow("profile"));
+            String auth_level = cursor.getString(cursor.getColumnIndexOrThrow("auth_level"));
             cursor.close();
 
-            return new User(name, username, password, Profile.deserialize(profile));
+            if (auth_level.equals("user")) {
+                return new User(name, username, password, Profile.deserialize(profile));
+            } else if (auth_level.equals("worker")) {
+                return new Worker(name, username, password, Profile.deserialize(profile));
+            } else if (auth_level.equals("manager")) {
+                return new Manager(name, username, password, Profile.deserialize(profile));
+            } else if (auth_level.equals("admin")) {
+                return new Admin(name, username, password, Profile.deserialize(profile));
+            } else {
+                throw new NoSuchElementException();
+            }
         }
     }
 
     /**
-     * Determines if an account with the passed in username exists in the AllUsers SQLite DB
+     * Determines if an account with the passed in username exists in the AllAccounts SQLite DB
      * @param username username to search for
      * @return if account with corresponding username exists
      */
@@ -223,7 +239,7 @@ class DBHelper extends SQLiteOpenHelper {
         String[] selectionArgs = { username };
 
         // Query db, creates cursor object that points at result set (matching db entries)
-        Cursor cursor = db.query("AllUsers", columns, selection, selectionArgs,
+        Cursor cursor = db.query("AllAccounts", columns, selection, selectionArgs,
                                   null, null, null);
 
         // If result set in cursor has 0 entries, then the account doesn't exist
