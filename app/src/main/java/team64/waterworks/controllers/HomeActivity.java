@@ -24,7 +24,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         Account account = AccountsManager.getActiveAccount();
 
-        // Initialize views
+        // Initialize buttons
         Button logout = (Button) findViewById(R.id.logout_btn);
         Button myProfile = (Button) findViewById(R.id.view_profile_btn);
         Button viewReports = (Button) findViewById(R.id.list_all_WSR_btn);
