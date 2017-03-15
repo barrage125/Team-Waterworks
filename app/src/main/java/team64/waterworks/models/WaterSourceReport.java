@@ -13,7 +13,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 
-public class WaterReport implements Serializable {
+public class WaterSourceReport implements Serializable {
 
      /**** INSTANCE VARIABLES ****/
     private long id;
@@ -45,7 +45,7 @@ public class WaterReport implements Serializable {
      * @param type type of water report
      * @param condition condition of water based on water purity report
      */
-    WaterReport(double latitude, double longitude, String author, String type, String condition) {
+    WaterSourceReport(double latitude, double longitude, String author, String type, String condition) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.condition = condition;
@@ -77,8 +77,8 @@ public class WaterReport implements Serializable {
      * @param user_rating user rating of water location
      * @param date when report was originally posted
      */
-    WaterReport(long ID, double latitude, double longitude, String author, String type, String condition,
-                int user_rating, String date) {
+    WaterSourceReport(long ID, double latitude, double longitude, String author, String type, String condition,
+                      int user_rating, String date) {
         this.id = ID;
         this.latitude = latitude;
         this.longitude = longitude;

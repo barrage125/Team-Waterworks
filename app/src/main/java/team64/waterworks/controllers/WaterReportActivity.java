@@ -1,11 +1,9 @@
 package team64.waterworks.controllers;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -73,7 +71,7 @@ public class WaterReportActivity extends AppCompatActivity implements View.OnCli
                     progressDialog.setMessage("Submitting report...");
                     progressDialog.show();
 
-                    if (!(ReportsManager.newReport(Double.parseDouble(latitude), Double.parseDouble(longitude), author, type, condition))) {
+                    if (!(ReportsManager.newSourceReport(Double.parseDouble(latitude), Double.parseDouble(longitude), author, type, condition))) {
                         progressDialog.dismiss();
                         Toast.makeText(getApplicationContext(), "Unable to submit", Toast.LENGTH_SHORT).show();
                     } else {

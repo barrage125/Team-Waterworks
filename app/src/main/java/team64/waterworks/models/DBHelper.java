@@ -235,20 +235,20 @@ class DBHelper extends SQLiteOpenHelper {
 
 
 
-       /***************************/
-      /** AllReports DB METHODS **/
-     /***************************/
+       /*********************************/
+      /** AllSourceReports DB METHODS **/
+     /*********************************/
     /**
-     * Adds a new Water Report to AllReports SQLite DB
-     * @param report new Water Report to be added
+     * Adds a new Water Source Report to AllSourceReports SQLite DB
+     * @param report new Water Source Report to be added
      * @throws IOException if IO error occurs while writing stream header in storeLocation()
      */
-    void addReport(WaterReport report) throws IOException {
+    void addSourceReport(WaterSourceReport report) throws IOException {
         SQLiteDatabase db = getWritableDatabase();
 
         // Create a new set of values for the new report row
         ContentValues values = new ContentValues();
-        values.put("location", WaterReport.storeLocation(report.getLatitude(), report.getLongitude()));
+        values.put("location", WaterSourceReport.storeLocation(report.getLatitude(), report.getLongitude()));
         values.put("author", report.getAuthor());
         values.put("type", report.getType());
         values.put("condition", report.getCondition());
@@ -256,23 +256,23 @@ class DBHelper extends SQLiteOpenHelper {
         values.put("date", report.getDate());
 
         // Insert the new report (row), returns primary key value of new row
-        db.insert("AllReports", null, values);
+        db.insert("AllSourceReports", null, values);
     }
 
     /**
-     * Updates an already existing report in AllReports SQLite DB
-     * For every changed field, new values need to be set on report in editReport activity
-     * @param report water report to update
+     * Updates an already existing report in AllSourceReports SQLite DB
+     * For every changed field, new values need to be set on source report in editSourceReport activity
+     * @param report water source report to update
      * @throws IOException if IO error occurs while writing stream header in storeLocation()
      */
-    void updateReport(WaterReport report) throws IOException {
+    void updateSourceReport(WaterSourceReport report) throws IOException {
         String id = Long.toString(report.getId());
         SQLiteDatabase db = getReadableDatabase();
 
         // New values for columns (report attributes). id, author, type, and date not included
         // bc they're final attributes and shouldn't be changeable
         ContentValues values = new ContentValues();
-        values.put("location", WaterReport.storeLocation(report.getLatitude(), report.getLongitude()));
+        values.put("location", WaterSourceReport.storeLocation(report.getLatitude(), report.getLongitude()));
         values.put("condition", report.getCondition());
         values.put("user_rating", report.getRating());
 
@@ -281,17 +281,17 @@ class DBHelper extends SQLiteOpenHelper {
         String[] selectionArgs = { id };
 
         // update the values for the row that matches the passed in id
-        db.update("AllReports", values, selection, selectionArgs);
+        db.update("AllSourceReports", values, selection, selectionArgs);
     }
 
     /**
-     * Returns report with the corresponding ID
-     * @param ID id of the water report
-     * @return Water Report object with the corresponding ID
+     * Returns source report with the corresponding ID
+     * @param ID id of the water source report
+     * @return Water source report object with the corresponding ID
      * @throws IOException if IO error occurs while writing stream header in loadLocation()
      * @throws ClassNotFoundException if Class of serialized object cannot be found in loadLocation()
      */
-    WaterReport getReportByID(long ID) throws IOException, ClassNotFoundException {
+    WaterSourceReport getSourceReportByID(long ID) throws IOException, ClassNotFoundException {
         String id = Long.toString(ID);
         SQLiteDatabase db = getReadableDatabase();
 
@@ -303,7 +303,7 @@ class DBHelper extends SQLiteOpenHelper {
         String[] selectionArgs = { id };
 
         // Query db, creates cursor object that points at result set (matching db entries)
-        Cursor cursor = db.query( "AllReports", columns, selection, selectionArgs,
+        Cursor cursor = db.query( "AllSourceReports", columns, selection, selectionArgs,
                                    null, null, null );
 
         // If cursor is empty (no report was found) throw error
@@ -320,22 +320,22 @@ class DBHelper extends SQLiteOpenHelper {
             String date = cursor.getString(cursor.getColumnIndexOrThrow("date"));
             cursor.close();
 
-            return new WaterReport(ID, WaterReport.loadLatitude(location),
-                                   WaterReport.loadLongitude(location), author, type, condition,
-                                   user_rating, date);
+            return new WaterSourceReport(ID, WaterSourceReport.loadLatitude(location),
+                                         WaterSourceReport.loadLongitude(location), author, type,
+                                         condition, user_rating, date);
         }
     }
 
     /**
-     * Checks if water report with same location already exists
-     * @return if water report already exists
+     * Checks if water source report with same location already exists
+     * @return if water source report already exists
      * @throws IOException if IO error occurs while writing stream header in storeLocation()
      */
     boolean isLocation(double latitude, double longitude) throws IOException {
         SQLiteDatabase db = getReadableDatabase();
-        String location = WaterReport.storeLocation(latitude, longitude);
+        String location = WaterSourceReport.storeLocation(latitude, longitude);
 
-        // Info we want from report that matches passed in ID
+        // Info we want from source report that matches passed in ID
         String[] columns = {"location"};
 
         // Query string we pass to db, selectionArgs replaces ? in selection String
@@ -343,7 +343,7 @@ class DBHelper extends SQLiteOpenHelper {
         String[] selectionArgs = {location};
 
         // Query db, creates cursor object that points at result set (matching db entries)
-        Cursor cursor = db.query( "AllReports", columns, selection, selectionArgs,
+        Cursor cursor = db.query( "AllSourceReports", columns, selection, selectionArgs,
                                    null, null, null );
 
         // If cursor has any rows in it,
@@ -354,15 +354,15 @@ class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * Creates array list of water reports that match corresponding Location
-     * @return array list of water reports in specified location
+     * Creates array list of water source reports that match corresponding Location
+     * @return array list of water source reports in specified location
      * @throws IOException if IO error occurs while writing stream header in storeLocation()
      */
-    ArrayList<WaterReport> getReportsByLocation(double latitude, double longitude) throws IOException,
-                                                                          IllegalAccessException {
+    ArrayList<WaterSourceReport> getSourceReportsByLocation(double latitude, double longitude)
+                                                            throws IOException, IllegalAccessException {
         SQLiteDatabase db = getReadableDatabase();
-        ArrayList<WaterReport> matching_entries = new ArrayList<>();
-        String location = WaterReport.storeLocation(latitude, longitude);
+        ArrayList<WaterSourceReport> matching_entries = new ArrayList<>();
+        String location = WaterSourceReport.storeLocation(latitude, longitude);
 
         // Query string we pass to db, selectionArgs replaces ? in selection String
         String selection = "location = ?";
@@ -370,7 +370,7 @@ class DBHelper extends SQLiteOpenHelper {
 
         // Query db, creates cursor object that points at result set (matching db entries)
         // Passing null into columns bc we want all report(s) attributes
-        Cursor cursor = db.query( "AllReports", null, selection, selectionArgs,
+        Cursor cursor = db.query( "AllSourceReports", null, selection, selectionArgs,
                                    null, null, null );
 
         // No reports with that location were found
@@ -390,8 +390,8 @@ class DBHelper extends SQLiteOpenHelper {
                 int user_rating = cursor.getInt(cursor.getColumnIndexOrThrow("user_rating"));
                 String date = cursor.getString(cursor.getColumnIndexOrThrow("date"));
 
-                WaterReport report = new WaterReport(id,latitude, longitude, author, type, condition,
-                                                     user_rating, date);
+                WaterSourceReport report = new WaterSourceReport(id,latitude, longitude, author,
+                                                                 type, condition, user_rating, date);
                 matching_entries.add(report);
             }
 
@@ -401,16 +401,16 @@ class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * Creates array list of water reports that were submitted by the corresponding user
+     * Creates array list of water source reports that were submitted by the corresponding user
      * @param author user we're searching for
-     * @return array list of water reports written by specified user
+     * @return array list of water source reports written by specified user
      * @throws IOException if IO error occurs while writing stream header in loadLocation()
      * @throws ClassNotFoundException if Class of serialized object cannot be found in loadLocation()
      */
-    ArrayList<WaterReport> getReportsByAuthor(String author) throws IOException,
-                                                                    ClassNotFoundException {
+    ArrayList<WaterSourceReport> getSourceReportsByAuthor(String author) throws IOException,
+                                                                                ClassNotFoundException {
         SQLiteDatabase db = getReadableDatabase();
-        ArrayList<WaterReport> matching_entries = new ArrayList<>();
+        ArrayList<WaterSourceReport> matching_entries = new ArrayList<>();
 
         // Query string we pass to db, selectionArgs replaces ? in selection String
         String selection = "author = ?";
@@ -418,7 +418,7 @@ class DBHelper extends SQLiteOpenHelper {
 
         // Query db, creates cursor object that points at result set (matching db entries)
         // passing null into columns bc need all attributes from report(s) written by passed in user
-        Cursor cursor = db.query( "AllReports", null, selection, selectionArgs,
+        Cursor cursor = db.query( "AllSourceReports", null, selection, selectionArgs,
                                   null, null, null );
 
         // No reports written by that user were found
@@ -438,9 +438,9 @@ class DBHelper extends SQLiteOpenHelper {
                 int user_rating = cursor.getInt(cursor.getColumnIndexOrThrow("user_rating"));
                 String date = cursor.getString(cursor.getColumnIndexOrThrow("date"));
 
-                WaterReport report = new WaterReport(id, WaterReport.loadLatitude(loc),
-                                                     WaterReport.loadLongitude(loc), author, type,
-                                                     condition, user_rating, date);
+                WaterSourceReport report = new WaterSourceReport(id, WaterSourceReport.loadLatitude(loc),
+                                                                 WaterSourceReport.loadLongitude(loc),
+                                                                 author, type, condition, user_rating, date);
                 matching_entries.add(report);
             }
 
@@ -450,17 +450,17 @@ class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * Creates array list of all water reports in AllReports SQLite DB
-     * @return array list of all water reports
+     * Creates array list of all source water reports in AllSourceReports SQLite DB
+     * @return array list of all water source reports
      * @throws IOException if IO error occurs while writing stream header in loadLocation()
      * @throws ClassNotFoundException if Class of serialized object cannot be found in loadLocation()
      */
-    ArrayList<String> getAllReports() throws IOException, ClassNotFoundException {
+    ArrayList<String> getAllSourceReports() throws IOException, ClassNotFoundException {
         SQLiteDatabase db = getWritableDatabase();
         ArrayList<String> all_entries = new ArrayList<String>();
 
         // Query string we pass to db
-        String selectQuery = "SELECT * FROM AllReports";
+        String selectQuery = "SELECT * FROM AllSourceReports";
 
         // Query db, creates cursor object that points at result set (matching db entries)
         // passing null into columns bc need all attributes from report(s)

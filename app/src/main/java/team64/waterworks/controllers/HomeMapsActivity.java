@@ -2,7 +2,6 @@ package team64.waterworks.controllers;
 
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -51,8 +50,8 @@ public class HomeMapsActivity extends FragmentActivity implements OnMapReadyCall
                     String[] reportsData = waterReports.get(i).split(" ", 0);
                     String idString = reportsData[0].replace("(", "").replace(")", "");
                     Long idLong = Long.parseLong(idString);
-                    Double lng = ReportsManager.getReportByID(idLong).getLongitude();
-                    Double lat = ReportsManager.getReportByID(idLong).getLatitude();
+                    Double lng = ReportsManager.getSourceReportByID(idLong).getLongitude();
+                    Double lat = ReportsManager.getSourceReportByID(idLong).getLatitude();
                     LatLng location = new LatLng(lat, lng);
 
                     mMap.addMarker(new MarkerOptions().position(location).title("Water " +

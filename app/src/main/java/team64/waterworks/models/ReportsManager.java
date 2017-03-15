@@ -1,6 +1,5 @@
 package team64.waterworks.models;
 import android.content.Context;
-import android.location.Location;
 import android.util.Log;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,120 +19,121 @@ public class ReportsManager {
 
 
     /**
-     * Create a new Water Report and add it to AllReports SQLite DB
-     * @param author user creating the report
-     * @param type type of water report (historical, location, or purity)
-     * @param condition condition of the water on a scale of health risk, poor, ok, great, pristine
-     * @return if the report was created successfully or not
+     * Create a new Water Source Report and add it to AllSourceReports SQLite DB
+     * @param author user creating the source report
+     * @param type type of water source report
+     * @param condition condition of the water on a scale of ...
+     * @return if the source report was created successfully or not
      */
-    public static boolean newReport(double latitude, double longitude, String author, String type, String condition) {
-        WaterReport report = new WaterReport(latitude, longitude, author, type, condition);
+    public static boolean newSourceReport(double latitude, double longitude, String author,
+                                          String type, String condition) {
+        WaterSourceReport report = new WaterSourceReport(latitude, longitude, author, type, condition);
 
-        // Checks if water location report already exists
+        // Checks if water source report already exists
 //        if (type.equals("location")) {
             try {
                 if (locationTaken(latitude, longitude)) {
-                    Log.e("Report Exists", "A water location report for that location already exists!");
+                    Log.e("Source Report Exists", "A water source report for that location already exists!");
                     return false;
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                Log.e("Unknown Error", "Failed to check if water location report already exists");
+                Log.e("Unknown Error", "Failed to check if water source report already exists");
                 return false;
             }
 //        }
 
-        // Add the new report
+        // Add the new source report
         try {
-            dbHelper.addReport(report);
+            dbHelper.addSourceReport(report);
             return true;
         } catch (IOException e) {
             e.printStackTrace();
             Log.e("Location invalid", "Could not retrieve location string");
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e("Unknown error", "Report may or may not be saved");
+            Log.e("Unknown error", "Source report may or may not be saved");
         }
         return false;
     }
 
     /**
-     * Edit the passed in report and saves its new values into SQLite
-     * @param report the report to be edited and saved
-     * @return if the report was successfully edited and saved in SQLite
+     * Edits the passed in source report and saves its new values into SQLite
+     * @param report the source report to be edited and saved
+     * @return if the source report was successfully edited and saved in SQLite
      */
-    public static boolean editReport(WaterReport report) {
+    public static boolean editSourceReport(WaterSourceReport report) {
         try {
-            dbHelper.updateReport(report);
+            dbHelper.updateSourceReport(report);
             return true;
         } catch (IOException e) {
             e.printStackTrace();
             Log.e("Location invalid", "Could not retrieve location string");
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e("Unknown error", "Could not edit report, report may or may not be updated");
+            Log.e("Unknown error", "Could not edit source report, it may or may not be updated");
         }
         return false;
     }
 
     /**
-     * Lookup report that corresponds to the passed in ID
-     * @param id id of the report looking up
-     * @return report that corresponds to the passed in ID
+     * Lookup source report that corresponds to the passed in ID
+     * @param id id of the source report looking up
+     * @return source report that corresponds to the passed in ID
      */
-    public static WaterReport getReportByID(long id) {
+    public static WaterSourceReport getSourceReportByID(long id) {
         try {
-            return dbHelper.getReportByID(id);
+            return dbHelper.getSourceReportByID(id);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
-            Log.e("Loc Deserialize Error", "Location for found report couldn't be deserialized");
+            Log.e("Loc Deserialize Error", "Location for found source report couldn't be deserialized");
         } catch (NoSuchElementException e) {
             e.printStackTrace();
-            Log.e("Report Not Found", "No report could be found by that ID");
+            Log.e("Source report Not Found", "No source report could be found by that ID");
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e("Unknown error", "Could not retrieve report with that ID");
+            Log.e("Unknown error", "Could not retrieve source report with that ID");
         }
         return null;
     }
 
     /**
-     * Create ArrayList of all reports in SQLite that correspond to the passed in location object
-     * @return ArrayList of reports that correspond to passed in location
+     * Create ArrayList of all source reports in SQLite that correspond to the passed in location object
+     * @return ArrayList of source reports that correspond to passed in location
      * @throws IOException when location object passed in
      * @throws NoSuchElementException
      * @throws Exception
      */
-    public static ArrayList<WaterReport> getReportsByLocation(double latitude, double longitude) throws Exception {
+    public static ArrayList<WaterSourceReport> getSourceReportsByLocation(double latitude, double longitude) throws Exception {
         try {
-            return dbHelper.getReportsByLocation(latitude, longitude);
+            return dbHelper.getSourceReportsByLocation(latitude, longitude);
         } catch (IOException e) {
             e.printStackTrace();
             Log.e("Loc Serialize Error", "Could not convert location to string for querying db");
         } catch (NoSuchElementException e) {
             e.printStackTrace();
-            Log.e("No Reports Found", "No reports matched that location");
+            Log.e("No Source Reports Found", "No source reports matched that location");
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e("Unknown Error", "Could not retrieve report(s) with that location");
+            Log.e("Unknown Error", "Could not retrieve source report(s) with that location");
         }
         return null;
     }
 
     /**
-     * Creates array list of reports written by the corresponding author
+     * Creates array list of source reports written by the corresponding author
      * @param author author searching for
-     * @return array list of reports written by the passed in author
+     * @return array list of source reports written by the passed in author
      */
-    public static ArrayList<WaterReport> getReportsByAuthor(String author) {
+    public static ArrayList<WaterSourceReport> getSourceReportsByAuthor(String author) {
         try {
-            return dbHelper.getReportsByAuthor(author);
+            return dbHelper.getSourceReportsByAuthor(author);
         } catch (NoSuchElementException e) {
             e.printStackTrace();
-            Log.e("No Reports Found", "No reports have been written by that user");
+            Log.e("No Source Reports Found", "No source reports have been written by that user");
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e("Unknown Error", "Could not retrieve report(s) written by that user");
+            Log.e("Unknown Error", "Could not retrieve source report(s) written by that user");
         }
         return null;
     }
@@ -144,7 +144,7 @@ public class ReportsManager {
      */
     public static ArrayList<String> viewAllReports() {
         try {
-            return dbHelper.getAllReports();
+            return dbHelper.getAllSourceReports();
         } catch (NoSuchElementException e) {
             e.printStackTrace();
             Log.e("No Reports Found", "No reports have been submitted yet");
