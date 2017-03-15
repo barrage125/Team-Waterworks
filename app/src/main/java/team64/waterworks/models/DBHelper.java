@@ -116,9 +116,8 @@ class DBHelper extends SQLiteOpenHelper {
     /**
      * Adds a new account to AllUsers SQLite DB
      * @throws NoSuchAlgorithmException if Base64 algo for hashPassword() not found
-     * @throws IOException if IO error occurs while writing stream header in getProfile().storeLocation()
      */
-    void addAccount(Account account) throws NoSuchAlgorithmException, IOException {
+    void addAccount(Account account) throws NoSuchAlgorithmException {
         SQLiteDatabase db = getWritableDatabase();
 
         // Create a new set of values for new account row
@@ -493,66 +492,68 @@ class DBHelper extends SQLiteOpenHelper {
      /*********************************/
     /**
      * Adds a new Water Purity Report to AllPurityReports SQLite DB
-     * @param report new Water Source Report to be added
+     * @param report new Water Purity Report to be added
      */
-//    void addSourceReport(WaterSourceReport report) {
+    void addPurityReport(WaterPurityReport report) {
 //        SQLiteDatabase db = getWritableDatabase();
 //
 //        // Create a new set of values for the new report row
 //        ContentValues values = new ContentValues();
-//        values.put("location", WaterSourceReport.storeLocation(report.getLatitude(), report.getLongitude()));
+//        values.put("location", WaterPurityReport.storeLocation(report.getLatitude(), report.getLongitude()));
 //        values.put("author", report.getAuthor());
 //        values.put("type", report.getType());
 //        values.put("condition", report.getCondition());
-//        values.put("user_rating", report.getRating());
+//        values.put("virus_ppm", report.getVirusPPM());
+//        values.put("contam_ppm", report.getContamPPM());
 //        values.put("date", report.getDate());
 //
 //        // Insert the new report (row), returns primary key value of new row
-//        db.insert("AllSourceReports", null, values);
-//    }
-//
-//    /**
-//     * Updates an already existing report in AllSourceReports SQLite DB
-//     * For every changed field, new values need to be set on source report in editSourceReport activity
-//     * @param report water source report to update
-//     */
-//    void updateSourceReport(WaterSourceReport report) {
+//        db.insert("AllPurityReports", null, values);
+    }
+
+    /**
+     * Updates an already existing purity report in AllPurityReports SQLite DB
+     * For every changed field, new values need to be set on purity report in editPurityReport activity
+     * @param report water purity report to update
+     */
+    void updatePurityReport(WaterPurityReport report) {
 //        String id = Long.toString(report.getId());
 //        SQLiteDatabase db = getReadableDatabase();
 //
 //        // New values for columns (report attributes). id, author, type, and date not included
 //        // bc they're final attributes and shouldn't be changeable
 //        ContentValues values = new ContentValues();
-//        values.put("location", WaterSourceReport.storeLocation(report.getLatitude(), report.getLongitude()));
+//        values.put("location", WaterPurityReport.storeLocation(report.getLatitude(), report.getLongitude()));
 //        values.put("condition", report.getCondition());
-//        values.put("user_rating", report.getRating());
+//        values.put("virus_ppm", report.getVirusPPM());
+//        values.put("contam_ppm", report.getContamPPM());
 //
 //        // Query string for db, find row matching passed in id, selectionArgs replaces ?
 //        String selection = "_id = ?";
 //        String[] selectionArgs = { id };
 //
 //        // update the values for the row that matches the passed in id
-//        db.update("AllSourceReports", values, selection, selectionArgs);
-//    }
-//
-//    /**
-//     * Returns source report with the corresponding ID
-//     * @param ID id of the water source report
-//     * @return Water source report object with the corresponding ID
-//     */
-//    WaterSourceReport getSourceReportByID(long ID) {
+//        db.update("AllPurityReports", values, selection, selectionArgs);
+    }
+
+    /**
+     * Returns purity report with the corresponding ID
+     * @param ID id of the water purity report
+     * @return Water purity report object with the corresponding ID
+     */
+    WaterPurityReport getPurityReportByID(long ID) {
 //        String id = Long.toString(ID);
 //        SQLiteDatabase db = getReadableDatabase();
 //
 //        // Info we want from report that matches passed in ID
-//        String[] columns = { "location", "author", "type", "condition", "user_rating", "date" };
+//        String[] columns = { "location", "author", "type", "condition", "virus_ppm", "contam_ppm", "date" };
 //
 //        // Query string we pass to db, selectionArgs replaces ? in selection String
 //        String selection = "_id = ?";
 //        String[] selectionArgs = { id };
 //
 //        // Query db, creates cursor object that points at result set (matching db entries)
-//        Cursor cursor = db.query( "AllSourceReports", columns, selection, selectionArgs,
+//        Cursor cursor = db.query( "AllPurityReports", columns, selection, selectionArgs,
 //                null, null, null );
 //
 //        // If cursor is empty (no report was found) throw error
@@ -565,50 +566,26 @@ class DBHelper extends SQLiteOpenHelper {
 //            String author = cursor.getString(cursor.getColumnIndexOrThrow("author"));
 //            String type = cursor.getString(cursor.getColumnIndexOrThrow("type"));
 //            String condition = cursor.getString(cursor.getColumnIndexOrThrow("condition"));
-//            int user_rating = cursor.getInt(cursor.getColumnIndexOrThrow("user_rating"));
+//            int virus_ppm = cursor.getInt(cursor.getColumnIndexOrThrow("virus_ppm"));
+//            int contam_ppm = cursor.getInt(cursor.getColumnIndexOrThrow("contam_ppm"));
 //            String date = cursor.getString(cursor.getColumnIndexOrThrow("date"));
 //            cursor.close();
 //
-//            return new WaterSourceReport(ID, WaterSourceReport.loadLatitude(location),
-//                    WaterSourceReport.loadLongitude(location), author, type,
-//                    condition, user_rating, date);
+//            return new WaterPurityReport(ID, WaterPurityReport.loadLatitude(location),
+//                                         WaterPurityReport.loadLongitude(location), author, type,
+//                                         condition, virus_ppm, contam_ppm, date);
 //        }
-//    }
-//
-//    /**
-//     * Checks if water source report with same location already exists
-//     * @return if water source report already exists
-//     */
-//    boolean isLocation(double latitude, double longitude) {
+        return null;
+    }
+
+    /**
+     * Creates array list of water purity reports that match corresponding Location
+     * @return array list of water purity reports in specified location
+     */
+    ArrayList<WaterPurityReport> getPurityReportsByLocation(double latitude, double longitude) {
 //        SQLiteDatabase db = getReadableDatabase();
-//        String location = WaterSourceReport.storeLocation(latitude, longitude);
-//
-//        // Info we want from source report that matches passed in ID
-//        String[] columns = {"location"};
-//
-//        // Query string we pass to db, selectionArgs replaces ? in selection String
-//        String selection = "location = ?";
-//        String[] selectionArgs = {location};
-//
-//        // Query db, creates cursor object that points at result set (matching db entries)
-//        Cursor cursor = db.query( "AllSourceReports", columns, selection, selectionArgs,
-//                null, null, null );
-//
-//        // If cursor has any rows in it,
-//        boolean answer = (cursor.getCount() > 0);
-//        cursor.close();
-//
-//        return answer;
-//    }
-//
-//    /**
-//     * Creates array list of water source reports that match corresponding Location
-//     * @return array list of water source reports in specified location
-//     */
-//    ArrayList<WaterSourceReport> getSourceReportsByLocation(double latitude, double longitude) {
-//        SQLiteDatabase db = getReadableDatabase();
-//        ArrayList<WaterSourceReport> matching_entries = new ArrayList<>();
-//        String location = WaterSourceReport.storeLocation(latitude, longitude);
+//        ArrayList<WaterPurityReport> matching_entries = new ArrayList<>();
+//        String location = WaterPurityReport.storeLocation(latitude, longitude);
 //
 //        // Query string we pass to db, selectionArgs replaces ? in selection String
 //        String selection = "location = ?";
@@ -616,7 +593,7 @@ class DBHelper extends SQLiteOpenHelper {
 //
 //        // Query db, creates cursor object that points at result set (matching db entries)
 //        // Passing null into columns bc we want all report(s) attributes
-//        Cursor cursor = db.query( "AllSourceReports", null, selection, selectionArgs,
+//        Cursor cursor = db.query( "AllPurityReports", null, selection, selectionArgs,
 //                null, null, null );
 //
 //        // No reports with that location were found
@@ -633,36 +610,39 @@ class DBHelper extends SQLiteOpenHelper {
 //                String author = cursor.getString(cursor.getColumnIndexOrThrow("author"));
 //                String type = cursor.getString(cursor.getColumnIndexOrThrow("type"));
 //                String condition = cursor.getString(cursor.getColumnIndexOrThrow("condition"));
-//                int user_rating = cursor.getInt(cursor.getColumnIndexOrThrow("user_rating"));
+//                int virus_ppm = cursor.getInt(cursor.getColumnIndexOrThrow("virus_ppm"));
+//                int contam_ppm = cursor.getInt(cursor.getColumnIndexOrThrow("contam_ppm"));
 //                String date = cursor.getString(cursor.getColumnIndexOrThrow("date"));
 //
-//                WaterSourceReport report = new WaterSourceReport(id,latitude, longitude, author,
-//                        type, condition, user_rating, date);
+//                WaterPurityReport report = new WaterPurityReport(id, latitude, longitude, author,
+//                                                                 type, condition, virus_ppm, contam_ppm,
+//                                                                 date);
 //                matching_entries.add(report);
 //            }
 //
 //            cursor.close();
 //            return matching_entries;
 //        }
-//    }
-//
-//    /**
-//     * Creates array list of water source reports that were submitted by the corresponding user
-//     * @param author user we're searching for
-//     * @return array list of water source reports written by specified user
-//     */
-//    ArrayList<WaterSourceReport> getSourceReportsByAuthor(String author) {
+        return null;
+    }
+
+    /**
+     * Creates array list of water purity reports that were submitted by the corresponding worker
+     * @param author worker we're searching for
+     * @return array list of water purity reports written by specified worker
+     */
+    ArrayList<WaterPurityReport> getPurityReportsByAuthor(String author) {
 //        SQLiteDatabase db = getReadableDatabase();
-//        ArrayList<WaterSourceReport> matching_entries = new ArrayList<>();
+//        ArrayList<WaterPurityReport> matching_entries = new ArrayList<>();
 //
 //        // Query string we pass to db, selectionArgs replaces ? in selection String
 //        String selection = "author = ?";
 //        String[] selectionArgs = {author};
 //
 //        // Query db, creates cursor object that points at result set (matching db entries)
-//        // passing null into columns bc need all attributes from report(s) written by passed in user
-//        Cursor cursor = db.query( "AllSourceReports", null, selection, selectionArgs,
-//                null, null, null );
+//        // passing null into columns bc need all attributes from report(s) written by passed in worker
+//        Cursor cursor = db.query( "AllPurityReports", null, selection, selectionArgs,
+//                                   null, null, null );
 //
 //        // No reports written by that user were found
 //        if (!(cursor.moveToFirst())) {
@@ -673,68 +653,72 @@ class DBHelper extends SQLiteOpenHelper {
 //
 //            // Recursively add reports to array list until at the end of cursor's result set
 //            while (cursor.moveToNext()) {
-//                // values of report written by user
+//                // values of report written by worker
 //                long id = cursor.getLong(cursor.getColumnIndexOrThrow("_id"));
 //                String loc = cursor.getString(cursor.getColumnIndexOrThrow("location"));
 //                String type = cursor.getString(cursor.getColumnIndexOrThrow("type"));
 //                String condition = cursor.getString(cursor.getColumnIndexOrThrow("condition"));
-//                int user_rating = cursor.getInt(cursor.getColumnIndexOrThrow("user_rating"));
+//                int virus_ppm = cursor.getInt(cursor.getColumnIndexOrThrow("virus_ppm"));
+//                int contam_ppm = cursor.getInt(cursor.getColumnIndexOrThrow("contam_ppm"));
 //                String date = cursor.getString(cursor.getColumnIndexOrThrow("date"));
 //
-//                WaterSourceReport report = new WaterSourceReport(id, WaterSourceReport.loadLatitude(loc),
-//                        WaterSourceReport.loadLongitude(loc),
-//                        author, type, condition, user_rating, date);
+//                WaterPurityReport report = new WaterPurityReport(id, WaterPurityReport.loadLatitude(loc),
+//                                                                 WaterPurityReport.loadLongitude(loc),
+//                                                                 author, type, condition, virus_ppm,
+//                                                                 contam_ppm, date);
 //                matching_entries.add(report);
 //            }
 //
 //            cursor.close();
 //            return matching_entries;
 //        }
-//    }
-//
-//    /**
-//     * Creates array list of all source water reports in AllSourceReports SQLite DB
-//     * @return array list of all water source reports
-//     */
-//    ArrayList<String> getAllSourceReports() {
-//        SQLiteDatabase db = getWritableDatabase();
-//        ArrayList<String> all_entries = new ArrayList<String>();
-//
-//        // Query string we pass to db
-//        String selectQuery = "SELECT * FROM AllSourceReports";
-//
-//        // Query db, creates cursor object that points at result set (matching db entries)
-//        // passing null into columns bc need all attributes from report(s)
-//        Cursor cursor = db.rawQuery( selectQuery, null );
-//
-//        // No reports were found
-//        if (!(cursor.moveToFirst())) {
-//            cursor.close();
-//            throw new NoSuchElementException();
-//        } else {
-//            // Recursively add reports to array list until at the end of cursor's result set
-//            while (!cursor.isAfterLast()) {
-//                // set values of report
-//                long id = cursor.getLong(cursor.getColumnIndexOrThrow("_id"));
-//                String author = cursor.getString(cursor.getColumnIndexOrThrow("author"));
-//                String loc = cursor.getString(cursor.getColumnIndexOrThrow("location"));
-//                String type = cursor.getString(cursor.getColumnIndexOrThrow("type"));
-//                String condition = cursor.getString(cursor.getColumnIndexOrThrow("condition"));
-//                int user_rating = cursor.getInt(cursor.getColumnIndexOrThrow("user_rating"));
-//                String date = cursor.getString(cursor.getColumnIndexOrThrow("date"));
-//
-//                // Put them in String
-//                String report = '(' + Long.toString(id) + ')' + ' ' + '(' + loc + ')' + ' ' +
-//                        '(' + author + ')' + ' ' + '(' + type + ')' + ' ' + '(' +
-//                        condition + ')' + ' ' + '(' + Integer.toString(user_rating) + ')'
-//                        + ' ' + '(' + date + ')';
-//
-//                all_entries.add(report);
-//                cursor.moveToNext();
-//            }
-//
-//            cursor.close();
-//            return all_entries;
-//        }
-//    }
+        return null;
+    }
+
+    /**
+     * Creates array list of all water purity reports in AllPurityReports SQLite DB
+     * @return array list of all water purity reports
+     */
+    ArrayList<String> getAllPurityReports() {
+        SQLiteDatabase db = getWritableDatabase();
+        ArrayList<String> all_entries = new ArrayList<String>();
+
+        // Query string we pass to db
+        String selectQuery = "SELECT * FROM AllPurityReports";
+
+        // Query db, creates cursor object that points at result set (matching db entries)
+        // passing null into columns bc need all attributes from report(s)
+        Cursor cursor = db.rawQuery( selectQuery, null );
+
+        // No reports were found
+        if (!(cursor.moveToFirst())) {
+            cursor.close();
+            throw new NoSuchElementException();
+        } else {
+            // Recursively add reports to array list until at the end of cursor's result set
+            while (!cursor.isAfterLast()) {
+                // set values of report
+                long id = cursor.getLong(cursor.getColumnIndexOrThrow("_id"));
+                String loc = cursor.getString(cursor.getColumnIndexOrThrow("location"));
+                String author = cursor.getString(cursor.getColumnIndexOrThrow("author"));
+                String type = cursor.getString(cursor.getColumnIndexOrThrow("type"));
+                String condition = cursor.getString(cursor.getColumnIndexOrThrow("condition"));
+                int virus_ppm = cursor.getInt(cursor.getColumnIndexOrThrow("virus_ppm"));
+                int contam_ppm = cursor.getInt(cursor.getColumnIndexOrThrow("contam_ppm"));
+                String date = cursor.getString(cursor.getColumnIndexOrThrow("date"));
+
+                // Put them in String
+                String report = '(' + Long.toString(id) + ')' + ' ' + '(' + loc + ')' + ' ' +
+                        '(' + author + ')' + ' ' + '(' + type + ')' + ' ' + '(' +
+                        condition + ')' + ' ' + '(' + Integer.toString(virus_ppm) + ')' +
+                        ' ' + '(' + Integer.toString(contam_ppm) + ')' + ' ' + '(' + date + ')';
+
+                all_entries.add(report);
+                cursor.moveToNext();
+            }
+
+            cursor.close();
+            return all_entries;
+        }
+    }
 }

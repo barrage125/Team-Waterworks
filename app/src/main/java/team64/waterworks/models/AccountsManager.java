@@ -41,10 +41,6 @@ public class AccountsManager {
             e.printStackTrace();
             Log.e("Unable to Hash Password", "Algorithm for hashing password not found!");
             return false;
-        } catch (IOException e) {
-            e.printStackTrace();
-            Log.e("Profile Serialize Error", "Failed to storeLocation profile");
-            return false;
         } catch (Exception e) {
             e.printStackTrace();
             Log.e("Unknown Error", "User may or may not be saved.");
@@ -76,10 +72,6 @@ public class AccountsManager {
             e.printStackTrace();
             Log.e("Unable to Hash Password", "Algorithm for hashing password not found!");
             return false;
-        } catch (IOException e) {
-            e.printStackTrace();
-            Log.e("Profile Serialize Error", "Failed to storeLocation profile");
-            return false;
         } catch (Exception e) {
             e.printStackTrace();
             Log.e("Unknown Error", "Admin may or may not be saved.");
@@ -110,10 +102,6 @@ public class AccountsManager {
             e.printStackTrace();
             Log.e("Unable to Hash Password", "Algorithm for hashing password not found!");
             return false;
-        } catch (IOException e) {
-            e.printStackTrace();
-            Log.e("Profile Serialize Error", "Failed to storeLocation profile");
-            return false;
         } catch (Exception e) {
             e.printStackTrace();
             Log.e("Unknown Error", "Worker may or may not be saved.");
@@ -143,10 +131,6 @@ public class AccountsManager {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
             Log.e("Unable to Hash Password", "Algorithm for hashing password not found!");
-            return false;
-        } catch (IOException e) {
-            e.printStackTrace();
-            Log.e("Profile Serialize Error", "Failed to storeLocation profile");
             return false;
         } catch (Exception e) {
             e.printStackTrace();

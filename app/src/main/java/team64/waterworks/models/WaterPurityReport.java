@@ -23,7 +23,8 @@ public class WaterPurityReport {
     */
 
     /**
-     * Second constructor takes in all instance vars
+     * Second constructor takes in all instance vars in this order:
+     * WaterPurityReport(ID, latitude, longitude, author, type, condition, virus_ppm, contam_ppm, date)
      */
 
 
@@ -68,6 +69,9 @@ public class WaterPurityReport {
     /**
      * For every instance var
      */
+
+//    public long getContamPPM() { }
+//    public long getVirusPPM() { }
 
 
        /*************/
