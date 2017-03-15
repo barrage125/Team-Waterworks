@@ -47,9 +47,6 @@ public class WSRManager {
         try {
             dbHelper.addSourceReport(report);
             return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            Log.e("Location invalid", "Could not retrieve location string");
         } catch (Exception e) {
             e.printStackTrace();
             Log.e("Unknown error", "Source report may or may not be saved");
@@ -66,9 +63,6 @@ public class WSRManager {
         try {
             dbHelper.updateSourceReport(report);
             return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            Log.e("Location invalid", "Could not retrieve location string");
         } catch (Exception e) {
             e.printStackTrace();
             Log.e("Unknown error", "Could not edit source report, it may or may not be updated");
@@ -84,9 +78,6 @@ public class WSRManager {
     public static WaterSourceReport getSourceReportByID(long id) {
         try {
             return dbHelper.getSourceReportByID(id);
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-            Log.e("Loc Deserialize Error", "Location for found source report couldn't be deserialized");
         } catch (NoSuchElementException e) {
             e.printStackTrace();
             Log.e("Source report Not Found", "No source report could be found by that ID");
@@ -107,9 +98,6 @@ public class WSRManager {
     public static ArrayList<WaterSourceReport> getSourceReportsByLocation(double latitude, double longitude) throws Exception {
         try {
             return dbHelper.getSourceReportsByLocation(latitude, longitude);
-        } catch (IOException e) {
-            e.printStackTrace();
-            Log.e("Loc Serialize Error", "Could not convert location to string for querying db");
         } catch (NoSuchElementException e) {
             e.printStackTrace();
             Log.e("No Source Reports Found", "No source reports matched that location");
@@ -164,9 +152,6 @@ public class WSRManager {
     private static boolean locationTaken(double latitude, double longitude) {
         try {
             return dbHelper.isLocation(latitude, longitude);
-        } catch (IOException e) {
-            e.printStackTrace();
-            Log.e("Loc Serialize Error", "Could not convert location to string for querying db");
         } catch (Exception e) {
             e.printStackTrace();
             Log.e("Unknown Error", "Could not retrieve source report(s) written by that user");
