@@ -35,7 +35,7 @@
 
         <Button
             android:id="@+id/list_all_WSR_btn"
-            android:text="View Water Source Reports"
+            android:text="List All Water Source Reports"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/create_src_report_btn" />
@@ -53,7 +53,7 @@
 
         <Button
             android:id="@+id/list_all_WPR_btn"
-            android:text="View Water Purity Reports"
+            android:text="List All Water Purity Reports"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/create_pur_report_btn" />
