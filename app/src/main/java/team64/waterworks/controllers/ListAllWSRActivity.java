@@ -1,6 +1,8 @@
 package team64.waterworks.controllers;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -50,9 +52,21 @@ public class ListAllWSRActivity extends AppCompatActivity implements View.OnClic
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.clr_WSR_btn: {
-                // WSRManager.cleardb();
-                Intent intent = new Intent(ListAllWSRActivity.this, ListAllWSRActivity.class);
-                startActivity(intent);
+                // Ask for user confirmation before clearing db
+                new AlertDialog.Builder(this)
+                    .setTitle("Clear all Water Source Reports")
+                    .setMessage("Do you really want to clear the water source reports db?")
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // WSRManager.cleardb();
+                            Intent intent = new Intent(ListAllWSRActivity.this, ListAllWSRActivity.class);
+                            startActivity(intent);
+                        }
+                    })
+                    .setNegativeButton("No", null)
+                    .show();
                 break;
             }
         }
