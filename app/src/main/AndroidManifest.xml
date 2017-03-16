@@ -22,6 +22,7 @@
         <activity android:name=".controllers.RegisterActivity" />
         <activity android:name=".controllers.ProfileActivity" />
         <activity android:name=".controllers.AddWSRActivity" />
+        <activity android:name=".controllers.AddWQRActivity" />
         <activity android:name=".controllers.ListAllWSRActivity" />
         <activity android:name=".controllers.ListAllWPRActivity" />
 

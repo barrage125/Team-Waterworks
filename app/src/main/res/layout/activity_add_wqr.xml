@@ -29,21 +29,32 @@
         android:ems="10"
         android:id="@+id/wrLat" />
 
+    <TextView
+        android:id="@+id/wrVPPMID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Virus PPM" />
+
+    <EditText
+        android:id="@+id/wrVPPM"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName" />
 
     <TextView
-        android:id="@+id/wrTypeID"
+        android:id="@+id/wrCPPMID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Water Type" />
+        android:text="Contaminant  PPM" />
 
-    <Spinner
-        android:id="@+id/wrType"
+    <EditText
+        android:id="@+id/wrCPPM"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/reg_cancel"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="26dp" />
+        android:ems="10"
+        android:inputType="textPersonName" />
+
 
     <TextView
         android:text="Conditon"

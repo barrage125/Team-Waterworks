@@ -77,6 +77,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     startActivity(intent);
                     break;
                 }
+                case R.id.create_pur_report_btn: {
+                    Intent intent = new Intent(HomeActivity.this, AddWQRActivity.class);
+                    startActivity(intent);
+                    break;
+                }
                 case R.id.logout_btn: {
                     Intent intent = new Intent(HomeActivity.this, SplashActivity.class);
                     startActivity(intent);
