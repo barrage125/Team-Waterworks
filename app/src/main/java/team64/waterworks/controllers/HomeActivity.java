@@ -72,6 +72,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     startActivity(intent);
                     break;
                 }
+                case R.id.list_all_WPR_btn: {
+                    Intent intent = new Intent(HomeActivity.this, ListAllWPRActivity.class);
+                    startActivity(intent);
+                    break;
+                }
                 case R.id.logout_btn: {
                     Intent intent = new Intent(HomeActivity.this, SplashActivity.class);
                     startActivity(intent);

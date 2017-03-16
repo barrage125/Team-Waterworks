@@ -23,6 +23,7 @@
         <activity android:name=".controllers.ProfileActivity" />
         <activity android:name=".controllers.AddWSRActivity" />
         <activity android:name=".controllers.ListAllWSRActivity" />
+        <activity android:name=".controllers.ListAllWPRActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
