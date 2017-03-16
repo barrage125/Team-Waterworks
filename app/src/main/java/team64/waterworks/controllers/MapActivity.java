@@ -8,12 +8,14 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 import com.google.android.gms.maps.model.Marker;
 
 import team64.waterworks.R;
+import team64.waterworks.models.WPRManager;
 import team64.waterworks.models.WSRManager;
 
 public class MapActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener{
@@ -45,6 +47,9 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
             mMap.setOnInfoWindowClickListener(this);
             ArrayList<String> waterReports = WSRManager.viewAllSourceReports();
             LatLng location = new LatLng(50,50);
+            boolean reportsExist = false;
+
+            ArrayList<String> purityReports = WPRManager.viewAllPurityReports();
 
             if (waterReports != null) {
                 for (int i = 0; i < waterReports.size(); i++) {
@@ -59,7 +64,27 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
                             "Report: " + idLong).snippet
                             ("Lat/Long: " + lat + "/" + lng));
                 }
-            } else {
+                reportsExist = true;
+            }
+            if (purityReports != null){
+                for (int i = 0; i < purityReports.size(); i++) {
+                    String[] reportsData = purityReports.get(i).split(" ", 0);
+                    String idString = reportsData[0].replace("(", "").replace(")", "");
+                    Long idLong = Long.parseLong(idString);
+                    Double lng = WPRManager.getPurityReportByID(idLong).getLongitude();
+                    Double lat = WPRManager.getPurityReportByID(idLong).getLatitude();
+                    location = new LatLng(lat, lng);
+
+                    mMap.addMarker(new MarkerOptions().position(location).title("Water " +
+                            "Report: " + idLong).snippet
+                            ("Lat/Long: " + lat + "/" + lng).icon
+                            (BitmapDescriptorFactory.defaultMarker
+                                    (BitmapDescriptorFactory.HUE_AZURE)));
+                }
+                reportsExist = true;
+            }
+
+            if (!reportsExist) {
                 Toast.makeText(getApplicationContext(), "No reports have been added yet!",Toast.LENGTH_SHORT).show();
             }
 
