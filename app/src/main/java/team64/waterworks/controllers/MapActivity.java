@@ -61,7 +61,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
                     location = new LatLng(lat, lng);
 
                     mMap.addMarker(new MarkerOptions().position(location).title("Water " +
-                            "Report: " + idLong).snippet
+                            "Source Report: " + idLong).snippet
                             ("Lat/Long: " + lat + "/" + lng));
                 }
                 reportsExist = true;
@@ -76,7 +76,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
                     location = new LatLng(lat, lng);
 
                     mMap.addMarker(new MarkerOptions().position(location).title("Water " +
-                            "Report: " + idLong).snippet
+                            "Purity Report: " + idLong).snippet
                             ("Lat/Long: " + lat + "/" + lng).icon
                             (BitmapDescriptorFactory.defaultMarker
                                     (BitmapDescriptorFactory.HUE_AZURE)));
