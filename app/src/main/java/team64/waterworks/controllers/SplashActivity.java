@@ -7,6 +7,7 @@ import android.widget.Button;
 
 import team64.waterworks.R;
 import team64.waterworks.models.AccountsManager;
+import team64.waterworks.models.WPRManager;
 import team64.waterworks.models.WSRManager;
 
 
@@ -32,6 +33,7 @@ public class SplashActivity extends AppCompatActivity implements View.OnClickLis
         // Set up database handler
         AccountsManager.setDBHelper(this);
         WSRManager.setDBHelper(this);
+        WPRManager.setDBHelper(this);
     }
 
     /**

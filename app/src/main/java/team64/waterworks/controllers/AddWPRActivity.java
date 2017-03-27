@@ -18,10 +18,9 @@ import team64.waterworks.R;
 import team64.waterworks.models.Account;
 import team64.waterworks.models.AccountsManager;
 import team64.waterworks.models.WPRManager;
-import team64.waterworks.models.WaterPurityReport;
 
 
-public class AddWQRActivity extends AppCompatActivity implements View.OnClickListener {
+public class AddWPRActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button submit, cancel;
     EditText txtLong, txtLat, waterVPPM, waterCPPM;
@@ -86,12 +85,12 @@ public class AddWQRActivity extends AppCompatActivity implements View.OnClickLis
                     progressDialog.setMessage("Submitting report...");
                     progressDialog.show();
 
-                    if (!(WPRManager.newPurityReport(Double.parseDouble(latitude), Double.parseDouble(longitude), author, "", waterCondition))) {
+                    if (!(WPRManager.newPurityReport(Double.parseDouble(latitude), Double.parseDouble(longitude), author, waterCondition, virusPPM, contPPM))) {
                         progressDialog.dismiss();
                         Toast.makeText(getApplicationContext(), "Unable to submit", Toast.LENGTH_SHORT).show();
                     } else {
                         progressDialog.dismiss();
-                        Intent intent = new Intent(AddWQRActivity.this, HomeActivity.class);
+                        Intent intent = new Intent(AddWPRActivity.this, HomeActivity.class);
                         finish();
                         startActivity(intent);
                         Toast.makeText(getApplicationContext(), "Report submitted", Toast.LENGTH_SHORT).show();
@@ -101,7 +100,7 @@ public class AddWQRActivity extends AppCompatActivity implements View.OnClickLis
             break;
 
             case R.id.wrCancelButton: {
-                Intent intent = new Intent(AddWQRActivity.this, HomeActivity.class);
+                Intent intent = new Intent(AddWPRActivity.this, HomeActivity.class);
                 startActivity(intent);
             }
             break;

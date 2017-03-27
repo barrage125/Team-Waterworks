@@ -523,7 +523,6 @@ class DBHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put("location", WaterPurityReport.storeLocation(report.getLatitude(), report.getLongitude()));
         values.put("author", report.getAuthor());
-        values.put("type", report.getType());
         values.put("condition", report.getCondition());
         values.put("virus_ppm", report.getVirusPPM());
         values.put("contam_ppm", report.getContamPPM());
@@ -568,7 +567,7 @@ class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
 
         // Info we want from report that matches passed in ID
-        String[] columns = { "location", "author", "type", "condition", "virus_ppm", "contam_ppm", "date" };
+        String[] columns = { "location", "author", "condition", "virus_ppm", "contam_ppm", "date" };
 
         // Query string we pass to db, selectionArgs replaces ? in selection String
         String selection = "_id = ?";
@@ -586,7 +585,6 @@ class DBHelper extends SQLiteOpenHelper {
             // create String values found from report that matched ID in db
             String location = cursor.getString(cursor.getColumnIndexOrThrow("location"));
             String author = cursor.getString(cursor.getColumnIndexOrThrow("author"));
-            String type = cursor.getString(cursor.getColumnIndexOrThrow("type"));
             String condition = cursor.getString(cursor.getColumnIndexOrThrow("condition"));
             int virus_ppm = cursor.getInt(cursor.getColumnIndexOrThrow("virus_ppm"));
             int contam_ppm = cursor.getInt(cursor.getColumnIndexOrThrow("contam_ppm"));
@@ -594,7 +592,7 @@ class DBHelper extends SQLiteOpenHelper {
             cursor.close();
 
             return new WaterPurityReport(ID, WaterPurityReport.loadLatitude(location),
-                                         WaterPurityReport.loadLongitude(location), author, type,
+                                         WaterPurityReport.loadLongitude(location), author,
                                          condition, virus_ppm, contam_ppm, date);
         }
     }
@@ -629,14 +627,13 @@ class DBHelper extends SQLiteOpenHelper {
                 // Set values of report that matched location
                 long id = cursor.getLong(cursor.getColumnIndexOrThrow("_id"));
                 String author = cursor.getString(cursor.getColumnIndexOrThrow("author"));
-                String type = cursor.getString(cursor.getColumnIndexOrThrow("type"));
                 String condition = cursor.getString(cursor.getColumnIndexOrThrow("condition"));
                 int virus_ppm = cursor.getInt(cursor.getColumnIndexOrThrow("virus_ppm"));
                 int contam_ppm = cursor.getInt(cursor.getColumnIndexOrThrow("contam_ppm"));
                 String date = cursor.getString(cursor.getColumnIndexOrThrow("date"));
 
                 WaterPurityReport report = new WaterPurityReport(id, latitude, longitude, author,
-                                                                 type, condition, virus_ppm, contam_ppm,
+                                                                 condition, virus_ppm, contam_ppm,
                                                                  date);
                 matching_entries.add(report);
             }
@@ -684,7 +681,7 @@ class DBHelper extends SQLiteOpenHelper {
 
                 WaterPurityReport report = new WaterPurityReport(id, WaterPurityReport.loadLatitude(loc),
                                                                  WaterPurityReport.loadLongitude(loc),
-                                                                 author, type, condition, virus_ppm,
+                                                                 author, condition, virus_ppm,
                                                                  contam_ppm, date);
                 matching_entries.add(report);
             }
@@ -720,7 +717,6 @@ class DBHelper extends SQLiteOpenHelper {
                 long id = cursor.getLong(cursor.getColumnIndexOrThrow("_id"));
                 String loc = cursor.getString(cursor.getColumnIndexOrThrow("location"));
                 String author = cursor.getString(cursor.getColumnIndexOrThrow("author"));
-                String type = cursor.getString(cursor.getColumnIndexOrThrow("type"));
                 String condition = cursor.getString(cursor.getColumnIndexOrThrow("condition"));
                 int virus_ppm = cursor.getInt(cursor.getColumnIndexOrThrow("virus_ppm"));
                 int contam_ppm = cursor.getInt(cursor.getColumnIndexOrThrow("contam_ppm"));
@@ -728,7 +724,7 @@ class DBHelper extends SQLiteOpenHelper {
 
                 // Put them in String
                 String report = '(' + Long.toString(id) + ')' + ' ' + '(' + loc + ')' + ' ' +
-                        '(' + author + ')' + ' ' + '(' + type + ')' + ' ' + '(' +
+                        '(' + author + ')' + ' ' + '(' +
                         condition + ')' + ' ' + '(' + Integer.toString(virus_ppm) + ')' +
                         ' ' + '(' + Integer.toString(contam_ppm) + ')' + ' ' + '(' + date + ')';
 

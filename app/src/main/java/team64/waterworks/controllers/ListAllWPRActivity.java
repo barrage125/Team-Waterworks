@@ -34,7 +34,7 @@ public class ListAllWPRActivity extends AppCompatActivity implements View.OnClic
         if (reports != null && WPRManager.viewAllPurityReports().size() > 0) {
             adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, reports);
             listView.setAdapter(adapter);
-            labels.setText("     (id) (location) (auth) (type) (cond) (virus ppm) (contam ppm) (date)");
+            labels.setText(" (id) (loc) (auth) (cond) (v. ppm) (c. ppm) (date)");
         } else {
             Toast.makeText(getApplicationContext(), "No reports have been submitted yet!",
                     Toast.LENGTH_SHORT).show();

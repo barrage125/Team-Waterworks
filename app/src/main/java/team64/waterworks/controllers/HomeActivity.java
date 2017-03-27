@@ -78,7 +78,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     break;
                 }
                 case R.id.create_pur_report_btn: {
-                    Intent intent = new Intent(HomeActivity.this, AddWQRActivity.class);
+                    Intent intent = new Intent(HomeActivity.this, AddWPRActivity.class);
                     startActivity(intent);
                     break;
                 }

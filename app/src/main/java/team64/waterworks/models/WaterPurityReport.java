@@ -11,7 +11,7 @@ public class WaterPurityReport {
     private long id;
     private double latitude, longitude;
     private String condition;
-    private final String author, type;
+    private final String author;
     private final String date;
 
     private long virusPPM, contamPPM;
@@ -28,12 +28,13 @@ public class WaterPurityReport {
     /**
     * First constructor takes in latitude, longitude, condition, author, type
     */
-    public WaterPurityReport(double latitude, double longitude, String condition, String author, String type) {
+    public WaterPurityReport(double latitude, double longitude, String condition, String author, long vppm, long cppm) {
         this.latitude = latitude;
         this.longitude = longitude;
         this.condition = condition;
         this.author = author;
-        this.type = type;
+        this.virusPPM = vppm;
+        this.contamPPM = cppm;
 
         this.id = 0;
         this.date = df.format(Calendar.getInstance().getTime());
@@ -44,14 +45,13 @@ public class WaterPurityReport {
      * WaterPurityReport(ID, latitude, longitude, author, type, condition, virus_ppm, contam_ppm, date)
      */
     public WaterPurityReport(long id, double latitude, double longitude,
-                             String author, String type, String condition,
+                             String author, String condition,
                              long virusPPM, long contamPPM, String date) {
         this.id = id;
         this.latitude = latitude;
         this.longitude = longitude;
         this.condition = condition;
         this.author = author;
-        this.type = type;
         this.date = date;
         this.virusPPM = virusPPM;
         this.contamPPM = contamPPM;
@@ -137,14 +137,6 @@ public class WaterPurityReport {
      */
     public String getAuthor() {
         return author;
-    }
-
-    /**
-     * get a report's type
-     * @return type
-     */
-    public String getType() {
-        return type;
     }
 
     /**

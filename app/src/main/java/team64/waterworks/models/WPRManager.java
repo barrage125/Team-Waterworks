@@ -22,30 +22,16 @@ public class WPRManager {
      * Create a new Water Purity Report and add it to AllPurityReports SQLite DB
      */
     public static boolean newPurityReport(double latitude, double longitude, String author,
-                                          String type, String condition) {
-        WaterPurityReport report = new WaterPurityReport(latitude, longitude, condition, author, type);
+                                          String condition, long vppm, long cppm) {
+        WaterPurityReport report = new WaterPurityReport(latitude, longitude, condition, author, vppm, cppm);
 
-        // Checks if water source report already exists
-//        if (type.equals("location")) {
-        try {
-            if (locationTaken(latitude, longitude)) {
-                Log.e("Source Report Exists", "A water source report for that location already exists!");
-                return false;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.e("Unknown Error", "Failed to check if water source report already exists");
-            return false;
-        }
-//        }
-
-        // Add the new source report
+        // Add the new purity report
         try {
             dbHelper.addPurityReport(report);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e("Unknown error", "Source report may or may not be saved");
+            Log.e("Unknown error", "Purity report may or may not be saved");
         }
         return false;
     }
@@ -59,7 +45,7 @@ public class WPRManager {
             return true;
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e("Unknown error", "Could not edit source report, it may or may not be updated");
+            Log.e("Unknown error", "Could not edit purity report, it may or may not be updated");
         }
         return false;
     }
@@ -72,10 +58,10 @@ public class WPRManager {
             return dbHelper.getPurityReportByID(id);
         } catch (NoSuchElementException e) {
             e.printStackTrace();
-            Log.e("Source report Not Found", "No source report could be found by that ID");
+            Log.e("Purity report Not Found", "No purity report could be found by that ID");
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e("Unknown error", "Could not retrieve source report with that ID");
+            Log.e("Unknown error", "Could not retrieve purity report with that ID");
         }
         return null;
     }
@@ -88,10 +74,10 @@ public class WPRManager {
             return dbHelper.getPurityReportsByLocation(latitude, longitude);
         } catch (NoSuchElementException e) {
             e.printStackTrace();
-            Log.e("No Source Reports Found", "No source reports matched that location");
+            Log.e("No Purity Reports Found", "No purity reports matched that location");
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e("Unknown Error", "Could not retrieve source report(s) with that location");
+            Log.e("Unknown Error", "Could not retrieve purity report(s) with that location");
         }
         return null;
     }
@@ -104,10 +90,10 @@ public class WPRManager {
             return dbHelper.getPurityReportsByAuthor(author);
         } catch (NoSuchElementException e) {
             e.printStackTrace();
-            Log.e("No Source Reports Found", "No source reports have been written by that user");
+            Log.e("No Purity Reports Found", "No purity reports have been written by that user");
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e("Unknown Error", "Could not retrieve source report(s) written by that user");
+            Log.e("Unknown Error", "Could not retrieve purity report(s) written by that user");
         }
         return null;
     }
@@ -118,35 +104,18 @@ public class WPRManager {
      */
     public static ArrayList<String> viewAllPurityReports() {
         try {
-            return dbHelper.getAllSourceReports();
+            return dbHelper.getAllPurityReports();
         } catch (NoSuchElementException e) {
             e.printStackTrace();
-            Log.e("No Source Reports Found", "No source reports have been submitted yet");
+            Log.e("No Purity Reports Found", "No purity reports have been submitted yet");
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e("Unknown Error", "Could not retrieve source report(s)");
+            Log.e("Unknown Error", "Could not retrieve purity report(s)");
         }
         return null;
     }
 
     public static void clearWPRDB() {
         dbHelper.deleteAllWPR();
-    }
-
-
-    /**
-     * Checks to see if a source report already exists in location
-     * @param latitude latitude of location
-     * @param longitude longitude of location
-     * @return if the water location is already taken
-     */
-    private static boolean locationTaken(double latitude, double longitude) {
-        try {
-            return dbHelper.isLocation(latitude, longitude);
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.e("Unknown Error", "Could not retrieve source report(s) written by that user");
-        }
-        return true;
     }
 }
