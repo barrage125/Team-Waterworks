@@ -217,4 +217,38 @@ public class WaterPurityReport {
     public void setContamPPM(long contamPPM) {
         this.contamPPM = contamPPM;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        WaterPurityReport that = (WaterPurityReport) o;
+
+        if (Double.compare(that.latitude, latitude) != 0) return false;
+        if (Double.compare(that.longitude, longitude) != 0) return false;
+        if (virusPPM != that.virusPPM) return false;
+        if (contamPPM != that.contamPPM) return false;
+        if (condition != null ? !condition.equals(that.condition) : that.condition != null)
+            return false;
+        if (author != null ? !author.equals(that.author) : that.author != null) return false;
+        return date != null ? date.equals(that.date) : that.date == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        temp = Double.doubleToLongBits(latitude);
+        result = (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(longitude);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (condition != null ? condition.hashCode() : 0);
+        result = 31 * result + (author != null ? author.hashCode() : 0);
+        result = 31 * result + (date != null ? date.hashCode() : 0);
+        result = 31 * result + (int) (virusPPM ^ (virusPPM >>> 32));
+        result = 31 * result + (int) (contamPPM ^ (contamPPM >>> 32));
+        return result;
+    }
 }

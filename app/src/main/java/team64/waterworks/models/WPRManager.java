@@ -98,6 +98,20 @@ public class WPRManager {
         return null;
     }
 
+
+    public static ArrayList<WaterPurityReport> getPurityReportsByLocationAndDate(double latitude, double longitude, String startDate, String endDate) {
+        try {
+            return dbHelper.getPurityReportsByLocationAndDate(latitude, longitude, startDate, endDate);
+        } catch (NoSuchElementException e) {
+            e.printStackTrace();
+            Log.e("No Purity Reports Found", "No purity reports have been written by that user");
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("Unknown Error", "Could not retrieve purity report(s) written by that user");
+        }
+        return null;
+    }
+
     /**
      * Creates array list of all water purity reports stored in AllPurityReports SQLite DB
      * @return array list of all water purity reports

@@ -691,6 +691,17 @@ class DBHelper extends SQLiteOpenHelper {
         }
     }
 
+    ArrayList<WaterPurityReport> getPurityReportsByLocationAndDate(double latitude, double longitude, String startDate, String endDate) {
+        // TODO: 3/30/17
+
+        String location = WaterPurityReport.storeLocation(latitude, longitude);
+
+        //I would fill in this part but I don't know how to do a greater than/less than for the start/end date
+        //or do two conditions at one
+
+        return null;
+    }
+
     /**
      * Creates array list of all water purity reports in AllPurityReports SQLite DB
      * @return array list of all water purity reports
