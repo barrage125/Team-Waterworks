@@ -41,6 +41,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         Button createPurReport = (Button) findViewById(R.id.create_pur_report_btn);
         Button listAllPurReports = (Button) findViewById(R.id.list_all_WPR_btn);
 
+        Button createHistReport = (Button) findViewById(R.id.create_hist_report_btn);
+
         // Listeners for all buttons
         logout.setOnClickListener(this);
         myProfile.setOnClickListener(this);
@@ -55,6 +57,13 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             createPurReport.setOnClickListener(this);
             listAllPurReports.setOnClickListener(this);
+        }
+
+        // If not manager, can't view create history reports
+        if (account.getAuthLevel().equals("manager")) {
+            createHistReport.setOnClickListener(this);
+        } else {
+            createHistReport.setVisibility(View.GONE);
         }
     }
 
@@ -99,6 +108,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 case R.id.view_map_btn: {
                     Intent intent = new Intent(HomeActivity.this, MapActivity.class);
+                    startActivity(intent);
+                    break;
+                }
+                case R.id.create_hist_report_btn: {
+                    Intent intent = new Intent(HomeActivity.this, GraphActivity.class);
                     startActivity(intent);
                     break;
                 }
