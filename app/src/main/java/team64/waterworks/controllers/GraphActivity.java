@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 import team64.waterworks.R;
 import team64.waterworks.models.WPRManager;
@@ -60,7 +61,7 @@ public class GraphActivity extends AppCompatActivity implements View.OnClickList
                     double contamPPM = (double) WPRManager.getPurityReportByID(idLong).getContamPPM();
                     String[] dateInString = WPRManager.getPurityReportByID(idLong).getDate().split(" ");
                     System.out.println(dateInString[0]);
-                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
                     Date date = null;
 
                     try {
@@ -108,7 +109,7 @@ public class GraphActivity extends AppCompatActivity implements View.OnClickList
                     double contamPPM = (double) purityReports.get(i).getContamPPM();
                     String dateInString = purityReports.get(i).getDate();
 
-                    SimpleDateFormat formatter = new SimpleDateFormat("(dd/MM/yyyy");
+                    SimpleDateFormat formatter = new SimpleDateFormat("(dd/MM/yyyy", Locale.US);
                     Date date = null;
 
                     try {

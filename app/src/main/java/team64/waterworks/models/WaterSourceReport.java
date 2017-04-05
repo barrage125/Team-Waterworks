@@ -23,7 +23,7 @@ public class WaterSourceReport {
 
 
      /**** CLASS VARIABLES ****/
-    private static final DateFormat df = new SimpleDateFormat("MM/dd/yyy HH:mm");
+    private static final DateFormat df = new SimpleDateFormat("MM/dd/yyy HH:mm", Locale.US);
 
 
        /******************/

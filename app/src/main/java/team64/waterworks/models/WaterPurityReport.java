@@ -2,7 +2,7 @@ package team64.waterworks.models;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
+import java.util.Locale;
 
 
 public class WaterPurityReport {
@@ -19,7 +19,7 @@ public class WaterPurityReport {
 
 
     /**** CLASS VARIABLES ****/
-    private static final DateFormat df = new SimpleDateFormat("MM/dd/yyy HH:mm");
+    private static final DateFormat df = new SimpleDateFormat("MM/dd/yyy HH:mm", Locale.US);
 
 
        /******************/
