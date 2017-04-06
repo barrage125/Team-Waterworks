@@ -3,12 +3,14 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 
+@SuppressWarnings("DanglingJavadoc")
 public class WaterSourceReport {
 
      /**** INSTANCE VARIABLES ****/
-    private long id;
+    private final long id;
     private double latitude;
     private double longitude;
     private String condition;
@@ -90,8 +92,7 @@ public class WaterSourceReport {
      * @return location as string "latitude:longitude"
      */
     static String storeLocation(double latitude, double longitude) {
-        String location = Double.toString(latitude) + ":" + Double.toString(longitude);
-        return location;
+        return Double.toString(latitude) + ":" + Double.toString(longitude);
     }
 
     /**

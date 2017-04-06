@@ -14,7 +14,7 @@ public class WSRManager {
      * @param c Context of the caller
      */
     public static void setDBHelper(Context c) {
-        dbHelper = new DBHelper(c, 1);
+        dbHelper = new DBHelper(c, 0);
     }
 
 

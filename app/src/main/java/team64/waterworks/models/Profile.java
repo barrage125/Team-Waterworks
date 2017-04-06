@@ -14,7 +14,7 @@ public class Profile implements Serializable {
     /**
      * Empty Profile constructor, creates an empty profile
      */
-    public Profile() {
+    private Profile() {
         title = "";
         address = "";
         email = "";

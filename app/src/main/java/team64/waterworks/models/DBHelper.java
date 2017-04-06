@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
 
+@SuppressWarnings("DanglingJavadoc")
 class DBHelper extends SQLiteOpenHelper {
 
     /**** CLASS VARIABLES ****/
@@ -37,8 +38,8 @@ class DBHelper extends SQLiteOpenHelper {
                                                        "( _id INTEGER PRIMARY KEY, location TEXT, " +
                                                        "author TEXT, type TEXT, condition TEXT, " +
                                                        "virus_ppm TEXT, contam_ppm TEXT, date TEXT )";
-    private boolean src_report_db;
-    private boolean pur_report_db;
+    private final boolean src_report_db;
+    private final boolean pur_report_db;
 
 
        /******************/
@@ -60,7 +61,7 @@ class DBHelper extends SQLiteOpenHelper {
      * Constructor for Water Source Reports DB Helper
      * Creates a SQLiteOpenHelper for a water source report DB if it doesn't already exist
      * @param context context of caller, used in SQLite parent constructor
-     * @param switch1 indicates caller intends to create a DBHelper for a water source report db
+     *
      */
     DBHelper(Context context, int switch1) {
         super(context, SRC_REPORT_DB_NAME, null, 1);
@@ -72,8 +73,7 @@ class DBHelper extends SQLiteOpenHelper {
      * Constructor for Water Purity Reports DB Helper
      * Creates a SQLiteOpenHelper for a water purity report DB if it doesn't already exist
      * @param context context of caller, used in SQLite parent constructor
-     * @param switch1 indicates caller intends to create a DBHelper for a water purity report db
-     * @param switch2 indicates caller intends to create a DBHelper for a water purity report db
+     *
      */
     DBHelper(Context context, int switch1, int switch2) {
         super(context, PUR_REPORT_DB_NAME, null, 1);
@@ -208,16 +208,17 @@ class DBHelper extends SQLiteOpenHelper {
             String auth_level = cursor.getString(cursor.getColumnIndexOrThrow("auth_level"));
             cursor.close();
 
-            if (auth_level.equals("user")) {
-                return new User(name, username, password, Profile.deserialize(profile));
-            } else if (auth_level.equals("worker")) {
-                return new Worker(name, username, password, Profile.deserialize(profile));
-            } else if (auth_level.equals("manager")) {
-                return new Manager(name, username, password, Profile.deserialize(profile));
-            } else if (auth_level.equals("admin")) {
-                return new Admin(name, username, password, Profile.deserialize(profile));
-            } else {
-                throw new NoSuchElementException();
+            switch (auth_level) {
+                case "user":
+                    return new User(name, username, password, Profile.deserialize(profile));
+                case "worker":
+                    return new Worker(name, username, password, Profile.deserialize(profile));
+                case "manager":
+                    return new Manager(name, username, password, Profile.deserialize(profile));
+                case "admin":
+                    return new Admin(name, username, password, Profile.deserialize(profile));
+                default:
+                    throw new NoSuchElementException();
             }
         }
     }
@@ -460,7 +461,7 @@ class DBHelper extends SQLiteOpenHelper {
      */
     ArrayList<String> getAllSourceReports() {
         SQLiteDatabase db = getWritableDatabase();
-        ArrayList<String> all_entries = new ArrayList<String>();
+        ArrayList<String> all_entries = new ArrayList<>();
 
         // Query string we pass to db
         String selectQuery = "SELECT * FROM AllSourceReports";
@@ -691,7 +692,7 @@ class DBHelper extends SQLiteOpenHelper {
         }
     }
 
-    ArrayList<WaterPurityReport> getPurityReportsByLocationAndDate(double latitude, double longitude, String startDate, String endDate) {
+    ArrayList<WaterPurityReport> getPurityReportsByLocationAndDate(double latitude, double longitude) {
         // TODO: 3/30/17
 
         String location = WaterPurityReport.storeLocation(latitude, longitude);
@@ -708,7 +709,7 @@ class DBHelper extends SQLiteOpenHelper {
      */
     ArrayList<String> getAllPurityReports() {
         SQLiteDatabase db = getWritableDatabase();
-        ArrayList<String> all_entries = new ArrayList<String>();
+        ArrayList<String> all_entries = new ArrayList<>();
 
         // Query string we pass to db
         String selectQuery = "SELECT * FROM AllPurityReports";
@@ -748,7 +749,7 @@ class DBHelper extends SQLiteOpenHelper {
         }
     }
 
-    protected void deleteAllWPR() {
+    void deleteAllWPR() {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("DELETE FROM "+ PUR_REPORT_DB_NAME);
     }

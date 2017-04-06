@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Locale;
 
 
+@SuppressWarnings("DanglingJavadoc")
 public class WaterPurityReport {
 
     /**** INSTANCE VARIABLES ****/
@@ -65,8 +66,7 @@ public class WaterPurityReport {
      * @return location as string "latitude:longitude"
      */
     static String storeLocation(double latitude, double longitude) {
-        String location = Double.toString(latitude) + ":" + Double.toString(longitude);
-        return location;
+        return Double.toString(latitude) + ":" + Double.toString(longitude);
     }
 
     /**
@@ -231,8 +231,7 @@ public class WaterPurityReport {
         if (contamPPM != that.contamPPM) return false;
         if (condition != null ? !condition.equals(that.condition) : that.condition != null)
             return false;
-        if (author != null ? !author.equals(that.author) : that.author != null) return false;
-        return date != null ? date.equals(that.date) : that.date == null;
+        return author != null ? author.equals(that.author) : that.author == null && (date != null ? date.equals(that.date) : that.date == null);
 
     }
 

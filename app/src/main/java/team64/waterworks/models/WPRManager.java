@@ -14,7 +14,7 @@ public class WPRManager {
      * @param c Context of the caller
      */
     public static void setDBHelper(Context c) {
-        dbHelper = new DBHelper(c, 1, 1);
+        dbHelper = new DBHelper(c, 0, 0);
     }
 
 
@@ -101,7 +101,7 @@ public class WPRManager {
 
     public static ArrayList<WaterPurityReport> getPurityReportsByLocationAndDate(double latitude, double longitude, String startDate, String endDate) {
         try {
-            return dbHelper.getPurityReportsByLocationAndDate(latitude, longitude, startDate, endDate);
+            return dbHelper.getPurityReportsByLocationAndDate(latitude, longitude);
         } catch (NoSuchElementException e) {
             e.printStackTrace();
             Log.e("No Purity Reports Found", "No purity reports have been written by that user");

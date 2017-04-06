@@ -32,7 +32,7 @@ public class ListAllWPRActivity extends AppCompatActivity implements View.OnClic
 
         // If array list of all reports isn't empty, populate listview
         if (reports != null && WPRManager.viewAllPurityReports().size() > 0) {
-            adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, reports);
+            adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, reports);
             listView.setAdapter(adapter);
             labels.setText(" (id) (loc) (auth) (cond) (v. ppm) (c. ppm) (date)");
         } else {

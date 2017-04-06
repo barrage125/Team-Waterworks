@@ -18,7 +18,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Button login;
     private EditText pass,user;
     private TextView error;
-    int counter = 3;
+    private int counter = 3;
 
     /**
      * Initializes all variables needed for login activity
@@ -74,7 +74,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 } else {
                     Toast.makeText(getApplicationContext(), "Incorrect username/password combination",Toast.LENGTH_SHORT).show();
 
-                    /** Show login attempts left */
+                    /* Show login attempts left */
                     error.setVisibility(View.VISIBLE);
                     counter--;
                     error.setText(Integer.toString(counter) + " login attempt(s) left");

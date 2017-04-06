@@ -1,14 +1,10 @@
 package team64.waterworks.controllers;
-import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -79,7 +75,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             progressDialog.setMessage("Registering account...");
             progressDialog.show();
 
-            if(!AccountsManager.newAccount("", username, password, auth_level)) {
+            if(!AccountsManager.newAccount(username, password, auth_level)) {
                 progressDialog.dismiss();
                 Log.d("Sorry","An error occurred");
             } else {

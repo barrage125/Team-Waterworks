@@ -22,9 +22,13 @@ import team64.waterworks.models.WPRManager;
 
 public class AddWPRActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button submit, cancel;
-    EditText txtLong, txtLat, waterVPPM, waterCPPM;
-    Spinner waterCond;
+    private Button submit;
+    private Button cancel;
+    private EditText txtLong;
+    private EditText txtLat;
+    private EditText waterVPPM;
+    private EditText waterCPPM;
+    private Spinner waterCond;
 
     private Account account;
     private ProgressDialog progressDialog;

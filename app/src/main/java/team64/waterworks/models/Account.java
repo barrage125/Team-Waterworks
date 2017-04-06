@@ -2,7 +2,10 @@ package team64.waterworks.models;
 
 
 public abstract class Account {
-    private String name, username, password, auth_level;
+    private final String name;
+    private final String username;
+    private final String password;
+    private String auth_level;
     private Profile profile;
 
     /**
@@ -79,7 +82,7 @@ public abstract class Account {
     /**
      * set the authority level of this account to a different level
      */
-    protected void setAuthLevel(String auth_level) {
+    void setAuthLevel(String auth_level) {
         this.auth_level = auth_level;
     }
 

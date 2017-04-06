@@ -20,8 +20,6 @@ import team64.waterworks.models.WSRManager;
 
 public class MapActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener{
 
-    private GoogleMap mMap;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +41,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
     @Override
     public void onMapReady(GoogleMap googleMap) {
         try {
-            mMap = googleMap;
+            GoogleMap mMap = googleMap;
             mMap.setOnInfoWindowClickListener(this);
             ArrayList<String> waterReports = WSRManager.viewAllSourceReports();
             LatLng location = new LatLng(50,50);

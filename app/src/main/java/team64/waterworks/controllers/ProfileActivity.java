@@ -14,8 +14,11 @@ import team64.waterworks.models.Account;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    Button done;
-    EditText txtBDay, txtAddress, txtEmail, txtTitle;
+    private Button done;
+    private EditText txtBDay;
+    private EditText txtAddress;
+    private EditText txtEmail;
+    private EditText txtTitle;
     private Account account;
 
     /**
@@ -42,7 +45,7 @@ public class ProfileActivity extends AppCompatActivity {
             txtTitle.setText(profile.getTitle());
         }
 
-        /** Button handler for returning to home from ProfileActivity page **/
+        /* Button handler for returning to home from ProfileActivity page **/
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

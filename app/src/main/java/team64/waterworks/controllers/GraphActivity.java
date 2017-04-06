@@ -31,11 +31,11 @@ public class GraphActivity extends AppCompatActivity implements View.OnClickList
      * Initializes all variables needed for graph activity
      * @param savedInstanceState data passed into graph activity
      */
-    Double filterLong;
-    Double filterLat;
-    int filterRadius;
-    String filterStartDate;
-    String filterEndDate;
+    private Double filterLong;
+    private Double filterLat;
+    private int filterRadius;
+    private String filterStartDate;
+    private String filterEndDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

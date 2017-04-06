@@ -57,6 +57,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/password"
+        android:layout_toEndOf="@id/login_button"
         android:layout_toRightOf="@id/login_button"
         android:text="Cancel"/>
 

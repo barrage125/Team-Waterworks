@@ -19,13 +19,12 @@ public class AccountsManager {
 
     /**
      * Create a new account and add it to AllAccounts SQLite DB
-     * @param name name of account adding
      * @param username account's unique username
      * @param pw account's password
      * @param auth_level account's authority level (user, worker, manager, admin)
      * @return if account was successfully added or not
      */
-    public static boolean newAccount(String name, String username, String pw, String auth_level) {
+    public static boolean newAccount(String username, String pw, String auth_level) {
         // Checks if username is available
         if (isValidAccount(username)) {
             Log.e("Account exists", "An account with that username already exists!");
@@ -34,17 +33,22 @@ public class AccountsManager {
 
         // Create account object for corresponding authority level
         Account account;
-        if (auth_level.equals("user")) {
-            account = new User(name, username, pw);
-        } else if (auth_level.equals("worker")) {
-            account = new Worker(name, username, pw);
-        } else if (auth_level.equals("manager")) {
-            account = new Manager(name, username, pw);
-        } else if (auth_level.equals("admin")) {
-            account = new Admin(name, username, pw);
-        } else {
-            Log.e("Invalid Auth Level", "The passed in authority level isn't a valid auth level!");
-            return false;
+        switch (auth_level) {
+            case "user":
+                account = new User("", username, pw);
+                break;
+            case "worker":
+                account = new Worker("", username, pw);
+                break;
+            case "manager":
+                account = new Manager("", username, pw);
+                break;
+            case "admin":
+                account = new Admin("", username, pw);
+                break;
+            default:
+                Log.e("Invalid Auth Level", "The passed in authority level isn't a valid auth level!");
+                return false;
         }
 
         // Add the new account
