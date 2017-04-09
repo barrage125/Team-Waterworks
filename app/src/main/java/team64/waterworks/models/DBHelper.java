@@ -249,6 +249,10 @@ class DBHelper extends SQLiteOpenHelper {
         return answer;
     }
 
+    void deleteAllAccounts() {
+        SQLiteDatabase db = getWritableDatabase();
+        db.execSQL("DELETE FROM "+ ACCOUNTS_DB_NAME);
+    }
 
 
        /*********************************/
