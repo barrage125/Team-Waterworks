@@ -2,12 +2,13 @@ package team64.waterworks.controllers;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.jjoe64.graphview.GraphView;
@@ -17,198 +18,134 @@ import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 import team64.waterworks.R;
 import team64.waterworks.models.WPRManager;
-import team64.waterworks.models.WaterPurityReport;
+
 
 public class GraphActivity extends AppCompatActivity implements View.OnClickListener {
 
-    /**
-     * Initializes all variables needed for graph activity
-     * @param savedInstanceState data passed into graph activity
-     */
-    private Double filterLong;
-    private Double filterLat;
-    private int filterRadius;
-    private String filterStartDate;
-    private String filterEndDate;
+    GraphView graph;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_purity_graph_report);
-        GraphView graph = (GraphView) findViewById(R.id.graph);
-        LineGraphSeries<DataPoint> virusSeries = null;
-        LineGraphSeries<DataPoint> contamSeries = null;
 
-        Date min = null;
-        Date max = null;
+        // Initialize buttons
+        graph = (GraphView) findViewById(R.id.graph);
+        Button filter_btn = (Button) findViewById(R.id.filter_graph_btn);
+        filter_btn.setOnClickListener(this);
 
-        if (filterLat == null && filterLat == null) {
-            ArrayList<String> purityReports = WPRManager.viewAllPurityReports();
-            DataPoint[] virusDataPoints = new DataPoint[purityReports.size()];
-            DataPoint[] contamDataPoints = new DataPoint[purityReports.size()];
-            if (purityReports != null) {
-                for (int i = 0; i < purityReports.size(); i++) {
-                    String[] reportsData = purityReports.get(i).split(" ", 0);
-                    String idString = reportsData[0].replace("(", "").replace(")", "");
-                    Long idLong = Long.parseLong(idString);
-                    double virusPPM = (double) WPRManager.getPurityReportByID(idLong).getVirusPPM();
-                    double contamPPM = (double) WPRManager.getPurityReportByID(idLong).getContamPPM();
-                    String[] dateInString = WPRManager.getPurityReportByID(idLong).getDate().split(" ");
-                    System.out.println(dateInString[0]);
-                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
-                    Date date = null;
+        // Get an arraylist of all purity reports to display on graph, and draw the graph
+        ArrayList<String> purityReports = WPRManager.viewAllPurityReports();
+        if (purityReports != null && WPRManager.viewAllPurityReports().size() > 0) {
+            drawGraph(purityReports);
+        }
+    }
 
-                    try {
+    protected void drawGraph(ArrayList<String> reports) {
+        // Initialize graph and the data
+        LineGraphSeries<DataPoint> series;
 
-                        date = formatter.parse(dateInString[0]);
-                        if (min == null) {
-                            min = date;
-                            max = date;
-                        }
+        // Instance data
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm", Locale.US);
+        Date date;
+        String dateString;
+        double dateDoub;
+        double minDate = System.currentTimeMillis();
+        double maxDate = 0;
 
-                        if (min.compareTo(date) < 0) {
-                            min = date;
-                        }
+        DataPoint tempPoint;
+        String[] reportData;
+        int ppm;
+        DataPoint[] dataPoints = new DataPoint[reports.size()];
 
-                        if (max.compareTo(date) > 0) {
-                            max = date;
-                        }
 
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
+        // Fill in the ppm data points array from the purity reports arraylist
+        for (int i = 0; i < reports.size(); i++) {
+            // Get the ppm from purityReports arrayList and remove ()
+            reportData = reports.get(i).split("\\)\\s\\(");
+            ppm = Integer.parseInt(reportData[4]);
 
-                    if (date != null) {
-                        virusDataPoints[i] = new DataPoint(date, virusPPM);
-                        contamDataPoints[i] = new DataPoint(date, contamPPM);
-                    }
+            // Get the date string from purity reports array list and convert to double for graph
+            // Record most current and oldest date along the way
+            dateString = reportData[6];
+            try {
+                date = dateFormat.parse(dateString);
+                dateDoub = date.getTime();
+                if (dateDoub < minDate) {
+                    minDate = dateDoub;
+                } else if (dateDoub > maxDate) {
+                    maxDate = dateDoub;
                 }
-            }
-            if (virusDataPoints != null) {
-                virusSeries = new LineGraphSeries<>(virusDataPoints);
-            }
 
-            if (contamDataPoints != null) {
-                contamSeries = new LineGraphSeries<>(contamDataPoints);
-            }
-        } else {
-            ArrayList<WaterPurityReport> purityReports = WPRManager.getPurityReportsByLocationAndDate(filterLat, filterLong, filterStartDate, filterEndDate);
-            DataPoint[] virusDataPoints = null;
-            DataPoint[] contamDataPoints = null;
-            if (purityReports != null) {
-                contamDataPoints = new DataPoint[purityReports.size()];
-                virusDataPoints = new DataPoint[purityReports.size()];
-                for (int i = 0; i < purityReports.size(); i++) {
-                    double virusPPM = (double) purityReports.get(i).getVirusPPM();
-                    double contamPPM = (double) purityReports.get(i).getContamPPM();
-                    String dateInString = purityReports.get(i).getDate();
+                // Make a new data point and put it in the DataPoints array
+                tempPoint = new DataPoint(date, ppm);
+                dataPoints[i] = tempPoint;
 
-                    SimpleDateFormat formatter = new SimpleDateFormat("(dd/MM/yyyy", Locale.US);
-                    Date date = null;
-
-                    try {
-
-                        date = formatter.parse(dateInString);
-
-                        if (min.compareTo(date) < 0) {
-                            min = date;
-                        }
-
-                        if (max.compareTo(date) > 0) {
-                            max = date;
-                        }
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-
-                    if (date != null) {
-                        virusDataPoints[i] = new DataPoint(date, virusPPM);
-                        contamDataPoints[i] = new DataPoint(date, contamPPM);
-                    }
-                }
-            }
-            if (virusDataPoints != null) {
-                virusSeries = new LineGraphSeries<>(virusDataPoints);
-            }
-
-            if (contamDataPoints != null) {
-                contamSeries = new LineGraphSeries<>(contamDataPoints);
+            } catch (Exception e) {
+                Log.e("Can't parse date", "the date string couldn't be converted to date obj");
             }
         }
 
-        if (graph != null && virusSeries != null) {
-            graph.addSeries(virusSeries);
-        }
+        series = new LineGraphSeries<>(dataPoints);
+        graph.addSeries(series);
 
-        if (graph != null && contamSeries != null) {
-            graph.getSecondScale().addSeries(contamSeries);
-        }
-
-        if (graph != null && virusSeries == null && contamSeries == null) {
-            graph.addSeries(new LineGraphSeries<>());
-        }
-
-        graph.getSecondScale().setMinY(0);
-        graph.getSecondScale().setMaxY(100);
-        contamSeries.setColor(Color.RED);
-
+        // Set the x and y axis labels
         graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(getApplicationContext()));
         graph.getGridLabelRenderer().setNumHorizontalLabels(3);
 
-        graph.getViewport().setMinX(min.getTime());
-        graph.getViewport().setMaxX(max.getTime());
+        // Set the min and max x axis values
+        graph.getViewport().setMinX(minDate);
+        graph.getViewport().setMaxX(maxDate);
         graph.getViewport().setXAxisBoundsManual(true);
 
+        // To avoid java rounding the dates to arbitrary numbers
         graph.getGridLabelRenderer().setHumanRounding(false);
 
-        graph.getViewport().setScalable(true); // enables horizontal zooming and scrolling
-        graph.getViewport().setScalableY(true); // enables vertical zooming and scrolling
+        series.setDrawDataPoints(true);
 
-        virusSeries.setDrawDataPoints(true);
-        virusSeries.setDataPointsRadius(10);
-
-        contamSeries.setDrawDataPoints(true);
-        contamSeries.setDataPointsRadius(10);
+        // enables horizontal zooming and scrolling
+        graph.getViewport().setScalable(true);
+        graph.getViewport().setScalableY(true);
     }
+
 
     @Override
     public void onClick(View v) {
         switch(v.getId()) {
-            case R.id.filter_graph_btn:
-            View view = (LayoutInflater.from(GraphActivity.this)).inflate(R.layout.dialog_graph_filter, null);
+            case R.id.filter_graph_btn: {
+                View view = (LayoutInflater.from(GraphActivity.this)).inflate(R.layout.dialog_graph_filter, null);
 
-            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(GraphActivity.this);
-            alertBuilder.setView(view);
+                AlertDialog.Builder alertBuilder = new AlertDialog.Builder(GraphActivity.this);
+                alertBuilder.setView(view);
+                alertBuilder.setCancelable(true);
 
-            final EditText startDate = (EditText) view.findViewById(R.id.editText_Start_Date);
-            final EditText endDate = (EditText) view.findViewById(R.id.editText_End_Date);
-            final EditText longitude = (EditText) view.findViewById(R.id.editText_Longitude);
-            final EditText latitude = (EditText) view.findViewById(R.id.editText_Latitude);
-            final EditText radius = (EditText) view.findViewById(R.id.editText_Radius);
+                final EditText startDate = (EditText) view.findViewById(R.id.editText_Start_Date);
+                final EditText endDate = (EditText) view.findViewById(R.id.editText_End_Date);
+                final EditText longitude = (EditText) view.findViewById(R.id.editText_Longitude);
+                final EditText latitude = (EditText) view.findViewById(R.id.editText_Latitude);
+                final EditText radius = (EditText) view.findViewById(R.id.editText_Radius);
 
-            alertBuilder.setCancelable(true);
-            alertBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int whichButton) {
-                    filterLong = Double.parseDouble(longitude.getText().toString());
-                    filterLat = Double.parseDouble(latitude.getText().toString());
-                    filterRadius = Integer.parseInt(radius.getText().toString());
-                    filterStartDate = startDate.getText().toString();
-                    filterEndDate = endDate.getText().toString();
-                }
-            });
-            alertBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int whichButton) {
-                    //Cancelled
-                }
-            });
-            Dialog dialog = alertBuilder.create();
-            dialog.show();
+                alertBuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String sDate = (startDate.getText().toString()) + " 00:00";
+                        String eDate = (endDate.getText().toString()) + " 00:00";
+                        graph.removeAllSeries();
+                        drawGraph(WPRManager.getPurityReportsByLocationAndDate(sDate, eDate, Double.parseDouble(longitude.getText().toString()), Double.parseDouble(latitude.getText().toString()), Double.parseDouble(radius.getText().toString())));
+                    }
+                });
+
+                alertBuilder.setNegativeButton("Cancel", null);
+
+                Dialog dialog = alertBuilder.create();
+                dialog.show();
+            }
         }
     }
 }

@@ -18,7 +18,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:text="Start Date" />
+        android:text="Start Date (mm/dd/yyyy)" />
 
     <EditText
         android:id="@+id/editText_Start_Date"
@@ -28,7 +28,8 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/start_date_text"
         android:ems="10"
-        android:inputType="date" />
+        android:inputType="date"
+        android:text="04/01/2017"/>
 
     <TextView
         android:id="@+id/end_date_text"
@@ -38,7 +39,7 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/editText_Start_Date"
         android:layout_marginTop="10dp"
-        android:text="End Date" />
+        android:text="End Date (mm/dd/yyyy)" />
 
     <EditText
         android:id="@+id/editText_End_Date"
@@ -48,7 +49,8 @@
         android:inputType="date"
         android:layout_below="@+id/end_date_text"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:text="04/30/2017"/>
 
     <TextView
         android:id="@+id/location_text"

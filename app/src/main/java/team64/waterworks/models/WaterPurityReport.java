@@ -20,7 +20,7 @@ public class WaterPurityReport {
 
 
     /**** CLASS VARIABLES ****/
-    private static final DateFormat df = new SimpleDateFormat("MM/dd/yyy HH:mm", Locale.US);
+    private static final DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm", Locale.US);
 
 
        /******************/

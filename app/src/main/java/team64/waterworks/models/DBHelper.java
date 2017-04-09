@@ -4,12 +4,17 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.location.Location;
 import android.util.Base64;
+import android.util.Log;
 
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 import java.util.NoSuchElementException;
 
 
@@ -537,30 +542,6 @@ class DBHelper extends SQLiteOpenHelper {
         db.insert("AllPurityReports", null, values);
     }
 
-    /**
-     * Updates an already existing purity report in AllPurityReports SQLite DB
-     * For every changed field, new values need to be set on purity report in editPurityReport activity
-     * @param report water purity report to update
-     */
-    void updatePurityReport(WaterPurityReport report) {
-        String id = Long.toString(report.getId());
-        SQLiteDatabase db = getReadableDatabase();
-
-        // New values for columns (report attributes). id, author, type, and date not included
-        // bc they're final attributes and shouldn't be changeable
-        ContentValues values = new ContentValues();
-        values.put("location", WaterPurityReport.storeLocation(report.getLatitude(), report.getLongitude()));
-        values.put("condition", report.getCondition());
-        values.put("virus_ppm", report.getVirusPPM());
-        values.put("contam_ppm", report.getContamPPM());
-
-        // Query string for db, find row matching passed in id, selectionArgs replaces ?
-        String selection = "_id = ?";
-        String[] selectionArgs = { id };
-
-        // update the values for the row that matches the passed in id
-        db.update("AllPurityReports", values, selection, selectionArgs);
-    }
 
     /**
      * Returns purity report with the corresponding ID
@@ -602,110 +583,97 @@ class DBHelper extends SQLiteOpenHelper {
         }
     }
 
-    /**
-     * Creates array list of water purity reports that match corresponding Location
-     * @return array list of water purity reports in specified location
-     */
-    ArrayList<WaterPurityReport> getPurityReportsByLocation(double latitude, double longitude) {
-        SQLiteDatabase db = getReadableDatabase();
-        ArrayList<WaterPurityReport> matching_entries = new ArrayList<>();
-        String location = WaterPurityReport.storeLocation(latitude, longitude);
-
-        // Query string we pass to db, selectionArgs replaces ? in selection String
-        String selection = "location = ?";
-        String[] selectionArgs = {location};
-
-        // Query db, creates cursor object that points at result set (matching db entries)
-        // Passing null into columns bc we want all report(s) attributes
-        Cursor cursor = db.query( "AllPurityReports", null, selection, selectionArgs,
-                null, null, null );
-
-        // No reports with that location were found
-        if (!(cursor.moveToFirst())) {
-            cursor.close();
-            throw new NoSuchElementException();
-        } else {
-            cursor.moveToLast();
-
-            // Recursively add reports to array list until at the end of cursor's result set
-            while (cursor.moveToNext()) {
-                // Set values of report that matched location
-                long id = cursor.getLong(cursor.getColumnIndexOrThrow("_id"));
-                String author = cursor.getString(cursor.getColumnIndexOrThrow("author"));
-                String condition = cursor.getString(cursor.getColumnIndexOrThrow("condition"));
-                int virus_ppm = cursor.getInt(cursor.getColumnIndexOrThrow("virus_ppm"));
-                int contam_ppm = cursor.getInt(cursor.getColumnIndexOrThrow("contam_ppm"));
-                String date = cursor.getString(cursor.getColumnIndexOrThrow("date"));
-
-                WaterPurityReport report = new WaterPurityReport(id, latitude, longitude, author,
-                                                                 condition, virus_ppm, contam_ppm,
-                                                                 date);
-                matching_entries.add(report);
-            }
-
-            cursor.close();
-            return matching_entries;
-        }
-    }
 
     /**
-     * Creates array list of water purity reports that were submitted by the corresponding worker
-     * @param author worker we're searching for
-     * @return array list of water purity reports written by specified worker
+     * Filters the purity reports based on passed in params
+     * @param start_date the earlierst date to search by
+     * @param end_date the latest date to search by
+     * @param longitude the longitude you want to search for
+     * @param latitude the latitude you want to search for
+     * @param radius the radius you want to search within
+     * @return an array list of purity reports that match the criteria
      */
-    ArrayList<WaterPurityReport> getPurityReportsByAuthor(String author) {
-        SQLiteDatabase db = getReadableDatabase();
-        ArrayList<WaterPurityReport> matching_entries = new ArrayList<>();
+    public ArrayList<String> getPurityReportsByLocationAndDate(String start_date, String end_date, double longitude, double latitude, double radius) {
+        ArrayList<String> matching_entries = getAllPurityReports();
+        ArrayList<String> answer = new ArrayList<>();
 
-        // Query string we pass to db, selectionArgs replaces ? in selection String
-        String selection = "author = ?";
-        String[] selectionArgs = {author};
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm", Locale.US);
+        Date sDate;
+        Date eDate;
+        Date rDate;
+        String rDateString;
+        boolean matches_date = false;
 
-        // Query db, creates cursor object that points at result set (matching db entries)
-        // passing null into columns bc need all attributes from report(s) written by passed in worker
-        Cursor cursor = db.query( "AllPurityReports", null, selection, selectionArgs,
-                                   null, null, null );
+        String[] report_data;
+        String loc;
+        double lat;
+        double lon;
+        int virus_ppm;
+        int contam_ppm;
 
-        // No reports written by that user were found
-        if (!(cursor.moveToFirst())) {
-            cursor.close();
-            throw new NoSuchElementException();
-        } else {
-            cursor.moveToLast();
+        // If there are existing purity reports in the db
+        if (matching_entries != null && matching_entries.size() != 0) {
+            for (int i = 0; i < matching_entries.size(); i++) {
+                // for each report in the db, make a string array of all the report's values
+                report_data = matching_entries.get(i).split("\\)\\s\\(");
+                loc = report_data[1];
+                lat = WaterPurityReport.loadLatitude(loc);
+                lon = WaterPurityReport.loadLongitude(loc);
+                virus_ppm = Integer.parseInt(report_data[4]);
+                contam_ppm = Integer.parseInt(report_data[5]);
+                rDateString = report_data[6];
 
-            // Recursively add reports to array list until at the end of cursor's result set
-            while (cursor.moveToNext()) {
-                // values of report written by worker
-                long id = cursor.getLong(cursor.getColumnIndexOrThrow("_id"));
-                String loc = cursor.getString(cursor.getColumnIndexOrThrow("location"));
-                String type = cursor.getString(cursor.getColumnIndexOrThrow("type"));
-                String condition = cursor.getString(cursor.getColumnIndexOrThrow("condition"));
-                int virus_ppm = cursor.getInt(cursor.getColumnIndexOrThrow("virus_ppm"));
-                int contam_ppm = cursor.getInt(cursor.getColumnIndexOrThrow("contam_ppm"));
-                String date = cursor.getString(cursor.getColumnIndexOrThrow("date"));
+                // Evaluate the date of the report and find if it's within the requested range of time
+                try {
+                    sDate = dateFormat.parse(start_date);
+                    rDate = dateFormat.parse(rDateString);
+                    eDate = dateFormat.parse(end_date);
 
-                WaterPurityReport report = new WaterPurityReport(id, WaterPurityReport.loadLatitude(loc),
-                                                                 WaterPurityReport.loadLongitude(loc),
-                                                                 author, condition, virus_ppm,
-                                                                 contam_ppm, date);
-                matching_entries.add(report);
+                    // only start date, only end date, start and end date
+                    // Evaluate start date first, user can put in a start date without an end date
+                    if ((start_date != null) && (start_date != "")) {
+                        // compareTo -> 0 equal dates
+                        // compareTo -> 1 this date after date arg
+                        // compareTo -> -1 this date before date arg
+                        // If the report date is after or the same as the start date, add it
+                        if (rDate.compareTo(sDate) >= 0) {
+                            if ((end_date != null) && (end_date != "")) {
+                                if (rDate.compareTo(eDate) <= 0) {
+                                    matches_date = true;
+                                }
+                            } else {
+                                matches_date = true;
+                            }
+                        }
+
+                    } else if ((end_date != null) && (end_date != "")) {
+                        // If the report date is before or the same as the end date, add it
+                        if (rDate.compareTo(eDate) <= 0) {
+                            matches_date = true;
+                        }
+                    }
+
+                } catch (Exception e) {
+                    Log.e("Can't parse date", "the date string couldn't be converted to date obj");
+                }
+
+                // Evaluate if report is also within the requested location range
+                if (matches_date && longitude != 0 && latitude != 0) {
+                    float[] results = new float[1];
+                    Location.distanceBetween(latitude, longitude, lat, lon, results);
+                    // If the distance between the passed in point and the report's point is
+                    // within the range of the radius in meters, add the report
+                    if (results[0] <= (radius*1609.34)) {
+                        answer.add(matching_entries.get(i));
+                    }
+                }
+
             }
-
-            cursor.close();
-            return matching_entries;
         }
+
+        return answer;
     }
 
-    ArrayList<WaterPurityReport> getPurityReportsByLocationAndDate(double latitude, double longitude) {
-        // TODO: 3/30/17
-
-        String location = WaterPurityReport.storeLocation(latitude, longitude);
-
-        //I would fill in this part but I don't know how to do a greater than/less than for the start/end date
-        //or do two conditions at one
-
-        return null;
-    }
 
     /**
      * Creates array list of all water purity reports in AllPurityReports SQLite DB
@@ -757,4 +725,125 @@ class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("DELETE FROM "+ PUR_REPORT_DB_NAME);
     }
+
+
+    /**
+     //         * Creates array list of water purity reports that match corresponding Location
+     //         * @return array list of water purity reports in specified location
+     //         */
+//    ArrayList<WaterPurityReport> getPurityReportsByLocation(double latitude, double longitude) {
+//        SQLiteDatabase db = getReadableDatabase();
+//        ArrayList<WaterPurityReport> matching_entries = new ArrayList<>();
+//        String location = WaterPurityReport.storeLocation(latitude, longitude);
+//
+//        // Query string we pass to db, selectionArgs replaces ? in selection String
+//        String selection = "location = ?";
+//        String[] selectionArgs = {location};
+//
+//        // Query db, creates cursor object that points at result set (matching db entries)
+//        // Passing null into columns bc we want all report(s) attributes
+//        Cursor cursor = db.query( "AllPurityReports", null, selection, selectionArgs,
+//                null, null, null );
+//
+//        // No reports with that location were found
+//        if (!(cursor.moveToFirst())) {
+//            cursor.close();
+//            throw new NoSuchElementException();
+//        } else {
+//            cursor.moveToLast();
+//
+//            // Recursively add reports to array list until at the end of cursor's result set
+//            while (cursor.moveToNext()) {
+//                // Set values of report that matched location
+//                long id = cursor.getLong(cursor.getColumnIndexOrThrow("_id"));
+//                String author = cursor.getString(cursor.getColumnIndexOrThrow("author"));
+//                String condition = cursor.getString(cursor.getColumnIndexOrThrow("condition"));
+//                int virus_ppm = cursor.getInt(cursor.getColumnIndexOrThrow("virus_ppm"));
+//                int contam_ppm = cursor.getInt(cursor.getColumnIndexOrThrow("contam_ppm"));
+//                String date = cursor.getString(cursor.getColumnIndexOrThrow("date"));
+//
+//                WaterPurityReport report = new WaterPurityReport(id, latitude, longitude, author,
+//                                                                 condition, virus_ppm, contam_ppm,
+//                                                                 date);
+//                matching_entries.add(report);
+//            }
+//
+//            cursor.close();
+//            return matching_entries;
+//        }
+//    }
+//
+//    /**
+//     * Creates array list of water purity reports that were submitted by the corresponding worker
+//     * @param author worker we're searching for
+//     * @return array list of water purity reports written by specified worker
+//     */
+//    ArrayList<WaterPurityReport> getPurityReportsByAuthor(String author) {
+//        SQLiteDatabase db = getReadableDatabase();
+//        ArrayList<WaterPurityReport> matching_entries = new ArrayList<>();
+//
+//        // Query string we pass to db, selectionArgs replaces ? in selection String
+//        String selection = "author = ?";
+//        String[] selectionArgs = {author};
+//
+//        // Query db, creates cursor object that points at result set (matching db entries)
+//        // passing null into columns bc need all attributes from report(s) written by passed in worker
+//        // query(tableName, tableColumns, whereClause, whereArgs, groupBy, having, orderBy);
+//        // http://stackoverflow.com/questions/10600670/sqlitedatabase-query-method
+//        Cursor cursor = db.query( "AllPurityReports", null, selection, selectionArgs,
+//                                   null, null, null );
+//
+//        // No reports written by that user were found
+//        if (!(cursor.moveToFirst())) {
+//            cursor.close();
+//            throw new NoSuchElementException();
+//        } else {
+//            cursor.moveToLast();
+//
+//            // Recursively add reports to array list until at the end of cursor's result set
+//            while (cursor.moveToNext()) {
+//                // values of report written by worker
+//                long id = cursor.getLong(cursor.getColumnIndexOrThrow("_id"));
+//                String loc = cursor.getString(cursor.getColumnIndexOrThrow("location"));
+//                String type = cursor.getString(cursor.getColumnIndexOrThrow("type"));
+//                String condition = cursor.getString(cursor.getColumnIndexOrThrow("condition"));
+//                int virus_ppm = cursor.getInt(cursor.getColumnIndexOrThrow("virus_ppm"));
+//                int contam_ppm = cursor.getInt(cursor.getColumnIndexOrThrow("contam_ppm"));
+//                String date = cursor.getString(cursor.getColumnIndexOrThrow("date"));
+//
+//                WaterPurityReport report = new WaterPurityReport(id, WaterPurityReport.loadLatitude(loc),
+//                                                                 WaterPurityReport.loadLongitude(loc),
+//                                                                 author, condition, virus_ppm,
+//                                                                 contam_ppm, date);
+//                matching_entries.add(report);
+//            }
+//
+//            cursor.close();
+//            return matching_entries;
+//        }
+//    }
+    /**
+     //     * Updates an already existing purity report in AllPurityReports SQLite DB
+     //     * For every changed field, new values need to be set on purity report in editPurityReport activity
+     //     * @param report water purity report to update
+     //     */
+//    void updatePurityReport(WaterPurityReport report) {
+//        String id = Long.toString(report.getId());
+//        SQLiteDatabase db = getReadableDatabase();
+//
+//        // New values for columns (report attributes). id, author, type, and date not included
+//        // bc they're final attributes and shouldn't be changeable
+//        ContentValues values = new ContentValues();
+//        values.put("location", WaterPurityReport.storeLocation(report.getLatitude(), report.getLongitude()));
+//        values.put("condition", report.getCondition());
+//        values.put("virus_ppm", report.getVirusPPM());
+//        values.put("contam_ppm", report.getContamPPM());
+//
+//        // Query string for db, find row matching passed in id, selectionArgs replaces ?
+//        String selection = "_id = ?";
+//        String[] selectionArgs = { id };
+//
+//        // update the values for the row that matches the passed in id
+//        db.update("AllPurityReports", values, selection, selectionArgs);
+//    }
 }
