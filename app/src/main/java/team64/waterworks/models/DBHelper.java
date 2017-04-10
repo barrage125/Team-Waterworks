@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 
 @SuppressWarnings("DanglingJavadoc")
@@ -631,13 +632,13 @@ class DBHelper extends SQLiteOpenHelper {
 
                     // only start date, only end date, start and end date
                     // Evaluate start date first, user can put in a start date without an end date
-                    if ((start_date != null) && (start_date != "")) {
+                    if ((start_date != null) && (!Objects.equals(start_date, ""))) {
                         // compareTo -> 0 equal dates
                         // compareTo -> 1 this date after date arg
                         // compareTo -> -1 this date before date arg
                         // If the report date is after or the same as the start date, add it
                         if (rDate.compareTo(sDate) >= 0) {
-                            if ((end_date != null) && (end_date != "")) {
+                            if ((end_date != null) && (!Objects.equals(end_date, ""))) {
                                 if (rDate.compareTo(eDate) <= 0) {
                                     matches_date = true;
                                 }
@@ -646,7 +647,7 @@ class DBHelper extends SQLiteOpenHelper {
                             }
                         }
 
-                    } else if ((end_date != null) && (end_date != "")) {
+                    } else if ((end_date != null) && (!Objects.equals(end_date, ""))) {
                         // If the report date is before or the same as the end date, add it
                         if (rDate.compareTo(eDate) <= 0) {
                             matches_date = true;

@@ -41,8 +41,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
     @Override
     public void onMapReady(GoogleMap googleMap) {
         try {
-            GoogleMap mMap = googleMap;
-            mMap.setOnInfoWindowClickListener(this);
+            googleMap.setOnInfoWindowClickListener(this);
             ArrayList<String> waterReports = WSRManager.viewAllSourceReports();
             LatLng location = new LatLng(50,50);
             boolean reportsExist = false;
@@ -58,7 +57,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
                     Double lat = WSRManager.getSourceReportByID(idLong).getLatitude();
                     location = new LatLng(lat, lng);
 
-                    mMap.addMarker(new MarkerOptions().position(location).title("Water " +
+                    googleMap.addMarker(new MarkerOptions().position(location).title("Water " +
                             "Source Report: " + idLong).snippet
                             ("Lat/Long: " + lat + "/" + lng));
                 }
@@ -73,7 +72,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
                     Double lat = WPRManager.getPurityReportByID(idLong).getLatitude();
                     location = new LatLng(lat, lng);
 
-                    mMap.addMarker(new MarkerOptions().position(location).title("Water " +
+                    googleMap.addMarker(new MarkerOptions().position(location).title("Water " +
                             "Purity Report: " + idLong).snippet
                             ("Lat/Long: " + lat + "/" + lng).icon
                             (BitmapDescriptorFactory.defaultMarker
@@ -87,7 +86,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
             }
 
             // Add a marker and move camera
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(location));
+            googleMap.moveCamera(CameraUpdateFactory.newLatLng(location));
         } catch (Exception e) {
             e.printStackTrace();
         }

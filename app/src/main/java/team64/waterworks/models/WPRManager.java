@@ -64,8 +64,7 @@ public class WPRManager {
      * @return array list of all water purity reports
      */
     public static ArrayList<String> getPurityReportsByLocationAndDate(String start_date, String end_date, double longitude, double latitude, double radius) {
-        ArrayList<String> answer = dbHelper.getPurityReportsByLocationAndDate(start_date, end_date, longitude, latitude, radius);
-        return answer;
+        return dbHelper.getPurityReportsByLocationAndDate(start_date, end_date, longitude, latitude, radius);
     }
 
     /**
