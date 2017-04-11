@@ -77,7 +77,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     /* Show login attempts left */
                     error.setVisibility(View.VISIBLE);
                     counter--;
-                    error.setText(Integer.toString(counter) + " login attempt(s) left");
+                    error.setText(String.format("%1$d" + R.string.attempts, counter));
                     if (counter == 0) {
                         login.setEnabled(false);
                     }

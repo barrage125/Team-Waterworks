@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -125,7 +126,7 @@ public class GraphActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         switch(v.getId()) {
             case R.id.filter_graph_btn: {
-                View view = (LayoutInflater.from(GraphActivity.this)).inflate(R.layout.dialog_graph_filter, null);
+                View view = (LayoutInflater.from(GraphActivity.this)).inflate(R.layout.dialog_graph_filter, (ViewGroup) null);
 
                 AlertDialog.Builder alertBuilder = new AlertDialog.Builder(GraphActivity.this);
                 alertBuilder.setView(view);

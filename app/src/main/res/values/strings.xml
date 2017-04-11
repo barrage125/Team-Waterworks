@@ -37,4 +37,7 @@
     <string name="address">Mailing Address</string>
     <string name="birthday">Birthday</string>
     <string name="done">Done</string>
+    <string name="purity_labels"> (id) (loc) (auth) (cond) (v. ppm) (c. ppm) (date)</string>
+    <string name="source_labels">     (id) (location) (auth) (type) (cond) (rating) (date)</string>
+    <string name="attempts"> login attempt(s) left</string>
 </resources>
