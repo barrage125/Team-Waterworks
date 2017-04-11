@@ -8,6 +8,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 
+@SuppressWarnings("SameParameterValue")
 public class Profile implements Serializable {
     private String title, address, email, birthday;
 

@@ -19,6 +19,7 @@ import team64.waterworks.R;
 import team64.waterworks.models.WPRManager;
 
 public class ListAllWPRActivity extends AppCompatActivity implements View.OnClickListener {
+    @SuppressWarnings("ConstantConditions")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -34,6 +34,7 @@ public class ListAllWSRActivity extends AppCompatActivity implements View.OnClic
 
         // If array list of all reports isn't empty, populate listview
         try {
+            //noinspection ConstantConditions
             if (reports != null && WSRManager.viewAllSourceReports().size() > 0) {
                 adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, reports);
                 listView.setAdapter(adapter);

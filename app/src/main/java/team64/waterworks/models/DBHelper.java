@@ -21,7 +21,7 @@ import java.util.NoSuchElementException;
 import java.util.Objects;
 
 
-@SuppressWarnings("DanglingJavadoc")
+@SuppressWarnings({"DanglingJavadoc", "UnusedParameters", "SameParameterValue"})
 class DBHelper extends SQLiteOpenHelper {
 
     /**** CLASS VARIABLES ****/
@@ -623,8 +623,8 @@ class DBHelper extends SQLiteOpenHelper {
                 loc = report_data[1];
                 lat = WaterPurityReport.loadLatitude(loc);
                 lon = WaterPurityReport.loadLongitude(loc);
-                virus_ppm = Integer.parseInt(report_data[4]);
-                contam_ppm = Integer.parseInt(report_data[5]);
+                //virus_ppm = Integer.parseInt(report_data[4]);
+                //contam_ppm = Integer.parseInt(report_data[5]);
                 rDateString = report_data[6];
 
                 // Evaluate the date of the report and find if it's within the requested range of time

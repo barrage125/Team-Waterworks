@@ -33,6 +33,7 @@ public class GraphActivity extends AppCompatActivity implements View.OnClickList
     private GraphView graph;
 
 
+    @SuppressWarnings("ConstantConditions")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

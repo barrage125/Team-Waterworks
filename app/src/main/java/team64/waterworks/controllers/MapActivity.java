@@ -19,6 +19,7 @@ import team64.waterworks.R;
 import team64.waterworks.models.WPRManager;
 import team64.waterworks.models.WSRManager;
 
+@SuppressWarnings("ConstantConditions")
 public class MapActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener{
 
     @Override
