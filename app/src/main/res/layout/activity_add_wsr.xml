@@ -40,9 +40,6 @@
         android:id="@+id/wrType"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/reg_cancel"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_marginBottom="26dp" />
 
     <TextView
@@ -55,10 +52,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/wrCond"
-        android:layout_marginBottom="26dp"
-        android:layout_above="@+id/reg_cancel"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_marginBottom="26dp" />
 
     <Button
         android:text="Submit"

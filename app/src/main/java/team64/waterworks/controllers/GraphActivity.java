@@ -2,7 +2,9 @@ package team64.waterworks.controllers;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -27,7 +29,7 @@ import team64.waterworks.models.WPRManager;
 
 public class GraphActivity extends AppCompatActivity implements View.OnClickListener {
 
-    GraphView graph;
+    private GraphView graph;
 
 
     @Override
@@ -47,7 +49,7 @@ public class GraphActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    protected void drawGraph(ArrayList<String> reports) {
+    private void drawGraph(ArrayList<String> reports) {
         // Initialize graph and the data
         LineGraphSeries<DataPoint> series;
 
@@ -132,6 +134,7 @@ public class GraphActivity extends AppCompatActivity implements View.OnClickList
                 final EditText radius = (EditText) view.findViewById(R.id.editText_Radius);
 
                 alertBuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String sDate = (startDate.getText().toString()) + " 00:00";

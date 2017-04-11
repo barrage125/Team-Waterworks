@@ -14,7 +14,6 @@ import team64.waterworks.models.Account;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    private Button done;
     private EditText txtBDay;
     private EditText txtAddress;
     private EditText txtEmail;
@@ -31,7 +30,7 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         account = AccountsManager.getActiveAccount();
 
-        done = (Button) findViewById(R.id.profDoneBTN);
+        Button done = (Button) findViewById(R.id.profDoneBTN);
         txtAddress = (EditText) findViewById(R.id.profAddress);
         txtBDay = (EditText) findViewById(R.id.profBDay);
         txtEmail = (EditText) findViewById(R.id.profEmail);

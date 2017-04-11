@@ -228,10 +228,7 @@ public class WaterPurityReport {
         if (Double.compare(that.latitude, latitude) != 0) return false;
         if (Double.compare(that.longitude, longitude) != 0) return false;
         if (virusPPM != that.virusPPM) return false;
-        if (contamPPM != that.contamPPM) return false;
-        if (condition != null ? !condition.equals(that.condition) : that.condition != null)
-            return false;
-        return author != null ? author.equals(that.author) : that.author == null && (date != null ? date.equals(that.date) : that.date == null);
+        return contamPPM == that.contamPPM && (condition != null ? condition.equals(that.condition) : that.condition == null && (author != null ? author.equals(that.author) : that.author == null && (date != null ? date.equals(that.date) : that.date == null)));
 
     }
 

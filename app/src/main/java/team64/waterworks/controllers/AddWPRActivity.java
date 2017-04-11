@@ -22,8 +22,6 @@ import team64.waterworks.models.WPRManager;
 
 public class AddWPRActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button submit;
-    private Button cancel;
     private EditText txtLong;
     private EditText txtLat;
     private EditText waterVPPM;
@@ -43,8 +41,8 @@ public class AddWPRActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_add_wqr);
         account = AccountsManager.getActiveAccount();
 
-        submit = (Button) findViewById(R.id.wrSubmitButton);
-        cancel = (Button) findViewById(R.id.wrCancelButton);
+        Button submit = (Button) findViewById(R.id.wrSubmitButton);
+        Button cancel = (Button) findViewById(R.id.wrCancelButton);
         txtLong = (EditText) findViewById(R.id.wrLong);
         txtLat = (EditText) findViewById(R.id.wrLat);
         waterVPPM = (EditText) findViewById(R.id.wrVPPM);

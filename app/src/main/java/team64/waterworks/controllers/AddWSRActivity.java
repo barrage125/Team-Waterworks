@@ -22,8 +22,6 @@ import team64.waterworks.models.WSRManager;
 
 public class AddWSRActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button submit;
-    private Button cancel;
     private EditText txtLong;
     private EditText txtLat;
     private Spinner _waterType;
@@ -42,8 +40,8 @@ public class AddWSRActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_add_wsr);
         account = AccountsManager.getActiveAccount();
 
-        submit = (Button) findViewById(R.id.wrSubmitButton);
-        cancel = (Button) findViewById(R.id.wrCancelButton);
+        Button submit = (Button) findViewById(R.id.wrSubmitButton);
+        Button cancel = (Button) findViewById(R.id.wrCancelButton);
         txtLong = (EditText) findViewById(R.id.wrLong);
         txtLat = (EditText) findViewById(R.id.wrLat);
         _waterType = (Spinner) findViewById(R.id.wrType);

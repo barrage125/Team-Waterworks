@@ -7,14 +7,10 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by anna on 4/9/17.
- */
 public class DBHelperTest {
 
 
     /**
-     * Created by anna
      * Tests the database method "isAccount"
      *
      * @throws Exception

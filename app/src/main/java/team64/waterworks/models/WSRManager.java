@@ -95,7 +95,7 @@ public class WSRManager {
      * @throws NoSuchElementException
      * @throws Exception
      */
-    public static ArrayList<WaterSourceReport> getSourceReportsByLocation(double latitude, double longitude) throws Exception {
+    public static ArrayList<WaterSourceReport> getSourceReportsByLocation(double latitude, double longitude) {
         try {
             return dbHelper.getSourceReportsByLocation(latitude, longitude);
         } catch (NoSuchElementException e) {

@@ -1,5 +1,7 @@
 package team64.waterworks.models;
 import android.content.Context;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -63,6 +65,7 @@ public class WPRManager {
      * @param radius purity reports outside of this radius of the passed in location are not returned
      * @return array list of all water purity reports
      */
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public static ArrayList<String> getPurityReportsByLocationAndDate(String start_date, String end_date, double longitude, double latitude, double radius) {
         return dbHelper.getPurityReportsByLocationAndDate(start_date, end_date, longitude, latitude, radius);
     }

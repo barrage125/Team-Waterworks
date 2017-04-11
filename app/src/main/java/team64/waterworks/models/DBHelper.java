@@ -5,6 +5,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.location.Location;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.util.Base64;
 import android.util.Log;
 
@@ -594,6 +596,7 @@ class DBHelper extends SQLiteOpenHelper {
      * @param radius the radius you want to search within
      * @return an array list of purity reports that match the criteria
      */
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public ArrayList<String> getPurityReportsByLocationAndDate(String start_date, String end_date, double longitude, double latitude, double radius) {
         ArrayList<String> matching_entries = getAllPurityReports();
         ArrayList<String> answer = new ArrayList<>();
