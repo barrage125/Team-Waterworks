@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -31,13 +32,17 @@ public class ListAllWPRActivity extends AppCompatActivity implements View.OnClic
         ArrayAdapter<String> adapter;
 
         // If array list of all reports isn't empty, populate listview
-        if (reports != null && WPRManager.viewAllPurityReports().size() > 0) {
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, reports);
-            listView.setAdapter(adapter);
-            labels.setText(" (id) (loc) (auth) (cond) (v. ppm) (c. ppm) (date)");
-        } else {
-            Toast.makeText(getApplicationContext(), "No reports have been submitted yet!",
-                    Toast.LENGTH_SHORT).show();
+        try {
+            if (reports != null && WPRManager.viewAllPurityReports().size() > 0) {
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, reports);
+                listView.setAdapter(adapter);
+                labels.setText(" (id) (loc) (auth) (cond) (v. ppm) (c. ppm) (date)");
+            } else {
+                Toast.makeText(getApplicationContext(), "No reports have been submitted yet!",
+                        Toast.LENGTH_SHORT).show();
+            }
+        } catch (NullPointerException e) {
+            Log.e("size called on null", "size() is called on null obj from WPRManager.viewAllPurityReports");
         }
         clear_db_btn.setOnClickListener(this);
     }

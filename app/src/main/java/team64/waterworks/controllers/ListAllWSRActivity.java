@@ -3,6 +3,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -32,13 +33,17 @@ public class ListAllWSRActivity extends AppCompatActivity implements View.OnClic
         ArrayAdapter<String> adapter;
 
         // If array list of all reports isn't empty, populate listview
-        if (reports != null && WSRManager.viewAllSourceReports().size() > 0) {
-            adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, reports);
-            listView.setAdapter(adapter);
-            labels.setText("     (id) (location) (auth) (type) (cond) (rating) (date)");
-        } else {
-            Toast.makeText(getApplicationContext(), "No reports have been submitted yet!",
-                           Toast.LENGTH_SHORT).show();
+        try {
+            if (reports != null && WSRManager.viewAllSourceReports().size() > 0) {
+                adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, reports);
+                listView.setAdapter(adapter);
+                labels.setText("     (id) (location) (auth) (type) (cond) (rating) (date)");
+            } else {
+                Toast.makeText(getApplicationContext(), "No reports have been submitted yet!",
+                        Toast.LENGTH_SHORT).show();
+            }
+        } catch (NullPointerException e) {
+            Log.e("size called on null", "size() is called on null obj from WSRManager.viewAllSourceReports");
         }
         clear_db_btn.setOnClickListener(this);
     }

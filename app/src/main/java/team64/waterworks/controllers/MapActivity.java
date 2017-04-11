@@ -2,6 +2,7 @@ package team64.waterworks.controllers;
 
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -53,13 +54,18 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
                     String[] reportsData = waterReports.get(i).split(" ", 0);
                     String idString = reportsData[0].replace("(", "").replace(")", "");
                     Long idLong = Long.parseLong(idString);
-                    Double lng = WSRManager.getSourceReportByID(idLong).getLongitude();
-                    Double lat = WSRManager.getSourceReportByID(idLong).getLatitude();
-                    location = new LatLng(lat, lng);
+                    try {
+                        Double lng = WSRManager.getSourceReportByID(idLong).getLongitude();
+                        Double lat = WSRManager.getSourceReportByID(idLong).getLatitude();
 
-                    googleMap.addMarker(new MarkerOptions().position(location).title("Water " +
-                            "Source Report: " + idLong).snippet
-                            ("Lat/Long: " + lat + "/" + lng));
+                        location = new LatLng(lat, lng);
+
+                        googleMap.addMarker(new MarkerOptions().position(location).title("Water " +
+                                "Source Report: " + idLong).snippet
+                                ("Lat/Long: " + lat + "/" + lng));
+                    } catch (NullPointerException e) {
+                        Log.e("getLong/getLat on null", "getLongitude() or getLatitude is called on null obj");
+                    }
                 }
                 reportsExist = true;
             }

@@ -44,8 +44,12 @@ public class GraphActivity extends AppCompatActivity implements View.OnClickList
 
         // Get an arraylist of all purity reports to display on graph, and draw the graph
         ArrayList<String> purityReports = WPRManager.viewAllPurityReports();
-        if (purityReports != null && WPRManager.viewAllPurityReports().size() > 0) {
-            drawGraph(purityReports);
+        try {
+            if (purityReports != null && WPRManager.viewAllPurityReports().size() > 0) {
+                drawGraph(purityReports);
+            }
+        } catch (NullPointerException e) {
+            Log.e("size called on null", "size() is called on null obj from WPRManager.viewAllPurityReports");
         }
     }
 
