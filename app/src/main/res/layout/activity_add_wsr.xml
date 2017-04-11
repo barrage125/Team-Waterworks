@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:text="Longitude (enter a value between -180 and 180)"
+        android:text="@string/lon_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/wrLongID" />
@@ -17,7 +17,7 @@
         android:id="@+id/wrLong" />
 
     <TextView
-        android:text="Latitude (enter a value between -90 and 90)"
+        android:text="@string/lat_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/wrLatID" />
@@ -34,7 +34,7 @@
         android:id="@+id/wrTypeID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Water Type" />
+        android:text="@string/water_type" />
 
     <Spinner
         android:id="@+id/wrType"
@@ -43,7 +43,7 @@
         android:layout_marginBottom="26dp" />
 
     <TextView
-        android:text="Conditon"
+        android:text="@string/condition"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/wrCondID" />
@@ -55,13 +55,13 @@
         android:layout_marginBottom="26dp" />
 
     <Button
-        android:text="Submit"
+        android:text="@string/submit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/wrSubmitButton" />
 
     <Button
-        android:text="Cancel"
+        android:text="@string/cancel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/wrCancelButton" />

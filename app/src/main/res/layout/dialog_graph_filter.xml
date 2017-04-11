@@ -18,7 +18,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:text="Start Date (mm/dd/yyyy)" />
+        android:text="@string/start_date_input" />
 
     <EditText
         android:id="@+id/editText_Start_Date"
@@ -29,7 +29,7 @@
         android:layout_below="@+id/start_date_text"
         android:ems="10"
         android:inputType="date"
-        android:text="04/01/2017"/>
+        android:text="@string/start_date"/>
 
     <TextView
         android:id="@+id/end_date_text"
@@ -39,7 +39,7 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/editText_Start_Date"
         android:layout_marginTop="10dp"
-        android:text="End Date (mm/dd/yyyy)" />
+        android:text="@string/end_date_input" />
 
     <EditText
         android:id="@+id/editText_End_Date"
@@ -50,13 +50,13 @@
         android:layout_below="@+id/end_date_text"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:text="04/30/2017"/>
+        android:text="@string/end_date"/>
 
     <TextView
         android:id="@+id/location_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Location (Longitude, Latitude)"
+        android:text="@string/location"
         android:layout_below="@+id/editText_End_Date"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -90,7 +90,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/editText_Latitude"
         android:layout_marginTop="13dp"
-        android:text="Radius (miles)" />
+        android:text="@string/radius" />
 
     <EditText
         android:id="@+id/editText_Radius"

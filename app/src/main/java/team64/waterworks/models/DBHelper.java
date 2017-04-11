@@ -589,7 +589,7 @@ class DBHelper extends SQLiteOpenHelper {
 
     /**
      * Filters the purity reports based on passed in params
-     * @param start_date the earlierst date to search by
+     * @param start_date the earliest date to search by
      * @param end_date the latest date to search by
      * @param longitude the longitude you want to search for
      * @param latitude the latitude you want to search for

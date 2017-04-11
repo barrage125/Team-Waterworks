@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:text="Title"
+        android:text="@string/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/profTitleID" />
@@ -17,7 +17,7 @@
         android:id="@+id/profTitle" />
 
     <TextView
-        android:text="Email Address"
+        android:text="@string/email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/profEmailID" />
@@ -30,7 +30,7 @@
         android:ems="10"/>
 
     <TextView
-        android:text="Mailing Address"
+        android:text="@string/address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/profAddressID" />
@@ -43,7 +43,7 @@
         android:id="@+id/profAddress" />
 
     <TextView
-        android:text="Birthday"
+        android:text="@string/birthday"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/profBDayID" />
@@ -63,7 +63,7 @@
         android:id="@+id/editText5" />
 
     <Button
-        android:text="Done"
+        android:text="@string/done"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/profDoneBTN" />

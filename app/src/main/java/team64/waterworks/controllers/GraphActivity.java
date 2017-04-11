@@ -61,7 +61,7 @@ public class GraphActivity extends AppCompatActivity implements View.OnClickList
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm", Locale.US);
         Date date;
         String dateString;
-        double dateDoub;
+        double dateDouble;
         double minDate = System.currentTimeMillis();
         double maxDate = 0;
 
@@ -82,11 +82,11 @@ public class GraphActivity extends AppCompatActivity implements View.OnClickList
             dateString = reportData[6];
             try {
                 date = dateFormat.parse(dateString);
-                dateDoub = date.getTime();
-                if (dateDoub < minDate) {
-                    minDate = dateDoub;
-                } else if (dateDoub > maxDate) {
-                    maxDate = dateDoub;
+                dateDouble = date.getTime();
+                if (dateDouble < minDate) {
+                    minDate = dateDouble;
+                } else if (dateDouble > maxDate) {
+                    maxDate = dateDouble;
                 }
 
                 // Make a new data point and put it in the DataPoints array

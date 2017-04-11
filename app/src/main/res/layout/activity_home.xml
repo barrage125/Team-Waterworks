@@ -14,13 +14,13 @@
             android:id="@+id/welcome_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Welcome to Waterworks !"/>
+            android:text="@string/welcome"/>
 
         <TextView
             android:id="@+id/login_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="You are logged in"
+            android:text="@string/login"
             android:layout_below="@id/welcome_message"/>
 
 
@@ -28,14 +28,14 @@
 
         <Button
             android:id="@+id/create_src_report_btn"
-            android:text="Create Water Source Report"
+            android:text="@string/create_source_report"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/login_status" />
 
         <Button
             android:id="@+id/list_all_WSR_btn"
-            android:text="List All Water Source Reports"
+            android:text="@string/list_source_report"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/create_src_report_btn" />
@@ -45,7 +45,7 @@
 
         <Button
             android:id="@+id/create_pur_report_btn"
-            android:text="Create Water Purity Report"
+            android:text="@string/create_purity_report"
             android:layout_marginTop="50dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -53,14 +53,14 @@
 
         <Button
             android:id="@+id/list_all_WPR_btn"
-            android:text="List All Water Purity Reports"
+            android:text="@string/list_purity_report"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/create_pur_report_btn" />
 
         <Button
             android:id="@+id/create_hist_report_btn"
-            android:text="Create History Report"
+            android:text="@string/create_history_report"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/list_all_WPR_btn" />
@@ -68,7 +68,7 @@
 
         <Button
             android:id="@+id/view_profile_btn"
-            android:text="My Profile"
+            android:text="@string/profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
@@ -79,7 +79,7 @@
 
         <Button
             android:id="@+id/logout_btn"
-            android:text="Logout"
+            android:text="@string/logout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/view_profile_btn"
@@ -91,7 +91,7 @@
 
         <Button
             android:id="@+id/view_map_btn"
-            android:text="View Map"
+            android:text="@string/view_map"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/create_hist_report_btn"

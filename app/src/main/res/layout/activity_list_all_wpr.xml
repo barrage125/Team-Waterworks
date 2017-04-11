@@ -3,7 +3,7 @@
     android:layout_width="match_parent" android:layout_height="match_parent">
 
     <TextView
-        android:text="All Water Purity Reports"
+        android:text="@string/purity_reports"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -16,7 +16,7 @@
 
     <Button
         android:id="@+id/clr_WPR_btn"
-        android:text="Clear"
+        android:text="@string/clear"
         android:textSize="15sp"
         android:layout_width="wrap_content"
         android:layout_marginLeft="100dp"

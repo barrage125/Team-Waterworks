@@ -14,20 +14,20 @@
         android:id="@+id/welcome_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Welcome to Waterworks!"/>
+        android:text="@string/welcome"/>
 
     <Button
         android:id = "@+id/welcome_login"
         android:layout_width = "wrap_content"
         android:layout_height = "wrap_content"
-        android:text = "Login"
+        android:text = "@string/login"
         android:layout_below="@id/welcome_message"/>
 
     <Button
         android:id = "@+id/register_login"
         android:layout_width = "wrap_content"
         android:layout_height = "wrap_content"
-        android:text = "Register"
+        android:text = "@string/register"
         android:layout_toRightOf="@id/welcome_login"
         android:layout_toEndOf="@id/welcome_login"
         android:layout_below="@id/welcome_message"/>

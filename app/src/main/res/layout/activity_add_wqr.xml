@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:text="Longitude (enter a value between -180 and 180)"
+        android:text="@string/lon_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/wrLongID" />
@@ -17,7 +17,7 @@
         android:id="@+id/wrLong" />
 
     <TextView
-        android:text="Latitude (enter a value between -90 and 90)"
+        android:text="@string/lat_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/wrLatID" />
@@ -33,7 +33,7 @@
         android:id="@+id/wrVPPMID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Virus PPM" />
+        android:text="@string/vppm" />
 
     <EditText
         android:id="@+id/wrVPPM"
@@ -46,7 +46,7 @@
         android:id="@+id/wrCPPMID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Contaminant  PPM" />
+        android:text="@string/cppm" />
 
     <EditText
         android:id="@+id/wrCPPM"
@@ -57,7 +57,7 @@
 
 
     <TextView
-        android:text="Conditon"
+        android:text="@string/conditon"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/wrCondID" />
@@ -69,7 +69,7 @@
         android:layout_marginBottom="26dp" />
 
     <Button
-        android:text="Submit"
+        android:text="@string/submit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/wrSubmitButton" />
