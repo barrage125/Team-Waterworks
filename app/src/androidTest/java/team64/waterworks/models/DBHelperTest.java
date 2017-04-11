@@ -13,7 +13,7 @@ public class DBHelperTest {
     /**
      * Tests the database method "isAccount"
      *
-     * @throws Exception
+     * @throws Exception if addAccount method fails
      */
     @Test
     public void testIsAccount() throws Exception {

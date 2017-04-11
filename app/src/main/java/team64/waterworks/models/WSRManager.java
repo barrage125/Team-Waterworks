@@ -1,7 +1,7 @@
 package team64.waterworks.models;
 import android.content.Context;
 import android.util.Log;
-import java.io.IOException;
+//import java.io.IOException;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
@@ -54,21 +54,21 @@ public class WSRManager {
         return false;
     }
 
-    /**
-     * Edits the passed in source report and saves its new values into SQLite
-     * @param report the source report to be edited and saved
+    /*
+      Edits the passed in source report and saves its new values into SQLite
+      @param report the source report to be edited and saved
      * @return if the source report was successfully edited and saved in SQLite
      */
-    public static boolean editSourceReport(WaterSourceReport report) {
-        try {
-            dbHelper.updateSourceReport(report);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.e("Unknown error", "Could not edit source report, it may or may not be updated");
-        }
-        return false;
-    }
+//    public static boolean editSourceReport(WaterSourceReport report) {
+//        try {
+//            dbHelper.updateSourceReport(report);
+//            return true;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            Log.e("Unknown error", "Could not edit source report, it may or may not be updated");
+//        }
+//        return false;
+//    }
 
     /**
      * Lookup source report that corresponds to the passed in ID
@@ -88,43 +88,43 @@ public class WSRManager {
         return null;
     }
 
-    /**
-     * Create ArrayList of all source reports in SQLite that correspond to the passed in location object
-     * @return ArrayList of source reports that correspond to passed in location
+    /*
+      Create ArrayList of all source reports in SQLite that correspond to the passed in location object
+      @return ArrayList of source reports that correspond to passed in location
      * @throws IOException when location object passed in
      * @throws NoSuchElementException
      * @throws Exception
      */
-    public static ArrayList<WaterSourceReport> getSourceReportsByLocation(double latitude, double longitude) {
-        try {
-            return dbHelper.getSourceReportsByLocation(latitude, longitude);
-        } catch (NoSuchElementException e) {
-            e.printStackTrace();
-            Log.e("No Source Reports Found", "No source reports matched that location");
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.e("Unknown Error", "Could not retrieve source report(s) with that location");
-        }
-        return null;
-    }
+//    public static ArrayList<WaterSourceReport> getSourceReportsByLocation(double latitude, double longitude) {
+//        try {
+//            return dbHelper.getSourceReportsByLocation(latitude, longitude);
+//        } catch (NoSuchElementException e) {
+//            e.printStackTrace();
+//            Log.e("No Source Reports Found", "No source reports matched that location");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            Log.e("Unknown Error", "Could not retrieve source report(s) with that location");
+//        }
+//        return null;
+//    }
 
-    /**
-     * Creates array list of source reports written by the corresponding author
-     * @param author author searching for
+    /*
+      Creates array list of source reports written by the corresponding author
+      @param author author searching for
      * @return array list of source reports written by the passed in author
      */
-    public static ArrayList<WaterSourceReport> getSourceReportsByAuthor(String author) {
-        try {
-            return dbHelper.getSourceReportsByAuthor(author);
-        } catch (NoSuchElementException e) {
-            e.printStackTrace();
-            Log.e("No Source Reports Found", "No source reports have been written by that user");
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.e("Unknown Error", "Could not retrieve source report(s) written by that user");
-        }
-        return null;
-    }
+//    public static ArrayList<WaterSourceReport> getSourceReportsByAuthor(String author) {
+//        try {
+//            return dbHelper.getSourceReportsByAuthor(author);
+//        } catch (NoSuchElementException e) {
+//            e.printStackTrace();
+//            Log.e("No Source Reports Found", "No source reports have been written by that user");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            Log.e("Unknown Error", "Could not retrieve source report(s) written by that user");
+//        }
+//        return null;
+//    }
 
     /**
      * Creates array list of all water source reports stored in AllSourceReports SQLite DB

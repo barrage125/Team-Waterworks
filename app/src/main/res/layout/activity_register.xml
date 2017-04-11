@@ -19,7 +19,8 @@
         android:id = "@+id/reg_user"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="16dp"
+        android:inputType="text"/>
 
     <TextView
         android:id = "@+id/pass_text"
@@ -38,22 +39,23 @@
 
     <Button
         android:id="@+id/reg_cancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cancel"
-        android:layout_alignBaseline="@+id/reg_button"
-        android:layout_alignBottom="@+id/reg_button"
-        android:layout_toRightOf="@+id/reg_button"
-        android:layout_toEndOf="@+id/reg_button" />
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:text="Cancel"/>
+
 
     <Button
         android:id = "@+id/reg_button"
-        android:layout_width = "wrap_content"
-        android:layout_height = "wrap_content"
-        android:text = "Register"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/reg_cancel"
+        android:layout_alignBottom="@+id/reg_cancel"
+        android:layout_toRightOf="@+id/reg_cancel"
+        android:layout_toEndOf="@+id/reg_cancel"
+        android:text = "Register"/>
 
 
     <Spinner

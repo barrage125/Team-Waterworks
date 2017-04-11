@@ -30,18 +30,18 @@ public abstract class Account {
         return profile;
     }
 
-    /**
-     * Creates a new profile
-     * @param title title of profile
+    /*
+      Creates a new profile
+      @param title title of profile
      * @param address account's address
      * @param email account's email
      * @param birthday account's birthday
      * @return new Profile object created
      */
-    public Profile createProfile(String title, String address, String email, String birthday) {
-        profile = new Profile(title, address, email, birthday);
-        return profile;
-    }
+//    public Profile createProfile(String title, String address, String email, String birthday) {
+//        profile = new Profile(title, address, email, birthday);
+//        return profile;
+//    }
 
     /**
      * Add or replace the Profile associated with an Account

@@ -5,17 +5,19 @@ import java.util.Calendar;
 import java.util.Locale;
 
 
-@SuppressWarnings("DanglingJavadoc")
+@SuppressWarnings({"DanglingJavadoc", "unused"})
 public class WaterPurityReport {
 
     /**** INSTANCE VARIABLES ****/
-    private long id;
-    private double latitude, longitude;
-    private String condition;
+    private final long id;
+    private final double latitude;
+    private final double longitude;
+    private final String condition;
     private final String author;
     private final String date;
 
-    private long virusPPM, contamPPM;
+    private final long virusPPM;
+    private final long contamPPM;
 
 
 
@@ -103,9 +105,9 @@ public class WaterPurityReport {
      * get a report's ID
      * @return ID
      */
-    public long getId() {
-        return id;
-    }
+//    public long getId() {
+//        return id;
+//    }
 
     /**
      * get a report's latitude
@@ -174,63 +176,63 @@ public class WaterPurityReport {
      * set a report's id
      * @param id
      */
-    public void setId(long id) {
-        this.id = id;
-    }
+//    public void setId(long id) {
+//        this.id = id;
+//    }
 
     /**
      * set a report's latitude
      * @param latitude
      */
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
-    }
+//    public void setLatitude(double latitude) {
+//        this.latitude = latitude;
+//    }
 
     /**
      * set a report's longitude
      * @param longitude
      */
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
-    }
+//    public void setLongitude(double longitude) {
+//        this.longitude = longitude;
+//    }
 
     /**
      * set a report's condition
      * @param condition
      */
-    public void setCondition(String condition) {
-        this.condition = condition;
-    }
+//    public void setCondition(String condition) {
+//        this.condition = condition;
+//    }
 
     /**
      * set a report's virus ppm
      * @param virusPPM
      */
-    public void setVirusPPM(long virusPPM) {
-        this.virusPPM = virusPPM;
-    }
+//    public void setVirusPPM(long virusPPM) {
+//        this.virusPPM = virusPPM;
+//    }
 
     /**
      * set a report's contaminant ppm
-     * @param contamPPM
+     //* @param contamPPM
      */
-    public void setContamPPM(long contamPPM) {
-        this.contamPPM = contamPPM;
-    }
+//    public void setContamPPM(long contamPPM) {
+//        this.contamPPM = contamPPM;
+//    }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        WaterPurityReport that = (WaterPurityReport) o;
-
-        if (Double.compare(that.latitude, latitude) != 0) return false;
-        if (Double.compare(that.longitude, longitude) != 0) return false;
-        if (virusPPM != that.virusPPM) return false;
-        return contamPPM == that.contamPPM && (condition != null ? condition.equals(that.condition) : that.condition == null && (author != null ? author.equals(that.author) : that.author == null && (date != null ? date.equals(that.date) : that.date == null)));
-
-    }
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//
+//        WaterPurityReport that = (WaterPurityReport) o;
+//
+//        if (Double.compare(that.latitude, latitude) != 0) return false;
+//        if (Double.compare(that.longitude, longitude) != 0) return false;
+//        if (virusPPM != that.virusPPM) return false;
+//        return contamPPM == that.contamPPM && (condition != null ? condition.equals(that.condition) : that.condition == null && (author != null ? author.equals(that.author) : that.author == null && (date != null ? date.equals(that.date) : that.date == null)));
+//
+//    }
 
     @Override
     public int hashCode() {

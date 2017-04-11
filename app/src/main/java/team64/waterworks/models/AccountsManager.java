@@ -67,96 +67,96 @@ public class AccountsManager {
         }
     }
 
-    /**
-     * Create a new Admin and add it to AllAccounts SQLite DB
-     * @param name the Admin's name
+    /*
+      Create a new Admin and add it to AllAccounts SQLite DB
+      @param name the Admin's name
      * @param username the Admin's unique username
      * @param pw the Admin's password
      * @return if admin was added successfully or not
      */
-    public static boolean newAdmin(String name, String username, String pw) {
-        // Checks if username is available
-        if (isValidAccount(username)) {
-            Log.e("Account exists", "An account with that username already exists!");
-            return false;
-        }
+//    public static boolean newAdmin(String name, String username, String pw) {
+//        // Checks if username is available
+//        if (isValidAccount(username)) {
+//            Log.e("Account exists", "An account with that username already exists!");
+//            return false;
+//        }
+//
+//        // Add the new admin
+//        Admin admin = new Admin(name, username, pw);
+//        try {
+//            dbHelper.addAccount(admin);
+//            setActiveAccount(admin);
+//            return true;
+//        } catch (NoSuchAlgorithmException e) {
+//            e.printStackTrace();
+//            Log.e("Unable to Hash Password", "Algorithm for hashing password not found!");
+//            return false;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            Log.e("Unknown Error", "Admin may or may not be saved.");
+//            return false;
+//        }
+//    }
 
-        // Add the new admin
-        Admin admin = new Admin(name, username, pw);
-        try {
-            dbHelper.addAccount(admin);
-            setActiveAccount(admin);
-            return true;
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            Log.e("Unable to Hash Password", "Algorithm for hashing password not found!");
-            return false;
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.e("Unknown Error", "Admin may or may not be saved.");
-            return false;
-        }
-    }
-
-    /**
-     * Create a new Worker and add it to AllAccounts SQLite DB
-     * @param name the Worker's name
+    /*
+      Create a new Worker and add it to AllAccounts SQLite DB
+      @param name the Worker's name
      * @param username the Worker's unique username
      * @param pw the Worker's password
      * @return if worker was successfully added or not
      */
-    public static boolean newWorker(String name, String username, String pw) {
-        // Checks if username is available
-        if (isValidAccount(username)) {
-            Log.e("Account exists", "An account with that username already exists!");
-            return false;
-        }
+//    public static boolean newWorker(String name, String username, String pw) {
+//        // Checks if username is available
+//        if (isValidAccount(username)) {
+//            Log.e("Account exists", "An account with that username already exists!");
+//            return false;
+//        }
+//
+//        Worker worker = new Worker(name, username, pw);
+//        try {
+//            dbHelper.addAccount(worker);
+//            setActiveAccount(worker);
+//            return true;
+//        } catch (NoSuchAlgorithmException e) {
+//            e.printStackTrace();
+//            Log.e("Unable to Hash Password", "Algorithm for hashing password not found!");
+//            return false;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            Log.e("Unknown Error", "Worker may or may not be saved.");
+//            return false;
+//        }
+//    }
 
-        Worker worker = new Worker(name, username, pw);
-        try {
-            dbHelper.addAccount(worker);
-            setActiveAccount(worker);
-            return true;
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            Log.e("Unable to Hash Password", "Algorithm for hashing password not found!");
-            return false;
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.e("Unknown Error", "Worker may or may not be saved.");
-            return false;
-        }
-    }
-
-    /**
-     * Create a new Manager and add it to AllAccounts SQLite DB
-     * @param name the Manager's name
+    /*
+      Create a new Manager and add it to AllAccounts SQLite DB
+      @param name the Manager's name
      * @param username the Manager's unique username
      * @param pw the Manager's password
      * @return if manager was successfully added or not
      */
-    public static boolean newManager(String name, String username, String pw) {
-        // Checks if username is available
-        if (isValidAccount(username)) {
-            Log.e("Account exists", "An account with that username already exists!");
-            return false;
-        }
-
-        Manager manager = new Manager(name, username, pw);
-        try {
-            dbHelper.addAccount(manager);
-            setActiveAccount(manager);
-            return true;
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            Log.e("Unable to Hash Password", "Algorithm for hashing password not found!");
-            return false;
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.e("Unknown Error", "Manager may or may not be saved.");
-            return false;
-        }
-    }
+//    public static boolean newManager(String name, String username, String pw) {
+//        // Checks if username is available
+//        if (isValidAccount(username)) {
+//            Log.e("Account exists", "An account with that username already exists!");
+//            return false;
+//        }
+//
+//        Manager manager = new Manager(name, username, pw);
+//        try {
+//            dbHelper.addAccount(manager);
+//            setActiveAccount(manager);
+//            return true;
+//        } catch (NoSuchAlgorithmException e) {
+//            e.printStackTrace();
+//            Log.e("Unable to Hash Password", "Algorithm for hashing password not found!");
+//            return false;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            Log.e("Unknown Error", "Manager may or may not be saved.");
+//            return false;
+//        }
+//    }
 
     /**
      * Finds account that corresponds to passed in username/password combo

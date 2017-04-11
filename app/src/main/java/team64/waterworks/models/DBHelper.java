@@ -291,24 +291,24 @@ class DBHelper extends SQLiteOpenHelper {
      * For every changed field, new values need to be set on source report in editSourceReport activity
      * @param report water source report to update
      */
-    void updateSourceReport(WaterSourceReport report) {
-        String id = Long.toString(report.getId());
-        SQLiteDatabase db = getReadableDatabase();
-
-        // New values for columns (report attributes). id, author, type, and date not included
-        // bc they're final attributes and shouldn't be changeable
-        ContentValues values = new ContentValues();
-        values.put("location", WaterSourceReport.storeLocation(report.getLatitude(), report.getLongitude()));
-        values.put("condition", report.getCondition());
-        values.put("user_rating", report.getRating());
-
-        // Query string for db, find row matching passed in id, selectionArgs replaces ?
-        String selection = "_id = ?";
-        String[] selectionArgs = { id };
-
-        // update the values for the row that matches the passed in id
-        db.update("AllSourceReports", values, selection, selectionArgs);
-    }
+//    void updateSourceReport(WaterSourceReport report) {
+//        String id = Long.toString(report.getId());
+//        SQLiteDatabase db = getReadableDatabase();
+//
+//        // New values for columns (report attributes). id, author, type, and date not included
+//        // bc they're final attributes and shouldn't be changeable
+//        ContentValues values = new ContentValues();
+//        values.put("location", WaterSourceReport.storeLocation(report.getLatitude(), report.getLongitude()));
+//        values.put("condition", report.getCondition());
+//        values.put("user_rating", report.getRating());
+//
+//        // Query string for db, find row matching passed in id, selectionArgs replaces ?
+//        String selection = "_id = ?";
+//        String[] selectionArgs = { id };
+//
+//        // update the values for the row that matches the passed in id
+//        db.update("AllSourceReports", values, selection, selectionArgs);
+//    }
 
     /**
      * Returns source report with the corresponding ID
@@ -380,92 +380,92 @@ class DBHelper extends SQLiteOpenHelper {
      * Creates array list of water source reports that match corresponding Location
      * @return array list of water source reports in specified location
      */
-    ArrayList<WaterSourceReport> getSourceReportsByLocation(double latitude, double longitude) {
-        SQLiteDatabase db = getReadableDatabase();
-        ArrayList<WaterSourceReport> matching_entries = new ArrayList<>();
-        String location = WaterSourceReport.storeLocation(latitude, longitude);
-
-        // Query string we pass to db, selectionArgs replaces ? in selection String
-        String selection = "location = ?";
-        String[] selectionArgs = {location};
-
-        // Query db, creates cursor object that points at result set (matching db entries)
-        // Passing null into columns bc we want all report(s) attributes
-        Cursor cursor = db.query( "AllSourceReports", null, selection, selectionArgs,
-                                   null, null, null );
-
-        // No reports with that location were found
-        if (!(cursor.moveToFirst())) {
-            cursor.close();
-            throw new NoSuchElementException();
-        } else {
-            cursor.moveToLast();
-
-            // Recursively add reports to array list until at the end of cursor's result set
-            while (cursor.moveToNext()) {
-                // Set values of report that matched location
-                long id = cursor.getLong(cursor.getColumnIndexOrThrow("_id"));
-                String author = cursor.getString(cursor.getColumnIndexOrThrow("author"));
-                String type = cursor.getString(cursor.getColumnIndexOrThrow("type"));
-                String condition = cursor.getString(cursor.getColumnIndexOrThrow("condition"));
-                int user_rating = cursor.getInt(cursor.getColumnIndexOrThrow("user_rating"));
-                String date = cursor.getString(cursor.getColumnIndexOrThrow("date"));
-
-                WaterSourceReport report = new WaterSourceReport(id,latitude, longitude, author,
-                                                                 type, condition, user_rating, date);
-                matching_entries.add(report);
-            }
-
-            cursor.close();
-            return matching_entries;
-        }
-    }
+//    ArrayList<WaterSourceReport> getSourceReportsByLocation(double latitude, double longitude) {
+//        SQLiteDatabase db = getReadableDatabase();
+//        ArrayList<WaterSourceReport> matching_entries = new ArrayList<>();
+//        String location = WaterSourceReport.storeLocation(latitude, longitude);
+//
+//        // Query string we pass to db, selectionArgs replaces ? in selection String
+//        String selection = "location = ?";
+//        String[] selectionArgs = {location};
+//
+//        // Query db, creates cursor object that points at result set (matching db entries)
+//        // Passing null into columns bc we want all report(s) attributes
+//        Cursor cursor = db.query( "AllSourceReports", null, selection, selectionArgs,
+//                                   null, null, null );
+//
+//        // No reports with that location were found
+//        if (!(cursor.moveToFirst())) {
+//            cursor.close();
+//            throw new NoSuchElementException();
+//        } else {
+//            cursor.moveToLast();
+//
+//            // Recursively add reports to array list until at the end of cursor's result set
+//            while (cursor.moveToNext()) {
+//                // Set values of report that matched location
+//                long id = cursor.getLong(cursor.getColumnIndexOrThrow("_id"));
+//                String author = cursor.getString(cursor.getColumnIndexOrThrow("author"));
+//                String type = cursor.getString(cursor.getColumnIndexOrThrow("type"));
+//                String condition = cursor.getString(cursor.getColumnIndexOrThrow("condition"));
+//                int user_rating = cursor.getInt(cursor.getColumnIndexOrThrow("user_rating"));
+//                String date = cursor.getString(cursor.getColumnIndexOrThrow("date"));
+//
+//                WaterSourceReport report = new WaterSourceReport(id,latitude, longitude, author,
+//                                                                 type, condition, user_rating, date);
+//                matching_entries.add(report);
+//            }
+//
+//            cursor.close();
+//            return matching_entries;
+//        }
+//    }
 
     /**
      * Creates array list of water source reports that were submitted by the corresponding user
      * @param author user we're searching for
      * @return array list of water source reports written by specified user
      */
-    ArrayList<WaterSourceReport> getSourceReportsByAuthor(String author) {
-        SQLiteDatabase db = getReadableDatabase();
-        ArrayList<WaterSourceReport> matching_entries = new ArrayList<>();
-
-        // Query string we pass to db, selectionArgs replaces ? in selection String
-        String selection = "author = ?";
-        String[] selectionArgs = {author};
-
-        // Query db, creates cursor object that points at result set (matching db entries)
-        // passing null into columns bc need all attributes from report(s) written by passed in user
-        Cursor cursor = db.query( "AllSourceReports", null, selection, selectionArgs,
-                                  null, null, null );
-
-        // No reports written by that user were found
-        if (!(cursor.moveToFirst())) {
-            cursor.close();
-            throw new NoSuchElementException();
-        } else {
-            cursor.moveToLast();
-
-            // Recursively add reports to array list until at the end of cursor's result set
-            while (cursor.moveToNext()) {
-                // values of report written by user
-                long id = cursor.getLong(cursor.getColumnIndexOrThrow("_id"));
-                String loc = cursor.getString(cursor.getColumnIndexOrThrow("location"));
-                String type = cursor.getString(cursor.getColumnIndexOrThrow("type"));
-                String condition = cursor.getString(cursor.getColumnIndexOrThrow("condition"));
-                int user_rating = cursor.getInt(cursor.getColumnIndexOrThrow("user_rating"));
-                String date = cursor.getString(cursor.getColumnIndexOrThrow("date"));
-
-                WaterSourceReport report = new WaterSourceReport(id, WaterSourceReport.loadLatitude(loc),
-                                                                 WaterSourceReport.loadLongitude(loc),
-                                                                 author, type, condition, user_rating, date);
-                matching_entries.add(report);
-            }
-
-            cursor.close();
-            return matching_entries;
-        }
-    }
+//    ArrayList<WaterSourceReport> getSourceReportsByAuthor(String author) {
+//        SQLiteDatabase db = getReadableDatabase();
+//        ArrayList<WaterSourceReport> matching_entries = new ArrayList<>();
+//
+//        // Query string we pass to db, selectionArgs replaces ? in selection String
+//        String selection = "author = ?";
+//        String[] selectionArgs = {author};
+//
+//        // Query db, creates cursor object that points at result set (matching db entries)
+//        // passing null into columns bc need all attributes from report(s) written by passed in user
+//        Cursor cursor = db.query( "AllSourceReports", null, selection, selectionArgs,
+//                                  null, null, null );
+//
+//        // No reports written by that user were found
+//        if (!(cursor.moveToFirst())) {
+//            cursor.close();
+//            throw new NoSuchElementException();
+//        } else {
+//            cursor.moveToLast();
+//
+//            // Recursively add reports to array list until at the end of cursor's result set
+//            while (cursor.moveToNext()) {
+//                // values of report written by user
+//                long id = cursor.getLong(cursor.getColumnIndexOrThrow("_id"));
+//                String loc = cursor.getString(cursor.getColumnIndexOrThrow("location"));
+//                String type = cursor.getString(cursor.getColumnIndexOrThrow("type"));
+//                String condition = cursor.getString(cursor.getColumnIndexOrThrow("condition"));
+//                int user_rating = cursor.getInt(cursor.getColumnIndexOrThrow("user_rating"));
+//                String date = cursor.getString(cursor.getColumnIndexOrThrow("date"));
+//
+//                WaterSourceReport report = new WaterSourceReport(id, WaterSourceReport.loadLatitude(loc),
+//                                                                 WaterSourceReport.loadLongitude(loc),
+//                                                                 author, type, condition, user_rating, date);
+//                matching_entries.add(report);
+//            }
+//
+//            cursor.close();
+//            return matching_entries;
+//        }
+//    }
 
     /**
      * Creates array list of all source water reports in AllSourceReports SQLite DB

@@ -11,10 +11,10 @@ public class WaterSourceReport {
 
      /**** INSTANCE VARIABLES ****/
     private final long id;
-    private double latitude;
-    private double longitude;
-    private String condition;
-    private int user_rating;
+    private final double latitude;
+    private final double longitude;
+    private final String condition;
+    private final int user_rating;
 
     // Report will always be initially submitted by one author
     // Can't change report type when editing a report, that would change all of it's data
@@ -125,9 +125,9 @@ public class WaterSourceReport {
      * Get report's ID
      * @return id of report
      */
-    public long getId() {
-        return this.id;
-    }
+//    public long getId() {
+//        return this.id;
+//    }
 
     /**
      * Get latitude of water location in report
@@ -189,29 +189,29 @@ public class WaterSourceReport {
      * Set latitude of water location in report
      * @param latitude new latitude of water location
      */
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
-    }
+//    public void setLatitude(double latitude) {
+//        this.latitude = latitude;
+//    }
 
     /**
      * Set latitude of water location in report
      * @param longitude new latitude of water location
      */
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
-    }
+//    public void setLongitude(double longitude) {
+//        this.longitude = longitude;
+//    }
 
     /**
      * Set condition of water quality
      * @param condition new condition of water
      */
-    public void setCondition(String condition) {
-        this.condition = condition;
-    }
+//    public void setCondition(String condition) {
+//        this.condition = condition;
+//    }
 
     /**
      * Set user rating of water location
      * @param rating new user rating
      */
-    public void setRating(int rating) { this.user_rating = rating; }
+//    public void setRating(int rating) { this.user_rating = rating; }
 }

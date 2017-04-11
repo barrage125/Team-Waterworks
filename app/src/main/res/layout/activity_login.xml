@@ -28,7 +28,8 @@
         android:id = "@+id/username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/username_text"/>
+        android:layout_below="@id/username_text"
+        android:inputType = "textAutoCorrect|text"/>
 
     <TextView
         android:id = "@+id/pass_text"
@@ -46,19 +47,19 @@
         android:layout_below="@id/pass_text"/>
 
     <Button
-        android:id = "@+id/login_button"
-        android:layout_width = "wrap_content"
-        android:layout_height = "wrap_content"
-        android:text = "Login"
-        android:layout_below="@id/password"/>
-
-    <Button
         android:id="@+id/cancel_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/password"
-        android:layout_toEndOf="@id/login_button"
-        android:layout_toRightOf="@id/login_button"
         android:text="Cancel"/>
+
+    <Button
+        android:id = "@+id/login_button"
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:layout_below="@id/password"
+        android:layout_toEndOf="@id/cancel_button"
+        android:layout_toRightOf="@id/cancel_button"
+        android:text = "Login" />
 
 </RelativeLayout>

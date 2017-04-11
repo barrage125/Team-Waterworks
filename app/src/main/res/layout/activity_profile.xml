@@ -23,11 +23,11 @@
         android:id="@+id/profEmailID" />
 
     <EditText
+        android:id="@+id/profEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/profEmail" />
+        android:inputType="textEmailAddress"
+        android:ems="10"/>
 
     <TextView
         android:text="Mailing Address"
