@@ -10,7 +10,8 @@
     <string name="lon_input">Longitude (enter a value between -180 and 180)</string>
     <string name="water_type">Water Type</string>
     <string name="welcome">Welcome to Waterworks!</string>
-    <string name="login">You are logged in</string>
+    <string name="login">Login</string>
+    <string name="login_success">You are logged in</string>
     <string name="create_source_report">Create Water Source Report</string>
     <string name="list_source_report">List All Water Source Reports</string>
     <string name="create_purity_report">Create Water Purity Report</string>
