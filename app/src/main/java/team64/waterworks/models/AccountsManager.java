@@ -233,4 +233,19 @@ public class AccountsManager {
         return dbHelper.isAccount(username);
     }
 
+    public static boolean isValidPassword(String password) {
+        boolean hasUppercase = !password.equals(password.toLowerCase());
+        boolean hasLowercase = !password.equals(password.toUpperCase());
+        boolean hasNumber = !password.equals(password.replaceAll("[^a-zA-Z]", ""));
+        if (!hasUppercase) {
+            return false;
+        }
+        if (!hasLowercase) {
+            return false;
+        }
+        if (!hasNumber) {
+            return false;
+        }
+        return true;
+    }
 }
