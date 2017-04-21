@@ -8,20 +8,34 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@mipmap/filler"
+    android:background="#000000"
     tools:context="team64.waterworks.controllers.SplashActivity">
 
+    <!--
     <TextView
         android:id="@+id/welcome_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/welcome"/>
+        -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@mipmap/waterworks"
+        android:id="@+id/waterworkslogo"/>
 
     <Button
         android:id = "@+id/welcome_login"
         android:layout_width = "wrap_content"
         android:layout_height = "wrap_content"
         android:text = "@string/login"
+        android:textColor="#7A6563"
+        android:textSize="25dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="40dp"
+        android:layout_marginLeft="55dp"
+        android:fontFamily="sans-serif-condensed"
+        android:background="#000000"
         android:layout_below="@id/welcome_message"/>
 
     <Button
@@ -29,6 +43,13 @@
         android:layout_width = "wrap_content"
         android:layout_height = "wrap_content"
         android:text = "@string/register"
+        android:textColor="#7A6563"
+        android:textSize="25dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="40dp"
+        android:fontFamily="sans-serif-condensed"
+        android:background="#000000"
         android:layout_toRightOf="@id/welcome_login"
         android:layout_toEndOf="@id/welcome_login"
         android:layout_below="@id/welcome_message"/>
