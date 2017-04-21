@@ -10,7 +10,7 @@
     <string name="lon_input">Longitude (enter a value between -180 and 180)</string>
     <string name="water_type">Water Type</string>
     <string name="welcome">Welcome to Waterworks!</string>
-    <string name="login">You are logged in</string>
+    <string name="login">Login</string>
     <string name="create_source_report">Create Water Source Report</string>
     <string name="list_source_report">List All Water Source Reports</string>
     <string name="create_purity_report">Create Water Purity Report</string>
@@ -31,13 +31,12 @@
     <string name="location">Location (Longitude, Latitude)</string>
     <string name="radius">Radius (miles)</string>
     <string name="register">Register</string>
-    <string name="filter">Filter</string>
+    <string name="filter">Filter Data</string>
     <string name="title">Title</string>
     <string name="email">Email Address</string>
     <string name="address">Mailing Address</string>
     <string name="birthday">Birthday</string>
     <string name="done">Done</string>
-    <string name="purity_labels"> (id) (loc) (auth) (cond) (v. ppm) (c. ppm) (date)</string>
-    <string name="source_labels">     (id) (location) (auth) (type) (cond) (rating) (date)</string>
+
     <string name="attempts"> login attempt(s) left</string>
 </resources>

@@ -499,10 +499,11 @@ class DBHelper extends SQLiteOpenHelper {
                 String date = cursor.getString(cursor.getColumnIndexOrThrow("date"));
 
                 // Put them in String
-                String report = '(' + Long.toString(id) + ')' + ' ' + '(' + loc + ')' + ' ' +
-                        '(' + author + ')' + ' ' + '(' + type + ')' + ' ' + '(' +
-                        condition + ')' + ' ' + '(' + Integer.toString(user_rating) + ')'
-                        + ' ' + '(' + date + ')';
+                String report = "ID: " + Long.toString(id) + '\n' + "Location: "
+                        + loc + '\n' + "Author: " + author + '\n' + "Water Type: " + type
+                        + '\n' + "Condition: " + condition + '\n'
+                        + "Rating: " + Integer.toString(user_rating) + '\n'
+                        + "Date: " + date;
 
                 all_entries.add(report);
                 cursor.moveToNext();
@@ -711,10 +712,12 @@ class DBHelper extends SQLiteOpenHelper {
                 String date = cursor.getString(cursor.getColumnIndexOrThrow("date"));
 
                 // Put them in String
-                String report = '(' + Long.toString(id) + ')' + ' ' + '(' + loc + ')' + ' ' +
-                        '(' + author + ')' + ' ' + '(' +
-                        condition + ')' + ' ' + '(' + Integer.toString(virus_ppm) + ')' +
-                        ' ' + '(' + Integer.toString(contam_ppm) + ')' + ' ' + '(' + date + ')';
+                String report = "ID: " + Long.toString(id) + '\n' + "Location: "
+                        + loc + '\n' + "Author: " + author + '\n' + "Condition: "
+                        + condition + '\n' + "Virus PPM: "
+                        + Integer.toString(virus_ppm) + '\n'
+                        + "Contaminant PPM: " + Integer.toString(contam_ppm)
+                        + '\n' + "Date: " + date;
 
                 all_entries.add(report);
                 cursor.moveToNext();
