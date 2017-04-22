@@ -37,6 +37,9 @@
     <string name="address">Mailing Address</string>
     <string name="birthday">Birthday</string>
     <string name="done">Done</string>
+    <string name="recovery">Forgot Password?</string>
+    <string name="new_password">Enter New Password</string>
+    <string name="code">Enter Code From Email</string>
 
     <string name="attempts"> login attempt(s) left</string>
 </resources>

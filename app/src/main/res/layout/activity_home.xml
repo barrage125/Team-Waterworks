@@ -38,7 +38,10 @@
             android:text="@string/list_source_report"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/create_src_report_btn" />
+            android:layout_below="@+id/create_src_report_btn"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="10dp" />
 
 
 
@@ -56,14 +59,20 @@
             android:text="@string/list_purity_report"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/create_pur_report_btn" />
+            android:layout_below="@+id/create_pur_report_btn"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="12dp" />
 
         <Button
             android:id="@+id/create_hist_report_btn"
             android:text="@string/create_history_report"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/list_all_WPR_btn" />
+            android:layout_below="@+id/list_all_WPR_btn"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="14dp" />
 
 
         <Button
@@ -74,8 +83,10 @@
 
             android:layout_alignBaseline="@+id/view_map_btn"
             android:layout_alignBottom="@+id/view_map_btn"
-            android:layout_toRightOf="@+id/login_status"
-            android:layout_toEndOf="@+id/login_status" />
+            android:layout_toRightOf="@+id/view_map_btn"
+            android:layout_toEndOf="@+id/view_map_btn"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp" />
 
         <Button
             android:id="@+id/logout_btn"

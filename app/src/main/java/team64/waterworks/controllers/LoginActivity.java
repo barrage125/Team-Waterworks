@@ -1,14 +1,26 @@
 package team64.waterworks.controllers;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.UnsupportedEncodingException;
+
+import javax.mail.MessagingException;
+
 import team64.waterworks.R;
 import team64.waterworks.models.*;
 
@@ -34,12 +46,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         pass = (EditText) findViewById(R.id.password);
         user = (EditText) findViewById(R.id.username);
         Button cancel = (Button) findViewById(R.id.cancel_button);
+        Button recovery = (Button) findViewById(R.id.recovery_button);
         error = (TextView) findViewById(R.id.error_message);
         error.setVisibility(View.GONE);
 
         // Button listeners
         login.setOnClickListener(this);
         cancel.setOnClickListener(this);
+        recovery.setOnClickListener(this);
     }
 
     /**
@@ -49,6 +63,75 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View v) {
         switch(v.getId()) {
+            case R.id.recovery_button:
+
+                final String recoveryName = user.getText().toString();
+                final int code = (int) Math.floor(Math.random() * 10000);
+                if(TextUtils.isEmpty(recoveryName)) {
+                    user.setError("Username cannot be blank");
+                } else {
+                    Account recoveryAccount = AccountsManager.findAccount(recoveryName);
+                    if(recoveryAccount == null) {
+                        user.setError("Account does not exist");
+                    } else {
+                        String recoveryAddress = recoveryAccount.getProfile().getEmail();
+                        if (recoveryAddress.equals("")) {
+                            user.setError("Recovery impossible. No associated email.");
+                        }
+                        new RecoveryEmailTask(LoginActivity.this).execute(recoveryAddress, code);
+                        //Toast.makeText(getApplicationContext(), "Email Sent", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                View view = (LayoutInflater.from(LoginActivity.this)).inflate(R.layout.dialog_verification, (ViewGroup) null);
+
+                AlertDialog.Builder alertBuilder = new AlertDialog.Builder(LoginActivity.this);
+                alertBuilder.setView(view);
+                alertBuilder.setCancelable(true);
+
+                final EditText verification = (EditText) view.findViewById(R.id.editText_verification);
+
+                alertBuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        int inputCode = Integer.parseInt(verification.getText().toString());
+                        if (inputCode == code) {
+                            View view = (LayoutInflater.from(LoginActivity.this)).inflate(R.layout.dialog_new_password, (ViewGroup) null);
+
+                            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(LoginActivity.this);
+                            alertBuilder.setView(view);
+                            alertBuilder.setCancelable(true);
+
+                            final EditText newPassword = (EditText) view.findViewById(R.id.editText_new_password);
+
+                            alertBuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    String inputPassword = newPassword.getText().toString();
+                                    if (!inputPassword.equals("")) {
+                                        Account currentAccount = AccountsManager.findAccount(recoveryName);
+                                        currentAccount.setPassword(inputPassword);
+                                        AccountsManager.editAccount(currentAccount);
+                                    }
+                                }
+                            });
+
+                            alertBuilder.setNegativeButton("Cancel", null);
+
+                            Dialog dialogPassword = alertBuilder.create();
+                            dialogPassword.show();
+                        }
+                    }
+                });
+
+                alertBuilder.setNegativeButton("Cancel", null);
+
+                Dialog dialogVerify = alertBuilder.create();
+                dialogVerify.show();
+                break;
+
             case R.id.login_button:
                 // Declare username and password vars
                 String username = user.getText().toString();

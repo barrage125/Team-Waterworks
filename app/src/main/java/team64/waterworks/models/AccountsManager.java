@@ -4,7 +4,6 @@ import android.util.Log;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 
-
 public class AccountsManager {
     private static DBHelper dbHelper;
     private static Account activeAccount;
@@ -179,6 +178,23 @@ public class AccountsManager {
             Log.e("Unknown Error", "Couldn't find an account with those credentials!");
         }
         clearActiveAccount();
+        return null;
+    }
+
+    public static Account findAccount(String username) {
+        try {
+            return dbHelper.findAccount(username);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            Log.e("Unable to Hash Password", "Algorithm for hashing password not found!");
+        } catch (ClassNotFoundException | IOException e) {
+            e.printStackTrace();
+            Log.e("Profile Serialize Error", "Failed to loadLocation profile");
+            Log.e("Profile Serialize Error", "Failed to loadLocation profile");
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("Unknown Error", "Couldn't find an account with those credentials!");
+        }
         return null;
     }
 
