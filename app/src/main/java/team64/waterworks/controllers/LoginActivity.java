@@ -69,16 +69,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 final int code = (int) Math.floor(Math.random() * 10000);
                 if(TextUtils.isEmpty(recoveryName)) {
                     user.setError("Username cannot be blank");
+                    SecurityLog.appendLog("Failed login recovery attempt: blank username", this);
                 } else {
                     Account recoveryAccount = AccountsManager.findAccount(recoveryName);
                     if(recoveryAccount == null) {
                         user.setError("Account does not exist");
+                        SecurityLog.appendLog("Failed login recovery attempt: no account found", this);
                     } else {
                         String recoveryAddress = recoveryAccount.getProfile().getEmail();
                         if (recoveryAddress.equals("")) {
                             user.setError("Recovery impossible. No associated email.");
+                            SecurityLog.appendLog("Failed login recovery attempt: no email found", this);
                         }
                         new RecoveryEmailTask(LoginActivity.this).execute(recoveryAddress, code);
+                        SecurityLog.appendLog("Login recovery email sent to "+recoveryAddress+" for "+recoveryName, this);
                         //Toast.makeText(getApplicationContext(), "Email Sent", Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -142,13 +146,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
                     if(TextUtils.isEmpty(username)) {
                         user.setError("Username cannot be blank");
+                        SecurityLog.appendLog("Failed login attempt: blank username", this);
                     }
 
                     if(TextUtils.isEmpty(password)) {
                         pass.setError("Password cannot be blank");
+                        SecurityLog.appendLog("Failed login attempt: blank password", this);
                     }
                 } else if ( account != null) {
                     Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
+                    SecurityLog.appendLog("Successful login by "+account.getName()+" with authority level "+account.getAuthLevel(), this);
                     AccountsManager.setActiveAccount(account);
                     Log.d("Authority Level", "Auth level of logged in account is: " + account.getAuthLevel());
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
@@ -160,9 +167,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     /* Show login attempts left */
                     error.setVisibility(View.VISIBLE);
                     counter--;
+
+                    SecurityLog.appendLog("Failed login attempt: invalid password. "+counter+" attempts remaining.", this);
+
                     error.setText(String.format("%1$d" + R.string.attempts, counter));
                     if (counter == 0) {
                         login.setEnabled(false);
+                        SecurityLog.appendLog("Login disabled for too many attempts", this);
                     }
                 }
                 break;

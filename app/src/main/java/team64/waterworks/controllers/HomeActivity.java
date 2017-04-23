@@ -1,6 +1,8 @@
 package team64.waterworks.controllers;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -40,6 +42,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         Button createHistReport = (Button) findViewById(R.id.create_hist_report_btn);
 
+        Button viewLog = (Button) findViewById(R.id.log_button);
+
         // Listeners for all buttons
         logout.setOnClickListener(this);
         myProfile.setOnClickListener(this);
@@ -62,6 +66,12 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             createHistReport.setVisibility(View.GONE);
         }
+
+//        if (account.getAuthLevel().equals("admin")) {
+            viewLog.setOnClickListener(this);
+//        } else {
+//            viewLog.setVisibility(View.GONE);
+//        }
     }
 
     /**
@@ -110,6 +120,11 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 case R.id.create_hist_report_btn: {
                     Intent intent = new Intent(HomeActivity.this, GraphActivity.class);
+                    startActivity(intent);
+                    break;
+                }
+                case R.id.log_button: {
+                    Intent intent = new Intent(HomeActivity.this, SecurityLogActivity.class);
                     startActivity(intent);
                     break;
                 }
