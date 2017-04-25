@@ -28,6 +28,7 @@
         android:id="@+id/username_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="#7A6563"
         android:text="@string/username"
         android:layout_below="@id/error_message"/>
 
@@ -43,6 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/password"
+        android:textColor="#7A6563"
         android:layout_below="@id/username"
         android:layout_marginTop="20dp"/>
 

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:background="@mipmap/filler" android:layout_width="match_parent"
+    android:orientation="vertical" android:background="#DCDCDD" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
         android:text="@string/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="#7A6563"
         android:id="@+id/profTitleID" />
 
     <EditText
@@ -14,12 +15,14 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
+        android:textCursorDrawable="@null"
         android:id="@+id/profTitle" />
 
     <TextView
         android:text="@string/email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="#7A6563"
         android:id="@+id/profEmailID" />
 
     <EditText
@@ -27,12 +30,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textEmailAddress"
-        android:ems="10"/>
+        android:ems="10"
+        android:textCursorDrawable="@null" />
 
     <TextView
         android:text="@string/address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="#7A6563"
         android:id="@+id/profAddressID" />
 
     <EditText
@@ -40,12 +45,14 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
+        android:textCursorDrawable="@null"
         android:id="@+id/profAddress" />
 
     <TextView
         android:text="@string/birthday"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="#7A6563"
         android:id="@+id/profBDayID" />
 
     <EditText
@@ -53,18 +60,15 @@
         android:layout_height="wrap_content"
         android:inputType="date"
         android:ems="10"
+        android:textCursorDrawable="@null"
         android:id="@+id/profBDay" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPostalAddress"
-        android:ems="10"
-        android:id="@+id/editText5" />
 
     <Button
         android:text="@string/done"
+        android:textSize="25dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="#7A6563"
+        android:fontFamily="sans-serif-condensed"
         android:id="@+id/profDoneBTN" />
 </LinearLayout>

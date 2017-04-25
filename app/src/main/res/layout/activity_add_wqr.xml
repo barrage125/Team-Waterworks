@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:background="@mipmap/filler" android:layout_width="match_parent"
+    android:orientation="vertical" android:background="#DCDCDD" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
         android:text="@string/lon_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed"
+        android:textColor="#7A6563"
+        android:textSize="15dp"
         android:id="@+id/wrLongID" />
 
     <EditText
@@ -20,6 +23,9 @@
         android:text="@string/lat_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed"
+        android:textColor="#7A6563"
+        android:textSize="15dp"
         android:id="@+id/wrLatID" />
 
     <EditText
@@ -33,6 +39,9 @@
         android:id="@+id/wrVPPMID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed"
+        android:textColor="#7A6563"
+        android:textSize="15dp"
         android:text="@string/vppm" />
 
     <EditText
@@ -46,6 +55,9 @@
         android:id="@+id/wrCPPMID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed"
+        android:textColor="#7A6563"
+        android:textSize="15dp"
         android:text="@string/cppm" />
 
     <EditText
@@ -60,6 +72,9 @@
         android:text="@string/condition"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed"
+        android:textColor="#7A6563"
+        android:textSize="15dp"
         android:id="@+id/wrCondID" />
 
     <Spinner
@@ -72,12 +87,18 @@
         android:text="@string/submit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed"
+        android:textColor="#7A6563"
+        android:textSize="20dp"
         android:id="@+id/wrSubmitButton" />
 
     <Button
         android:text="@string/cancel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed"
+        android:textColor="#7A6563"
+        android:textSize="20dp"
         android:id="@+id/wrCancelButton" />
 
 
