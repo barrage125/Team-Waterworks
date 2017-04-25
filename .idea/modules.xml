@@ -3,7 +3,12 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Team-Waterworks.iml" filepath="$PROJECT_DIR$/Team-Waterworks.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.sun.mail/android-activation/android-activation.iml" filepath="$PROJECT_DIR$/com.sun.mail/android-activation/android-activation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.sun.mail/android-activation/1.5.5/android-activation-1.5.5.iml" filepath="$PROJECT_DIR$/com.sun.mail/android-activation/1.5.5/android-activation-1.5.5.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.sun.mail/android-mail/android-mail.iml" filepath="$PROJECT_DIR$/com.sun.mail/android-mail/android-mail.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.sun.mail/android-mail/1.5.5/android-mail-1.5.5.iml" filepath="$PROJECT_DIR$/com.sun.mail/android-mail/1.5.5/android-mail-1.5.5.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.sun.mail/com.sun.mail.iml" filepath="$PROJECT_DIR$/com.sun.mail/com.sun.mail.iml" />
     </modules>
   </component>
 </project>

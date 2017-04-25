@@ -4,7 +4,7 @@ package team64.waterworks.models;
 public abstract class Account {
     private final String name;
     private final String username;
-    private final String password;
+    private String password;
     private String auth_level;
     private Profile profile;
 
@@ -72,6 +72,11 @@ public abstract class Account {
      * @return the account's password
      */
     public String getPassword() { return password; }
+
+    /**
+     * set the password of this account to a different password
+     */
+    public void setPassword(String password) { this.password = password; }
 
     /**
      * Get authority level associated with this account

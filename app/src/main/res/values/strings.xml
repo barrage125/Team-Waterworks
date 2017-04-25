@@ -32,13 +32,14 @@
     <string name="location">Location (Longitude, Latitude)</string>
     <string name="radius">Radius (miles)</string>
     <string name="register">Register</string>
-    <string name="filter">Filter</string>
+    <string name="filter">Filter Data</string>
     <string name="title">Title</string>
     <string name="email">Email Address</string>
     <string name="address">Mailing Address</string>
     <string name="birthday">Birthday</string>
     <string name="done">Done</string>
-    <string name="purity_labels"> (id) (loc) (auth) (cond) (v. ppm) (c. ppm) (date)</string>
-    <string name="source_labels">     (id) (location) (auth) (type) (cond) (rating) (date)</string>
+    <string name="recovery">Forgot Password?</string>
+    <string name="new_password">Enter New Password</string>
+    <string name="code">Enter Code From Email</string>
     <string name="attempts"> login attempt(s) left</string>
 </resources>

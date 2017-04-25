@@ -169,6 +169,11 @@ class DBHelper extends SQLiteOpenHelper {
         // New values for columns (user attributes)
         ContentValues values = new ContentValues();
         values.put("name", account.getName());
+        try {
+            values.put("password", hashPassword(account.getPassword()));
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
         values.put("profile", Profile.serialize(account.getProfile()));
 
         // Query string for db, find row that matches passed in username
@@ -255,6 +260,49 @@ class DBHelper extends SQLiteOpenHelper {
         answer = (cursor.getCount() > 0);
         cursor.close();
         return answer;
+    }
+
+    Account findAccount(String username) throws NoSuchAlgorithmException,
+            ClassNotFoundException,
+            IOException, NoSuchElementException {
+        SQLiteDatabase db = getReadableDatabase();
+
+        // Info we want from account that matches passed in username/password
+        String[] columns = { "name", "username", "password", "profile", "auth_level" };
+
+        // Query string we pass to db, selectionArgs replaces ? in selection String
+        String selection = "username = ?";
+        String[] selectionArgs = { username };
+
+        // Query db, creates cursor object that points at result set (matching db entries)
+        Cursor cursor = db.query("AllAccounts", columns, selection, selectionArgs,
+                null, null, null);
+
+        // If cursor is empty (no account was found) throw error
+        if (!(cursor.moveToFirst())) {
+            cursor.close();
+            throw new NoSuchElementException();
+        } else {
+            // create String values found from account with matching creds
+            String profile = cursor.getString(cursor.getColumnIndexOrThrow("profile"));
+            String password = "";
+            String name = cursor.getString(cursor.getColumnIndexOrThrow("name"));
+            String auth_level = cursor.getString(cursor.getColumnIndexOrThrow("auth_level"));
+            cursor.close();
+
+            switch (auth_level) {
+                case "user":
+                    return new User(name, username, password, Profile.deserialize(profile));
+                case "worker":
+                    return new Worker(name, username, password, Profile.deserialize(profile));
+                case "manager":
+                    return new Manager(name, username, password, Profile.deserialize(profile));
+                case "admin":
+                    return new Admin(name, username, password, Profile.deserialize(profile));
+                default:
+                    throw new NoSuchElementException();
+            }
+        }
     }
 
     void deleteAllAccounts() {
@@ -499,10 +547,11 @@ class DBHelper extends SQLiteOpenHelper {
                 String date = cursor.getString(cursor.getColumnIndexOrThrow("date"));
 
                 // Put them in String
-                String report = '(' + Long.toString(id) + ')' + ' ' + '(' + loc + ')' + ' ' +
-                        '(' + author + ')' + ' ' + '(' + type + ')' + ' ' + '(' +
-                        condition + ')' + ' ' + '(' + Integer.toString(user_rating) + ')'
-                        + ' ' + '(' + date + ')';
+                String report = "ID: " + Long.toString(id) + '\n' + "Location: "
+                        + loc + '\n' + "Author: " + author + '\n' + "Water Type: " + type
+                        + '\n' + "Condition: " + condition + '\n'
+                        + "Rating: " + Integer.toString(user_rating) + '\n'
+                        + "Date: " + date;
 
                 all_entries.add(report);
                 cursor.moveToNext();
@@ -711,10 +760,12 @@ class DBHelper extends SQLiteOpenHelper {
                 String date = cursor.getString(cursor.getColumnIndexOrThrow("date"));
 
                 // Put them in String
-                String report = '(' + Long.toString(id) + ')' + ' ' + '(' + loc + ')' + ' ' +
-                        '(' + author + ')' + ' ' + '(' +
-                        condition + ')' + ' ' + '(' + Integer.toString(virus_ppm) + ')' +
-                        ' ' + '(' + Integer.toString(contam_ppm) + ')' + ' ' + '(' + date + ')';
+                String report = "ID: " + Long.toString(id) + '\n' + "Location: "
+                        + loc + '\n' + "Author: " + author + '\n' + "Condition: "
+                        + condition + '\n' + "Virus PPM: "
+                        + Integer.toString(virus_ppm) + '\n'
+                        + "Contaminant PPM: " + Integer.toString(contam_ppm)
+                        + '\n' + "Date: " + date;
 
                 all_entries.add(report);
                 cursor.moveToNext();

@@ -38,7 +38,7 @@ public class ListAllWSRActivity extends AppCompatActivity implements View.OnClic
             if (reports != null && WSRManager.viewAllSourceReports().size() > 0) {
                 adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, reports);
                 listView.setAdapter(adapter);
-                labels.setText(R.string.source_labels);
+                //labels.setText(R.string.source_labels);
             } else {
                 Toast.makeText(getApplicationContext(), "No reports have been submitted yet!",
                         Toast.LENGTH_SHORT).show();

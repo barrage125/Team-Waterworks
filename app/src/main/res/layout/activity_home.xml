@@ -49,7 +49,10 @@
             android:layout_height="wrap_content"
             android:textColor="#7A6563"
             android:textSize="15dp"
-            android:layout_below="@+id/create_src_report_btn" />
+            android:layout_below="@+id/create_src_report_btn"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="10dp" />
 
 
 
@@ -71,7 +74,11 @@
             android:layout_height="wrap_content"
             android:textColor="#7A6563"
             android:textSize="15dp"
-            android:layout_below="@+id/create_pur_report_btn" />
+            android:layout_below="@+id/create_pur_report_btn"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="12dp" />
+
 
         <Button
             android:id="@+id/create_hist_report_btn"
@@ -80,7 +87,10 @@
             android:layout_height="wrap_content"
             android:textColor="#7A6563"
             android:textSize="15dp"
-            android:layout_below="@+id/list_all_WPR_btn" />
+            android:layout_below="@+id/list_all_WPR_btn"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="14dp" />
 
 
         <Button
@@ -119,5 +129,15 @@
             android:layout_marginTop="14dp"
             android:textColor="#7A6563"
             android:textSize="15dp" />
+
+        <Button
+            android:id="@+id/log_button"
+            android:text="View log"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/view_map_btn"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="14dp" />
 
 </RelativeLayout>

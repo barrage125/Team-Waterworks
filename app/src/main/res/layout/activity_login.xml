@@ -83,4 +83,13 @@
         android:background="#DCDCDD"
         android:text = "@string/login" />
 
+    <Button
+        android:id="@+id/recovery_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/cancel_button"
+        android:text="@string/recovery" />
+
 </RelativeLayout>
