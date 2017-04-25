@@ -8,8 +8,14 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@mipmap/filler"
+    android:background="#DCDCDD"
     tools:context="team64.waterworks.controllers.LoginActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@mipmap/waterworks_blue"
+        android:id="@+id/waterworkslogo"/>
 
     <TextView
         android:id="@+id/error_message"
@@ -52,6 +58,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/password"
+        android:layout_marginTop="300dp"
+        android:layout_marginLeft="55dp"
+        android:textColor="#7A6563"
+        android:textSize="25dp"
+        android:fontFamily="sans-serif-condensed"
+        android:background="#DCDCDD"
         android:text="@string/cancel"/>
 
     <Button
@@ -61,6 +73,12 @@
         android:layout_below="@id/password"
         android:layout_toEndOf="@id/cancel_button"
         android:layout_toRightOf="@id/cancel_button"
+        android:textColor="#7A6563"
+        android:layout_marginTop="300dp"
+        android:layout_marginLeft="20dp"
+        android:textSize="25dp"
+        android:fontFamily="sans-serif-condensed"
+        android:background="#DCDCDD"
         android:text = "@string/login" />
 
 </RelativeLayout>

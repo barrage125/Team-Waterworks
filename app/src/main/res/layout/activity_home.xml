@@ -8,8 +8,14 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@mipmap/filler"
+    android:background="#000000"
     tools:context="team64.waterworks.controllers.HomeActivity">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@mipmap/waterworks"
+            android:id="@+id/waterworkslogo"/>
 
         <TextView
             android:id="@+id/welcome_message"
